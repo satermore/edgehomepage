@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background: #050505;
+    background-image:
+        radial-gradient(circle at 20% 10%, #1a1a1a 0%, transparent 60%),
+        radial-gradient(circle at 80% 0%, #222 0%, transparent 60%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Inter, system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+    width: 95vw;
+    height: 85vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+/* TARJETAS XXXL */
+.banner {
+    background: rgba(255,255,255,0.04);
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    transition: 
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+    outline: none;
+}
+
+/* LOGOS – NO SE CORTAN */
+.logo {
+    max-width: 75%;
+    max-height: 60%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,.6));
+    transition: transform .35s ease;
+}
+
+/* HOVER / FOCO */
+.banner:hover,
+.banner.active {
+    transform: scale(1.06);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 40px 90px rgba(0,0,0,.8);
+}
+
+.banner:hover .logo,
+.banner.active .logo {
+    transform: scale(1.08);
+}
+
+/* COLORES SUAVES POR PLATAFORMA */
+.netflix.active { box-shadow: 0 0 120px rgba(229,9,20,.35); }
+.prime.active   { box-shadow: 0 0 120px rgba(0,168,225,.35); }
+.nba.active     { box-shadow: 0 0 120px rgba(23,64,139,.35); }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <a href="https://www.netflix.com" class="banner netflix" data-index="0">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg">
+    </a>
+
+    <a href="https://www.primevideo.com" class="banner prime" data-index="1">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg">
+    </a>
+
+    <a href="https://www.nba.com/watch" class="banner nba" data-index="2">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg">
+    </a>
+</div>
+
+<script>
+const banners = document.querySelectorAll('.banner');
+let current = 0;
+
+function updateSelection() {
+    banners.forEach(b => b.classList.remove('active'));
+    banners[current].classList.add('active');
+}
+
+updateSelection();
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') {
+        current = (current + 1) % banners.length;
+        updateSelection();
+    }
+
+    if (e.key === 'ArrowLeft') {
+        current = (current - 1 + banners.length) % banners.length;
+        updateSelection();
+    }
+
+    if (e.key === 'Enter') {
+        banners[current].click();
+    }
+});
+</script>
+
+</body>
+</html>
