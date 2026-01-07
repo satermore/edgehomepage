@@ -1,3 +1,5 @@
+## EDGE HOME PAGE
+
 A simple and clean dashboard for Microsoft Edge, built to centralize and optimize access to DRM PlayReady streaming services such as NBA League Pass, Prime Video, and Netflix.
 
 
