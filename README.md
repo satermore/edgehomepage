@@ -10,3 +10,5 @@ Because Microsoft Edge uses **PlayReady DRM**, enabling higher streaming quality
 ## Preview
 
 ![Dashboard Preview](assets/dashboard.png)
+🌐 [Open Edge Dashboard](https://satermore.github.io/edgehomepage/)
+
