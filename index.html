@@ -25,16 +25,16 @@ body {
     overflow: hidden;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* CONTENEDOR PRINCIPAL - Ajustado a 4 columnas */
 .container {
     width: 95vw;
     height: 85vh;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
 }
 
-/* TARJETAS XXXL */
+/* TARJETAS */
 .banner {
     background: rgba(255,255,255,0.04);
     border-radius: 40px;
@@ -50,7 +50,7 @@ body {
     outline: none;
 }
 
-/* LOGOS – NO SE CORTAN */
+/* LOGOS */
 .logo {
     max-width: 75%;
     max-height: 60%;
@@ -72,10 +72,11 @@ body {
     transform: scale(1.08);
 }
 
-/* COLORES SUAVES POR PLATAFORMA */
+/* COLORES POR PLATAFORMA */
 .netflix.active { box-shadow: 0 0 120px rgba(229,9,20,.35); }
 .prime.active   { box-shadow: 0 0 120px rgba(0,168,225,.35); }
 .nba.active     { box-shadow: 0 0 120px rgba(23,64,139,.35); }
+.wwe.active     { box-shadow: 0 0 120px rgba(255,215,0,.35); } /* Brillo Amarillo/Dorado */
 
 </style>
 </head>
@@ -95,11 +96,9 @@ body {
         <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg">
     </a>
 
-    <a href="https://www.wwe.com" class="banner nba" data-index="2">
-        <img class="logo" src="/assets/wrestling.png">
+    <a href="https://www.wwe.com" class="banner wwe" data-index="3">
+        <img class="logo" src="assets/wrestling.png">
     </a>
-
-
 </div>
 
 <script>
@@ -111,6 +110,7 @@ function updateSelection() {
     banners[current].classList.add('active');
 }
 
+// Inicializar
 updateSelection();
 
 document.addEventListener('keydown', e => {
