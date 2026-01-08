@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Inter, system-ui, sans-serif;
+    overflow: hidden; /* Sin scroll vertical */
+}
+
+.container {
+    width: 95vw;
+    height: 100%; /* Ocupa todo el alto disponible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    gap: 2vw;
+    width: 100%;
+    height: 90%;          /* Ocupa casi toda la altura del container */
+    align-items: center;
+    overflow-x: hidden;    /* Scroll solo con JS */
+    scroll-behavior: smooth;
+
+    /* Padding para que el primer y último banner no se corten */
+    padding-left: calc((100% - 4vw) / 6);
+    padding-right: calc((100% - 4vw) / 6);
+}
+
+/* Banner: 3 visibles exactamente */
+.banner {
+    flex: 0 0 calc((100% - 4vw)/3); /* 3 banners visibles menos gap */
+    height: 100%;                     /* Ocupa toda la altura del carousel */
+    max-height: 400px;                /* Limite superior para pantallas grandes */
+    background: rgba(255,255,255,0.04);
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
+}
+
+.logo {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,.6));
+    transition: transform .35s ease;
+}
+
+/* Hover / Activo */
+.banner:hover,
+.banner.active {
+    transform: scale(1.08);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 25px 60px rgba(0,0,0,.7);
+}
+
+.banner:hover .logo,
+.banner.active .logo {
+    transform: scale(1.12);
+}
+
+/* Colores por plataforma */
+.netflix.active      { box-shadow: 0 0 120px rgba(229,9,20,.35); }
+.prime.active        { box-shadow: 0 0 120px rgba(0,168,225,.35); }
+.nba.active          { box-shadow: 0 0 120px rgba(23,64,139,.35); }
+.wwe.active          { box-shadow: 0 0 120px rgba(255,215,0,.35); }
+.atresplayer.active  { box-shadow: 0 0 120px rgba(255,0,0,.35); }
+.orange.active       { box-shadow: 0 0 120px rgba(255,165,0,.35); }
+.youtube.active      { box-shadow: 0 0 120px rgba(255,0,0,.35); }
