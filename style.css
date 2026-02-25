@@ -1,166 +1,240 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
-    height: 100%;
-    width: 100%;
+:root {
+  --bg: #060911;
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --text: #eef2ff;
+  --muted: #a3adcc;
+  --accent: #5f89ff;
 }
 
 body {
-    background: #050505;
-    color: #eee;
-    display: flex;
-    flex-direction: column;
-    font-family: Inter, system-ui, sans-serif;
-    overflow: hidden;
-    padding: 2vh 2vw;
-    gap: 2vh;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #0f1b36, var(--bg) 40%);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  font-family: Inter, system-ui, sans-serif;
+  padding: 2vh 2vw;
+  gap: 1.5rem;
 }
 
 .dashboard-header {
-    display: grid;
-    gap: 1.5vw;
-    grid-template-columns: 2fr 1fr;
-    min-height: 24vh;
-    width: 100%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 2fr 1fr;
 }
 
 .weather-panel,
-.datetime-panel {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 1.2rem;
+.datetime-panel,
+.card-panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  backdrop-filter: blur(4px);
+  padding: 1.1rem;
 }
 
 .datetime-panel {
-    align-items: flex-end;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
 }
 
 .clock {
-    font-size: clamp(1.9rem, 4vw, 3.2rem);
-    font-weight: 700;
-    margin-bottom: .4rem;
+  font-size: clamp(1.8rem, 4vw, 3.1rem);
+  font-weight: 700;
 }
 
 .date {
-    color: #cfcfcf;
-    font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  color: var(--muted);
 }
 
 .weather-panel h3 {
-    font-size: clamp(1rem, 1.8vw, 1.35rem);
-    margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 }
 
 .weather-panel .daily {
-    display: grid;
-    gap: .7rem;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 0.6rem;
 }
 
 .weather-panel .day {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: .8rem;
-    text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.6rem;
+  text-align: center;
 }
 
-.weather-panel .day h4 {
-    font-size: .95rem;
-    margin-bottom: .4rem;
+.carousel-shell {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-.weather-panel .day img {
-    height: 40px;
-    width: 40px;
+.nav-arrow {
+  height: 52px;
+  width: 52px;
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .container {
-    width: 100%;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .carousel {
-    display: flex;
-    gap: 2vw;
-    width: 100%;
-    height: 95%;
-    align-items: center;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 0.5rem;
+}
 
-    padding-left: calc((100% - 4vw) / 6);
-    padding-right: calc((100% - 4vw) / 6);
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .banner {
-    flex: 0 0 calc((100% - 4vw)/3);
-    height: 100%;
-    max-height: 400px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
-}
-
-.logo {
-    max-width: 85%;
-    max-height: 85%;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,.6));
-    transition: transform .35s ease;
+  flex: 0 0 min(320px, 70vw);
+  height: 170px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .banner:hover,
 .banner.active {
-    transform: scale(1.08);
-    background: rgba(255,255,255,0.08);
-    box-shadow: 0 25px 60px rgba(0,0,0,.7);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
 }
 
-.banner:hover .logo,
-.banner.active .logo {
-    transform: scale(1.12);
+.logo {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
 }
 
-.netflix.active      { box-shadow: 0 0 120px rgba(229,9,20,.35); }
-.prime.active        { box-shadow: 0 0 120px rgba(0,168,225,.35); }
-.nba.active          { box-shadow: 0 0 120px rgba(23,64,139,.35); }
-.wwe.active          { box-shadow: 0 0 120px rgba(255,215,0,.35); }
-.atresplayer.active  { box-shadow: 0 0 120px rgba(255,0,0,.35); }
-.orange.active       { box-shadow: 0 0 120px rgba(255,165,0,.35); }
-.youtube.active      { box-shadow: 0 0 120px rgba(255,0,0,.35); }
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
 
-@media (max-width: 950px) {
-    body {
-        overflow-y: auto;
-    }
+.panel-header small {
+  color: var(--muted);
+}
 
-    .dashboard-header {
-        grid-template-columns: 1fr;
-    }
+.wrestling-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(150px, 1fr));
+  gap: 0.7rem;
+  overflow-x: auto;
+}
 
-    .datetime-panel {
-        align-items: flex-start;
-        text-align: left;
-    }
+.day-column {
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 0.55rem;
+  min-height: 180px;
+  background: rgba(255, 255, 255, 0.02);
+}
 
-    .container {
-        min-height: 48vh;
-    }
+.day-column header {
+  margin-bottom: 0.6rem;
+}
+
+.day-column header span {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.day-column header h4 {
+  font-size: 0.9rem;
+}
+
+.event-chip {
+  border: 1px solid rgba(95, 137, 255, 0.35);
+  background: rgba(95, 137, 255, 0.12);
+  color: var(--text);
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 0.45rem;
+  text-align: left;
+  padding: 0.45rem;
+  cursor: pointer;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.event-chip span,
+.event-chip small,
+.empty-events {
+  color: var(--muted);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  width: min(520px, 90vw);
+  background: #111b32;
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 1rem;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .dashboard-header {
+    grid-template-columns: 1fr;
+  }
+
+  .datetime-panel {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .wrestling-week {
+    grid-template-columns: repeat(7, minmax(180px, 1fr));
+  }
 }
