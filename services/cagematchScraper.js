@@ -11,6 +11,18 @@ const REQUEST_CONFIG = {
   },
 };
 
+const DETAIL_LABELS = [
+  'Name of the event',
+  'Date',
+  'Promotion',
+  'Type',
+  'Location',
+  'Arena',
+  'Broadcast type',
+  'Broadcast date',
+  'TV station/network',
+];
+
 function normalizeDate(rawDate) {
   if (!rawDate) return null;
   const cleaned = rawDate.replace(/\s+/g, ' ').trim();
@@ -90,6 +102,84 @@ function parseTableRows($, sourceUrl, promotion) {
   return events;
 }
 
+function extractMetadataFromLines(lines) {
+  const metadata = {};
+
+  DETAIL_LABELS.forEach((label) => {
+    const line = lines.find((item) => item.toLowerCase().startsWith(`${label.toLowerCase()}:`));
+    if (line) {
+      metadata[label] = line.slice(line.indexOf(':') + 1).trim();
+    }
+  });
+
+  return metadata;
+}
+
+function extractMatches(lines) {
+  const cleaned = lines.filter((line) => line.length > 2 && line.length < 260);
+  const matches = [];
+
+  for (let i = 0; i < cleaned.length; i += 1) {
+    const line = cleaned[i];
+    const next = cleaned[i + 1] || '';
+
+    const isStipulation =
+      /match$/i.test(line) ||
+      /title match$/i.test(line) ||
+      /battle royal/i.test(line) ||
+      /tournament/i.test(line);
+
+    const isVersus = /\bvs\.?\b/i.test(line);
+    const nextIsVersus = /\bvs\.?\b/i.test(next);
+
+    if (isStipulation && nextIsVersus) {
+      matches.push(`${line} — ${next}`);
+      i += 1;
+      continue;
+    }
+
+    if (isVersus) {
+      matches.push(line);
+    }
+  }
+
+  return [...new Set(matches)].slice(0, 40);
+}
+
+async function scrapeEventDetail(url) {
+  try {
+    const response = await axios.get(url, REQUEST_CONFIG);
+    const $ = cheerio.load(response.data);
+
+    const content = $('#GSL').length ? $('#GSL') : $('body');
+    const pageTitle = $('h1').first().text().replace(/\s+/g, ' ').trim() || $('title').first().text().trim();
+
+    const lines = content
+      .text()
+      .split('\n')
+      .map((line) => line.replace(/\s+/g, ' ').trim())
+      .filter(Boolean);
+
+    const metadata = extractMetadataFromLines(lines);
+    const matches = extractMatches(lines);
+
+    return {
+      pageTitle,
+      metadata,
+      matches,
+      rawLines: lines.slice(0, 220),
+    };
+  } catch (error) {
+    return {
+      pageTitle: '',
+      metadata: {},
+      matches: [],
+      rawLines: [],
+      scrapeError: error.message,
+    };
+  }
+}
+
 async function scrapePromotionEvents(url, promotion) {
   try {
     const response = await axios.get(url, REQUEST_CONFIG);
@@ -105,5 +195,6 @@ async function scrapePromotionEvents(url, promotion) {
 
 module.exports = {
   scrapePromotionEvents,
+  scrapeEventDetail,
   todayStartTimestamp,
 };

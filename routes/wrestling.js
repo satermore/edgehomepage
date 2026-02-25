@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs/promises');
 const path = require('path');
 const { removeOldEvents } = require('../scripts/updateWrestlingEvents');
+const { scrapeEventDetail } = require('../services/cagematchScraper');
 
 const router = express.Router();
 const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
@@ -83,7 +84,12 @@ router.get('/event/:id', async (req, res) => {
       return res.status(404).json({ error: 'Evento no encontrado' });
     }
 
-    return res.json(event);
+    const details = await scrapeEventDetail(event.url);
+
+    return res.json({
+      ...event,
+      details,
+    });
   } catch (error) {
     return res.status(500).json({ error: 'No se pudo cargar el evento', detail: error.message });
   }
