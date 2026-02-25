@@ -3,31 +3,32 @@ const path = require('path');
 const { scrapePromotionEvents, todayStartTimestamp } = require('../services/cagematchScraper');
 
 const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
+const RETENTION_DAYS = 14;
 
 const PROMOTIONS = [
   {
     name: 'WWE',
-    url: 'https://www.cagematch.net/?id=8&nr=1&page=4',
+    url: 'https://www.cagematch.net/en/?id=1&view=cards&year=2026&Day=&Month=&Year=2026&name=&promotion=1&showtype=&location=&arena=&region=',
   },
   {
     name: 'All Elite Wrestling',
-    url: 'https://www.cagematch.net/?id=8&nr=2287&page=4',
+    url: 'https://www.cagematch.net/en/?id=1&view=cards&year=2026&Day=&Month=&Year=2026&name=&promotion=2287&showtype=&location=&arena=&region=',
   },
   {
     name: 'Lucha Libre AAA Worldwide',
-    url: 'https://www.cagematch.net/?id=8&nr=18&page=4',
+    url: 'https://www.cagematch.net/en/?id=1&view=cards&year=2026&Day=&Month=&Year=2026&name=&promotion=122&showtype=&location=&arena=&region=',
   },
   {
     name: 'TNA Wrestling',
-    url: 'https://www.cagematch.net/?id=8&nr=5&page=4',
+    url: 'https://www.cagematch.net/en/?id=1&view=cards&year=2026&Day=&Month=&Year=2026&name=&promotion=5&showtype=&location=&arena=&region=',
   },
   {
     name: 'Consejo Mundial de Lucha Libre',
-    url: 'https://www.cagematch.net/?id=8&nr=78&page=4',
+    url: 'https://www.cagematch.net/en/?id=1&view=cards&year=2026&Day=&Month=&Year=2026&name=&promotion=78&showtype=&location=&arena=&region=',
   },
   {
     name: 'New Japan Pro-Wrestling',
-    url: 'https://www.cagematch.net/?id=8&nr=7&page=4',
+    url: 'https://www.cagematch.net/en/?id=1&view=cards&year=2026&Day=&Month=&Year=2026&name=&promotion=7&showtype=&location=&arena=&region=',
   },
 ];
 
@@ -41,9 +42,10 @@ function dedupeEvents(events) {
   });
 }
 
-function removePastEvents(events) {
+function removeOldEvents(events) {
   const today = todayStartTimestamp();
-  return events.filter((event) => event.timestamp >= today);
+  const cutoff = today - RETENTION_DAYS * 24 * 60 * 60 * 1000;
+  return events.filter((event) => event.timestamp >= cutoff);
 }
 
 async function loadExistingEvents() {
@@ -63,7 +65,7 @@ async function updateWrestlingEvents() {
 
   const existingEvents = await loadExistingEvents();
   const mergedEvents = dedupeEvents([...existingEvents, ...scraped.flat()]);
-  const cleanedEvents = removePastEvents(mergedEvents).sort((a, b) => a.timestamp - b.timestamp);
+  const cleanedEvents = removeOldEvents(mergedEvents).sort((a, b) => a.timestamp - b.timestamp);
 
   const payload = {
     lastUpdate: new Date().toISOString(),
@@ -87,5 +89,5 @@ if (require.main === module) {
 
 module.exports = {
   updateWrestlingEvents,
-  removePastEvents,
+  removeOldEvents,
 };

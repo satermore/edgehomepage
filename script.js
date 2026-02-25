@@ -30,22 +30,17 @@ carousel.addEventListener(
   { passive: false },
 );
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight') moveCarousel(1);
-  if (e.key === 'ArrowLeft') moveCarousel(-1);
-  if (e.key === 'Enter') banners[current].click();
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowRight') moveCarousel(1);
+  if (event.key === 'ArrowLeft') moveCarousel(-1);
+  if (event.key === 'Enter') banners[current].click();
 });
 
 updateActive();
 
-function startDateTime({
-  clockElementId = 'clock',
-  dateElementId = 'date',
-  locale = 'es-ES',
-  withSeconds = true,
-} = {}) {
-  const clockElement = document.getElementById(clockElementId);
-  const dateElement = document.getElementById(dateElementId);
+function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
+  const clockElement = document.getElementById('clock');
+  const dateElement = document.getElementById('date');
 
   function renderDateTime() {
     const now = new Date();
@@ -69,15 +64,8 @@ function startDateTime({
   setInterval(renderDateTime, 1000);
 }
 
-function startWeather({
-  apiKey,
-  lat,
-  lon,
-  weatherElementId = 'weather',
-  units = 'metric',
-  lang = 'es',
-} = {}) {
-  const weatherContainer = document.getElementById(weatherElementId);
+function startWeather({ apiKey, lat, lon, units = 'metric', lang = 'es' } = {}) {
+  const weatherContainer = document.getElementById('weather');
 
   async function refresh() {
     if (!apiKey) {
@@ -118,6 +106,8 @@ function startWeather({
 
 const wrestlingWeek = document.getElementById('wrestling-week');
 const wrestlingStatus = document.getElementById('wrestling-status');
+const nbaWeek = document.getElementById('nba-week');
+const nbaStatus = document.getElementById('nba-status');
 const eventModal = document.getElementById('event-modal');
 const modalBody = document.getElementById('modal-body');
 const closeModalBtn = document.getElementById('close-modal');
@@ -144,19 +134,21 @@ async function openEventDetail(eventId) {
   if (!res.ok) return;
   const event = await res.json();
 
+  const eventLink = event.url && event.url.startsWith('http') ? event.url : '#';
+
   openModal(`
     <h3 id="event-title">${event.name}</h3>
     <p><strong>Empresa:</strong> ${event.promotion}</p>
     <p><strong>Fecha:</strong> ${event.date}</p>
     <p><strong>Lugar:</strong> ${event.location}</p>
-    <p><a href="${event.url}" target="_blank" rel="noreferrer">Ver en Cagematch</a></p>
+    <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento en Cagematch</a>
   `);
 }
 
 async function loadWrestlingWeek() {
   try {
     const response = await fetch('/api/wrestling/week');
-    if (!response.ok) throw new Error('No se pudo cargar');
+    if (!response.ok) throw new Error('No se pudo cargar wrestling');
 
     const week = await response.json();
     wrestlingWeek.innerHTML = '';
@@ -182,9 +174,40 @@ async function loadWrestlingWeek() {
       button.addEventListener('click', () => openEventDetail(button.dataset.id));
     });
 
-    wrestlingStatus.textContent = 'Eventos cargados';
+    wrestlingStatus.textContent = 'Eventos listos';
   } catch (error) {
     wrestlingStatus.textContent = `Error: ${error.message}`;
+  }
+}
+
+async function loadNbaWeek() {
+  try {
+    const response = await fetch('/api/nba/week');
+    if (!response.ok) throw new Error('No se pudo cargar NBA');
+
+    const data = await response.json();
+    const games = data.games || [];
+    nbaWeek.innerHTML = '';
+
+    if (!games.length) {
+      nbaWeek.innerHTML = '<p class="empty-events">Sin partidos próximos</p>';
+    }
+
+    games.forEach((game) => {
+      const gameCard = document.createElement('article');
+      gameCard.className = 'nba-game';
+      gameCard.innerHTML = `
+        <div><strong>${game.away}</strong> @ <strong>${game.home}</strong></div>
+        <small>${game.date} · ${game.time} · ${game.status}</small>
+      `;
+      nbaWeek.appendChild(gameCard);
+    });
+
+    nbaStatus.textContent = data.lastUpdate
+      ? `Actualizado: ${new Date(data.lastUpdate).toLocaleString('es-ES')}`
+      : 'Sin actualizar';
+  } catch (error) {
+    nbaStatus.textContent = `Error: ${error.message}`;
   }
 }
 
@@ -193,8 +216,8 @@ startWeather({
   apiKey: '0627f20cfd7258e0d3daeae5135c9e1d',
   lat: 41.5036,
   lon: -5.7461,
-  weatherElementId: 'weather',
   units: 'metric',
   lang: 'es',
 });
 loadWrestlingWeek();
+loadNbaWeek();

@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs/promises');
 const path = require('path');
-const { removePastEvents } = require('../scripts/updateWrestlingEvents');
+const { removeOldEvents } = require('../scripts/updateWrestlingEvents');
 
 const router = express.Router();
 const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
@@ -11,7 +11,7 @@ const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 async function readAndCleanEvents() {
   const raw = await fs.readFile(FILE_PATH, 'utf8');
   const parsed = JSON.parse(raw);
-  const cleaned = removePastEvents(parsed.events || []);
+  const cleaned = removeOldEvents(parsed.events || []);
 
   if ((parsed.events || []).length !== cleaned.length) {
     await fs.writeFile(

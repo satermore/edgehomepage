@@ -5,23 +5,24 @@
 }
 
 :root {
-  --bg: #060911;
-  --panel: rgba(255, 255, 255, 0.05);
-  --panel-border: rgba(255, 255, 255, 0.1);
-  --text: #eef2ff;
-  --muted: #a3adcc;
-  --accent: #5f89ff;
+  --bg: #070b14;
+  --panel: #111a2f;
+  --panel-alt: #0d1528;
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --text: #eef3ff;
+  --muted: #a8b3d1;
+  --accent: #6d94ff;
 }
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at top left, #0f1b36, var(--bg) 40%);
+  background: radial-gradient(circle at top left, #162848, var(--bg) 40%);
   color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  font-family: Inter, system-ui, sans-serif;
-  padding: 2vh 2vw;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .dashboard-header {
@@ -33,11 +34,10 @@ body {
 .weather-panel,
 .datetime-panel,
 .card-panel {
-  background: var(--panel);
+  background: linear-gradient(165deg, var(--panel), var(--panel-alt));
   border: 1px solid var(--panel-border);
-  border-radius: 18px;
-  backdrop-filter: blur(4px);
-  padding: 1.1rem;
+  border-radius: 16px;
+  padding: 1rem;
 }
 
 .datetime-panel {
@@ -45,11 +45,10 @@ body {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  text-align: right;
 }
 
 .clock {
-  font-size: clamp(1.8rem, 4vw, 3.1rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
 }
 
@@ -57,38 +56,36 @@ body {
   color: var(--muted);
 }
 
-.weather-panel h3 {
-  margin-bottom: 0.8rem;
-}
-
 .weather-panel .daily {
+  margin-top: 0.8rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 0.6rem;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
 .weather-panel .day {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
   text-align: center;
+  padding: 0.45rem;
 }
 
 .carousel-shell {
   display: grid;
-  grid-template-columns: 52px 1fr 52px;
-  align-items: center;
+  grid-template-columns: 50px 1fr 50px;
   gap: 0.6rem;
+  align-items: center;
 }
 
 .nav-arrow {
-  height: 52px;
-  width: 52px;
-  border: 1px solid var(--panel-border);
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text);
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   cursor: pointer;
 }
 
@@ -98,11 +95,11 @@ body {
 
 .carousel {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 
 .carousel::-webkit-scrollbar {
@@ -110,20 +107,21 @@ body {
 }
 
 .banner {
-  flex: 0 0 min(320px, 70vw);
-  height: 170px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.06);
+  flex: 0 0 min(280px, 72vw);
+  height: 145px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .banner:hover,
 .banner.active {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
 }
 
 .logo {
@@ -132,62 +130,90 @@ body {
   object-fit: contain;
 }
 
+.grid-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
 .panel-header {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
+  gap: 0.5rem;
   margin-bottom: 0.7rem;
 }
 
 .panel-header small {
   color: var(--muted);
+  font-size: 0.78rem;
 }
 
 .wrestling-week {
   display: grid;
-  grid-template-columns: repeat(7, minmax(150px, 1fr));
-  gap: 0.7rem;
+  grid-template-columns: repeat(7, minmax(130px, 1fr));
+  gap: 0.5rem;
   overflow-x: auto;
 }
 
 .day-column {
   border: 1px solid var(--panel-border);
-  border-radius: 12px;
-  padding: 0.55rem;
-  min-height: 180px;
-  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.5rem;
 }
 
 .day-column header {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.45rem;
 }
 
 .day-column header span {
   color: var(--accent);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.76rem;
 }
 
 .day-column header h4 {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .event-chip {
-  border: 1px solid rgba(95, 137, 255, 0.35);
-  background: rgba(95, 137, 255, 0.12);
-  color: var(--text);
-  border-radius: 10px;
   width: 100%;
-  margin-bottom: 0.45rem;
+  border-radius: 8px;
+  border: 1px solid rgba(109, 148, 255, 0.45);
+  background: rgba(109, 148, 255, 0.17);
+  color: var(--text);
   text-align: left;
-  padding: 0.45rem;
+  padding: 0.4rem;
+  margin-bottom: 0.4rem;
   cursor: pointer;
   display: grid;
-  gap: 0.15rem;
+  gap: 0.12rem;
 }
 
 .event-chip span,
 .event-chip small,
 .empty-events {
+  color: var(--muted);
+}
+
+.nba-week {
+  display: grid;
+  gap: 0.5rem;
+  max-height: 330px;
+  overflow: auto;
+}
+
+.nba-game {
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.55rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.nba-game small {
   color: var(--muted);
 }
 
@@ -197,7 +223,7 @@ body {
   background: rgba(0, 0, 0, 0.72);
   display: grid;
   place-items: center;
-  z-index: 50;
+  z-index: 99;
 }
 
 .hidden {
@@ -205,10 +231,10 @@ body {
 }
 
 .modal-content {
-  width: min(520px, 90vw);
-  background: #111b32;
-  border: 1px solid var(--panel-border);
+  width: min(560px, 92vw);
   border-radius: 14px;
+  border: 1px solid var(--panel-border);
+  background: #101a31;
   padding: 1rem;
   position: relative;
 }
@@ -216,12 +242,29 @@ body {
 .close-modal {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 12px;
   border: 0;
   background: transparent;
-  color: #fff;
-  font-size: 1.2rem;
+  color: var(--text);
+  font-size: 1.25rem;
   cursor: pointer;
+}
+
+.modal-link {
+  display: inline-block;
+  margin-top: 0.65rem;
+  color: #8eb0ff;
+  text-decoration: none;
+}
+
+.modal-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .grid-panels {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 900px) {
@@ -231,10 +274,9 @@ body {
 
   .datetime-panel {
     align-items: flex-start;
-    text-align: left;
   }
 
   .wrestling-week {
-    grid-template-columns: repeat(7, minmax(180px, 1fr));
+    grid-template-columns: repeat(7, minmax(170px, 1fr));
   }
 }

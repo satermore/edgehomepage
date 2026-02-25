@@ -19,51 +19,38 @@
 </div>
 
 <section class="carousel-shell">
-    <button class="nav-arrow left" id="carousel-left" aria-label="Mover a la izquierda">❮</button>
+    <button class="nav-arrow" id="carousel-left" aria-label="Mover a la izquierda">❮</button>
     <div class="container">
         <div class="carousel" id="carousel">
-            <a href="https://orangetv.orange.es/brw" class="banner orange">
-                <img class="logo" src="assets/orangetv.png" alt="Orange TV">
-            </a>
-
-            <a href="https://www.youtube.com" class="banner youtube">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
-            </a>
-
-            <a href="https://www.netflix.com" class="banner netflix active">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
-            </a>
-
-            <a href="https://www.primevideo.com" class="banner prime">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" alt="Prime Video">
-            </a>
-
-            <a href="https://www.atresplayer.com" class="banner atresplayer">
-                <img class="logo" src="assets/atresplayer.png" alt="Atresplayer">
-            </a>
-
-            <a href="https://www.nba.com/games" class="banner nba">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg" alt="NBA">
-            </a>
-
-            <a href="https://www.wwe.com" class="banner wwe">
-                <img class="logo" src="assets/wrestling.png" alt="WWE">
-            </a>
-
-            <a href="https://jellyfin.org/" class="banner jellyfin">
-                <img class="logo" src="assets/jellyfin.png" alt="Jellyfin">
-            </a>
+            <a href="https://orangetv.orange.es/brw" class="banner orange"><img class="logo" src="assets/orangetv.png" alt="Orange TV"></a>
+            <a href="https://www.youtube.com" class="banner youtube"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube"></a>
+            <a href="https://www.netflix.com" class="banner netflix active"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix"></a>
+            <a href="https://www.primevideo.com" class="banner prime"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" alt="Prime Video"></a>
+            <a href="https://www.atresplayer.com" class="banner atresplayer"><img class="logo" src="assets/atresplayer.png" alt="Atresplayer"></a>
+            <a href="https://www.nba.com/games" class="banner nba"><img class="logo" src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg" alt="NBA"></a>
+            <a href="https://www.wwe.com" class="banner wwe"><img class="logo" src="assets/wrestling.png" alt="WWE"></a>
+            <a href="https://jellyfin.org/" class="banner jellyfin"><img class="logo" src="assets/jellyfin.png" alt="Jellyfin"></a>
         </div>
     </div>
-    <button class="nav-arrow right" id="carousel-right" aria-label="Mover a la derecha">❯</button>
+    <button class="nav-arrow" id="carousel-right" aria-label="Mover a la derecha">❯</button>
 </section>
 
-<section class="card-panel">
-    <div class="panel-header">
-        <h2>Wrestling de esta semana</h2>
-        <small id="wrestling-status">Actualizando eventos...</small>
-    </div>
-    <section id="wrestling-week" class="wrestling-week"></section>
+<section class="grid-panels">
+    <section class="card-panel">
+        <div class="panel-header">
+            <h2>Wrestling de esta semana</h2>
+            <small id="wrestling-status">Actualizando eventos...</small>
+        </div>
+        <section id="wrestling-week" class="wrestling-week"></section>
+    </section>
+
+    <section class="card-panel">
+        <div class="panel-header">
+            <h2>NBA · próximos días</h2>
+            <small id="nba-status">Actualizando partidos...</small>
+        </div>
+        <section id="nba-week" class="nba-week"></section>
+    </section>
 </section>
 
 <div id="event-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="event-title">
