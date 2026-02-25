@@ -1,0 +1,19 @@
+{
+  "name": "edgehomepage",
+  "version": "1.0.0",
+  "description": "Dashboard con eventos de wrestling, NBA y utilidades",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "update:wrestling": "node scripts/updateWrestlingEvents.js",
+    "update:nba": "node scripts/updateNbaGames.js"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "cheerio": "^1.1.2",
+    "express": "^4.21.2",
+    "node-cron": "^4.2.1",
+    "uuid": "^11.1.0"
+  }
+}

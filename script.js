@@ -1,155 +1,279 @@
 const carousel = document.getElementById('carousel');
 const banners = [...carousel.children];
+const leftArrow = document.getElementById('carousel-left');
+const rightArrow = document.getElementById('carousel-right');
 let current = 0;
 
-function updateActive() {
-    banners.forEach(b => b.classList.remove('active'));
-    banners[current].classList.add('active');
+const PROMOTION_LOGOS = {
+  WWE: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/WWE_Logo.svg',
+  'All Elite Wrestling': 'https://upload.wikimedia.org/wikipedia/en/9/9b/AEW_Logo.svg',
+  'Lucha Libre AAA Worldwide': 'https://upload.wikimedia.org/wikipedia/en/7/76/Lucha_Libre_AAA_Worldwide_logo.png',
+  'TNA Wrestling': 'https://upload.wikimedia.org/wikipedia/en/b/bf/TNA_Wrestling_logo_%282024%29.png',
+  'Consejo Mundial de Lucha Libre': 'https://upload.wikimedia.org/wikipedia/en/d/d0/CMLL_logo.png',
+  'New Japan Pro-Wrestling': 'https://upload.wikimedia.org/wikipedia/en/2/27/New_Japan_Pro-Wrestling_logo.svg',
+};
 
-    const banner = banners[current];
-    const offset = banner.offsetLeft - (carousel.offsetWidth / 2 - banner.offsetWidth / 2);
-    carousel.scrollTo({ left: offset, behavior: 'smooth' });
+function escapeHtml(value = '') {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
+
+function getPromotionLogo(promotion = '') {
+  const matched = Object.keys(PROMOTION_LOGOS).find((key) => promotion.includes(key));
+  return matched ? PROMOTION_LOGOS[matched] : 'assets/wrestling.png';
+}
+
+function updateActive() {
+  banners.forEach((b) => b.classList.remove('active'));
+  banners[current].classList.add('active');
+
+  const banner = banners[current];
+  const offset = banner.offsetLeft - (carousel.offsetWidth / 2 - banner.offsetWidth / 2);
+  carousel.scrollTo({ left: offset, behavior: 'smooth' });
+}
+
+function moveCarousel(step) {
+  current = Math.min(banners.length - 1, Math.max(0, current + step));
+  updateActive();
+}
+
+leftArrow.addEventListener('click', () => moveCarousel(-1));
+rightArrow.addEventListener('click', () => moveCarousel(1));
+
+carousel.addEventListener(
+  'wheel',
+  (event) => {
+    event.preventDefault();
+    carousel.scrollBy({ left: event.deltaY + event.deltaX, behavior: 'smooth' });
+  },
+  { passive: false },
+);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowRight') moveCarousel(1);
+  if (event.key === 'ArrowLeft') moveCarousel(-1);
+  if (event.key === 'Enter') banners[current].click();
+});
 
 updateActive();
 
-document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') {
-        if (current < banners.length - 1) current++;
-        updateActive();
-    }
-    if (e.key === 'ArrowLeft') {
-        if (current > 0) current--;
-        updateActive();
-    }
-    if (e.key === 'Enter') {
-        banners[current].click();
-    }
-});
+function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
+  const clockElement = document.getElementById('clock');
+  const dateElement = document.getElementById('date');
 
-function startDateTime({
-    clockElementId = 'clock',
-    dateElementId = 'date',
-    locale = 'es-ES',
-    withSeconds = true,
-} = {}) {
-    const clockElement = document.getElementById(clockElementId);
-    const dateElement = document.getElementById(dateElementId);
+  function renderDateTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    if (!clockElement || !dateElement) {
-        throw new Error('No se encontraron los elementos de hora/fecha en el DOM.');
-    }
+    clockElement.textContent = withSeconds ? `${hours}:${minutes}:${seconds}` : `${hours}:${minutes}`;
 
-    function renderDateTime() {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
+    const day = now.toLocaleDateString(locale, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
 
-        clockElement.textContent = withSeconds
-            ? `${hours}:${minutes}:${seconds}`
-            : `${hours}:${minutes}`;
+    dateElement.textContent = day.charAt(0).toUpperCase() + day.slice(1);
+  }
 
-        const day = now.toLocaleDateString(locale, {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
-
-        dateElement.textContent = day.charAt(0).toUpperCase() + day.slice(1);
-    }
-
-    renderDateTime();
-    const intervalId = setInterval(renderDateTime, 1000);
-
-    return {
-        stop: () => clearInterval(intervalId),
-        refresh: renderDateTime,
-    };
+  renderDateTime();
+  setInterval(renderDateTime, 1000);
 }
 
-function startWeather({
-    apiKey,
-    lat,
-    lon,
-    weatherElementId = 'weather',
-    units = 'metric',
-    lang = 'es',
-} = {}) {
-    const weatherContainer = document.getElementById(weatherElementId);
-    if (!weatherContainer) {
-        throw new Error('No se encontró el contenedor del clima en el DOM.');
-    }
+function startWeather({ apiKey, lat, lon, units = 'metric', lang = 'es' } = {}) {
+  const weatherContainer = document.getElementById('weather');
 
+  async function refresh() {
     if (!apiKey) {
-        weatherContainer.innerHTML = '<p>Configura tu API key de OpenWeatherMap para ver el clima.</p>';
-        return { refresh: () => null };
+      weatherContainer.innerHTML = '<p>Configura tu API key de OpenWeatherMap para ver el clima.</p>';
+      return;
     }
 
-    function renderForecast(data) {
-        let html = `<h3>Clima actual: ${data.list[0].main.temp.toFixed(1)}°C, ${data.list[0].weather[0].description}</h3>`;
-        html += '<div class="daily">';
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${units}&lang=${lang}&appid=${apiKey}`,
+      );
+      if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
 
-        const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00')).slice(0, 5);
-        dailyData.forEach(day => {
-            const date = new Date(day.dt * 1000);
-            const dayName = date.toLocaleDateString('es-ES', { weekday: 'long' });
-            const icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
-            const desc = day.weather[0].description.charAt(0).toUpperCase() + day.weather[0].description.slice(1);
-            const temp = day.main.temp.toFixed(1);
+      const data = await response.json();
+      let html = `<h3>Clima actual: ${data.list[0].main.temp.toFixed(1)}°C, ${data.list[0].weather[0].description}</h3>`;
+      html += '<div class="daily">';
 
-            html += `
-                <div class="day">
-                    <h4>${dayName}</h4>
-                    <img src="${icon}" alt="${desc}" />
-                    <p>${desc}</p>
-                    <p>Temperatura: ${temp}°C</p>
-                </div>
-            `;
-        });
+      const dailyData = data.list.filter((item) => item.dt_txt.includes('12:00:00')).slice(0, 5);
+      dailyData.forEach((day) => {
+        const date = new Date(day.dt * 1000);
+        const dayName = date.toLocaleDateString('es-ES', { weekday: 'long' });
+        const icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
+        const desc = `${day.weather[0].description.charAt(0).toUpperCase()}${day.weather[0].description.slice(1)}`;
+        const temp = day.main.temp.toFixed(1);
 
-        html += '</div>';
-        weatherContainer.innerHTML = html;
+        html += `<div class="day"><h4>${dayName}</h4><img src="${icon}" alt="${desc}"><p>${desc}</p><p>${temp}°C</p></div>`;
+      });
+
+      html += '</div>';
+      weatherContainer.innerHTML = html;
+    } catch (error) {
+      weatherContainer.innerHTML = `<p>Error clima: ${error.message}</p>`;
     }
+  }
 
-    async function refresh() {
-        try {
-            const response = await fetch(
-                `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${units}&lang=${lang}&appid=${apiKey}`,
-            );
-            if (!response.ok) {
-                throw new Error(`Error ${response.status}: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            if (!data || !data.list) {
-                throw new Error('Datos inválidos');
-            }
-
-            renderForecast(data);
-        } catch (error) {
-            console.error('Error al obtener el pronóstico:', error.message);
-            weatherContainer.innerHTML = `<p>Error: ${error.message}</p>`;
-        }
-    }
-
-    refresh();
-    return { refresh };
+  refresh();
 }
 
-startDateTime({
-    clockElementId: 'clock',
-    dateElementId: 'date',
-    locale: 'es-ES',
-    withSeconds: true,
+const wrestlingWeek = document.getElementById('wrestling-week');
+const wrestlingStatus = document.getElementById('wrestling-status');
+const nbaWeek = document.getElementById('nba-week');
+const nbaStatus = document.getElementById('nba-status');
+const eventModal = document.getElementById('event-modal');
+const modalBody = document.getElementById('modal-body');
+const closeModalBtn = document.getElementById('close-modal');
+
+function openModal(content) {
+  modalBody.innerHTML = content;
+  eventModal.classList.remove('hidden');
+}
+
+function closeModal() {
+  eventModal.classList.add('hidden');
+}
+
+closeModalBtn.addEventListener('click', closeModal);
+eventModal.addEventListener('click', (event) => {
+  if (event.target === eventModal) closeModal();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeModal();
 });
 
+function renderDetailMetadata(metadata) {
+  const entries = Object.entries(metadata || {});
+  if (!entries.length) return '<p class="modal-empty">No se encontraron metadatos del evento.</p>';
+
+  return `<div class="modal-meta-grid">${entries
+    .map(
+      ([label, value]) =>
+        `<div class="meta-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(value || ''))}</strong></div>`,
+    )
+    .join('')}</div>`;
+}
+
+function renderMatches(matches) {
+  if (!matches?.length) return '<p class="modal-empty">No se pudieron extraer combates automáticamente.</p>';
+
+  return `<ul class="modal-match-list">${matches.map((match) => `<li>${escapeHtml(match)}</li>`).join('')}</ul>`;
+}
+
+async function openEventDetail(eventId) {
+  const res = await fetch(`/api/wrestling/event/${eventId}`);
+  if (!res.ok) return;
+  const event = await res.json();
+
+  const eventLink = event.url && event.url.startsWith('http') ? event.url : '#';
+  const promotionLogo = getPromotionLogo(event.promotion || event.details?.metadata?.Promotion || '');
+
+  openModal(`
+    <div class="modal-header">
+      <img class="promotion-logo" src="${promotionLogo}" alt="Logo de promoción" loading="lazy" />
+      <div>
+        <h3 id="event-title">${escapeHtml(event.name)}</h3>
+        <p class="modal-sub">${escapeHtml(event.promotion || '')}</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Información del evento</h4>
+      ${renderDetailMetadata(event.details?.metadata)}
+    </div>
+
+    <div class="modal-section">
+      <h4>Cartelera / combates</h4>
+      ${renderMatches(event.details?.matches)}
+    </div>
+
+    <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento completo en Cagematch</a>
+  `);
+}
+
+async function loadWrestlingWeek() {
+  try {
+    const response = await fetch('/api/wrestling/week');
+    if (!response.ok) throw new Error('No se pudo cargar wrestling');
+
+    const week = await response.json();
+    wrestlingWeek.innerHTML = '';
+
+    week.forEach((day) => {
+      const dayCard = document.createElement('article');
+      dayCard.className = 'day-column';
+
+      const eventsHtml = day.events.length
+        ? day.events
+            .map(
+              (event) =>
+                `<button class="event-chip" data-id="${event.id}"><strong>${escapeHtml(event.name)}</strong><span>${escapeHtml(event.promotion)}</span><small>${escapeHtml(event.location)}</small></button>`,
+            )
+            .join('')
+        : '<p class="empty-events">Sin eventos</p>';
+
+      dayCard.innerHTML = `<header><span>${day.dayLabel}</span><h4>${day.date}</h4></header>${eventsHtml}`;
+      wrestlingWeek.appendChild(dayCard);
+    });
+
+    wrestlingWeek.querySelectorAll('.event-chip').forEach((button) => {
+      button.addEventListener('click', () => openEventDetail(button.dataset.id));
+    });
+
+    wrestlingStatus.textContent = 'Eventos listos';
+  } catch (error) {
+    wrestlingStatus.textContent = `Error: ${error.message}`;
+  }
+}
+
+async function loadNbaWeek() {
+  try {
+    const response = await fetch('/api/nba/week');
+    if (!response.ok) throw new Error('No se pudo cargar NBA');
+
+    const data = await response.json();
+    const games = data.games || [];
+    nbaWeek.innerHTML = '';
+
+    if (!games.length) {
+      nbaWeek.innerHTML = '<p class="empty-events">Sin partidos próximos</p>';
+    }
+
+    games.forEach((game) => {
+      const gameCard = document.createElement('article');
+      gameCard.className = 'nba-game';
+      gameCard.innerHTML = `
+        <div><strong>${escapeHtml(game.away)}</strong> @ <strong>${escapeHtml(game.home)}</strong></div>
+        <small>${escapeHtml(game.date)} · ${escapeHtml(game.time)} · ${escapeHtml(game.status)}</small>
+      `;
+      nbaWeek.appendChild(gameCard);
+    });
+
+    nbaStatus.textContent = data.lastUpdate
+      ? `Actualizado: ${new Date(data.lastUpdate).toLocaleString('es-ES')}`
+      : 'Sin actualizar';
+  } catch (error) {
+    nbaStatus.textContent = `Error: ${error.message}`;
+  }
+}
+
+startDateTime({ locale: 'es-ES', withSeconds: true });
 startWeather({
-    apiKey: '0627f20cfd7258e0d3daeae5135c9e1d',
-    lat: 41.5036,
-    lon: -5.7461,
-    weatherElementId: 'weather',
-    units: 'metric',
-    lang: 'es',
+  apiKey: '0627f20cfd7258e0d3daeae5135c9e1d',
+  lat: 41.5036,
+  lon: -5.7461,
+  units: 'metric',
+  lang: 'es',
 });
+loadWrestlingWeek();
+loadNbaWeek();
