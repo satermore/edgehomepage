@@ -146,7 +146,7 @@ startDateTime({
 });
 
 startWeather({
-    apiKey: '',
+    apiKey: '0627f20cfd7258e0d3daeae5135c9e1d',
     lat: 41.5036,
     lon: -5.7461,
     weatherElementId: 'weather',
