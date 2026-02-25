@@ -151,6 +151,91 @@ eventModal.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeModal();
 });
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeModal();
+});
+
+async function openEventDetail(eventId) {
+  const res = await fetch(`/api/wrestling/event/${eventId}`);
+  if (!res.ok) return;
+  const event = await res.json();
+
+  const eventLink = event.url && event.url.startsWith('http') ? event.url : '#';
+
+  openModal(`
+    <h3 id="event-title">${event.name}</h3>
+    <p><strong>Empresa:</strong> ${event.promotion}</p>
+    <p><strong>Fecha:</strong> ${event.date}</p>
+    <p><strong>Lugar:</strong> ${event.location}</p>
+    <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento en Cagematch</a>
+  `);
+}
+
+async function loadWrestlingWeek() {
+  try {
+    const response = await fetch('/api/wrestling/week');
+    if (!response.ok) throw new Error('No se pudo cargar wrestling');
+
+    const week = await response.json();
+    wrestlingWeek.innerHTML = '';
+
+    week.forEach((day) => {
+      const dayCard = document.createElement('article');
+      dayCard.className = 'day-column';
+
+      const eventsHtml = day.events.length
+        ? day.events
+            .map(
+              (event) =>
+                `<button class="event-chip" data-id="${event.id}"><strong>${event.name}</strong><span>${event.promotion}</span><small>${event.location}</small></button>`,
+            )
+            .join('')
+        : '<p class="empty-events">Sin eventos</p>';
+
+      dayCard.innerHTML = `<header><span>${day.dayLabel}</span><h4>${day.date}</h4></header>${eventsHtml}`;
+      wrestlingWeek.appendChild(dayCard);
+    });
+
+    wrestlingWeek.querySelectorAll('.event-chip').forEach((button) => {
+      button.addEventListener('click', () => openEventDetail(button.dataset.id));
+    });
+
+    wrestlingStatus.textContent = 'Eventos listos';
+  } catch (error) {
+    wrestlingStatus.textContent = `Error: ${error.message}`;
+  }
+}
+
+async function loadNbaWeek() {
+  try {
+    const response = await fetch('/api/nba/week');
+    if (!response.ok) throw new Error('No se pudo cargar NBA');
+
+    const data = await response.json();
+    const games = data.games || [];
+    nbaWeek.innerHTML = '';
+
+    if (!games.length) {
+      nbaWeek.innerHTML = '<p class="empty-events">Sin partidos próximos</p>';
+    }
+
+    games.forEach((game) => {
+      const gameCard = document.createElement('article');
+      gameCard.className = 'nba-game';
+      gameCard.innerHTML = `
+        <div><strong>${game.away}</strong> @ <strong>${game.home}</strong></div>
+        <small>${game.date} · ${game.time} · ${game.status}</small>
+      `;
+      nbaWeek.appendChild(gameCard);
+    });
+
+    nbaStatus.textContent = data.lastUpdate
+      ? `Actualizado: ${new Date(data.lastUpdate).toLocaleString('es-ES')}`
+      : 'Sin actualizar';
+  } catch (error) {
+    nbaStatus.textContent = `Error: ${error.message}`;
+  }
+}
 
 function renderDetailMetadata(metadata) {
   const entries = Object.entries(metadata || {});
