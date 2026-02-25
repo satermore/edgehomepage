@@ -11,17 +11,9 @@ const REQUEST_CONFIG = {
   },
 };
 
-const DETAIL_LABELS = [
-  'Name of the event',
-  'Date',
-  'Promotion',
-  'Type',
-  'Location',
-  'Arena',
-  'Broadcast type',
-  'Broadcast date',
-  'TV station/network',
-];
+function cleanText(value = '') {
+  return value.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
+}
 
 function normalizeDate(rawDate) {
   if (!rawDate) return null;
@@ -70,7 +62,7 @@ function parseTableRows($, sourceUrl, promotion) {
     if (!cells.length) return;
 
     const textCells = cells
-      .map((__, cell) => $(cell).text().replace(/\s+/g, ' ').trim())
+      .map((__, cell) => cleanText($(cell).text()))
       .get()
       .filter(Boolean);
 
@@ -83,7 +75,7 @@ function parseTableRows($, sourceUrl, promotion) {
 
     const detailAnchor = $(row).find('a[href*="id=1"][href*="nr="]').first();
     const nameAnchor = detailAnchor.length ? detailAnchor : $(row).find('a').first();
-    const name = nameAnchor.text().replace(/\s+/g, ' ').trim();
+    const name = cleanText(nameAnchor.text());
     if (!name) return;
 
     const url = normalizeLink(nameAnchor.attr('href'), sourceUrl);
@@ -102,48 +94,62 @@ function parseTableRows($, sourceUrl, promotion) {
   return events;
 }
 
-function extractMetadataFromLines(lines) {
+function extractMetadata($) {
   const metadata = {};
+  const titles = $('div.InformationBoxTitle');
+  const contents = $('div.InformationBoxContents');
 
-  DETAIL_LABELS.forEach((label) => {
-    const line = lines.find((item) => item.toLowerCase().startsWith(`${label.toLowerCase()}:`));
-    if (line) {
-      metadata[label] = line.slice(line.indexOf(':') + 1).trim();
-    }
-  });
+  const total = Math.min(titles.length, contents.length);
+  for (let index = 0; index < total; index += 1) {
+    const label = cleanText($(titles[index]).text()).replace(/:$/, '');
+    const value = cleanText($(contents[index]).text());
+    if (label && value) metadata[label] = value;
+  }
 
   return metadata;
 }
 
-function extractMatches(lines) {
-  const cleaned = lines.filter((line) => line.length > 2 && line.length < 260);
-  const matches = [];
+function extractMatches($) {
+  return $('div.Match')
+    .map((_, match) => {
+      const type = cleanText($(match).find('div.MatchType').first().text()) || 'Match';
+      const result = cleanText($(match).find('div.MatchResults').first().text());
 
-  for (let i = 0; i < cleaned.length; i += 1) {
-    const line = cleaned[i];
-    const next = cleaned[i + 1] || '';
+      if (!result) return null;
 
-    const isStipulation =
-      /match$/i.test(line) ||
-      /title match$/i.test(line) ||
-      /battle royal/i.test(line) ||
-      /tournament/i.test(line);
+      return {
+        type,
+        result,
+      };
+    })
+    .get()
+    .filter(Boolean);
+}
 
-    const isVersus = /\bvs\.?\b/i.test(line);
-    const nextIsVersus = /\bvs\.?\b/i.test(next);
+function extractAllWorkers($) {
+  const caption = $('div.Caption').filter((_, element) => /all workers/i.test($(element).text())).first();
+  if (!caption.length) return '';
 
-    if (isStipulation && nextIsVersus) {
-      matches.push(`${line} — ${next}`);
-      i += 1;
-      continue;
-    }
+  const namesContainer = caption.nextAll('div.Comments').first();
+  return cleanText(namesContainer.text());
+}
 
-    if (isVersus) {
-      matches.push(line);
-    }
-  }
+function extractAdditionalSections($) {
+  const sections = [];
 
-  return [...new Set(matches)].slice(0, 40);
+  $('div.Caption').each((_, element) => {
+    const title = cleanText($(element).text());
+    if (!title) return;
+
+    const body = cleanText($(element).next('div.Comments').text());
+    if (!body) return;
+
+    if (/all workers/i.test(title)) return;
+
+    sections.push({ title, body });
+  });
+
+  return sections;
 }
 
 async function scrapeEventDetail(url) {
@@ -151,30 +157,26 @@ async function scrapeEventDetail(url) {
     const response = await axios.get(url, REQUEST_CONFIG);
     const $ = cheerio.load(response.data);
 
-    const content = $('#GSL').length ? $('#GSL') : $('body');
-    const pageTitle = $('h1').first().text().replace(/\s+/g, ' ').trim() || $('title').first().text().trim();
-
-    const lines = content
-      .text()
-      .split('\n')
-      .map((line) => line.replace(/\s+/g, ' ').trim())
-      .filter(Boolean);
-
-    const metadata = extractMetadataFromLines(lines);
-    const matches = extractMatches(lines);
+    const pageTitle = cleanText($('h1').first().text()) || cleanText($('title').first().text());
+    const metadata = extractMetadata($);
+    const matches = extractMatches($);
+    const allWorkers = extractAllWorkers($);
+    const additionalSections = extractAdditionalSections($);
 
     return {
       pageTitle,
       metadata,
       matches,
-      rawLines: lines.slice(0, 220),
+      allWorkers,
+      additionalSections,
     };
   } catch (error) {
     return {
       pageTitle: '',
       metadata: {},
       matches: [],
-      rawLines: [],
+      allWorkers: '',
+      additionalSections: [],
       scrapeError: error.message,
     };
   }
