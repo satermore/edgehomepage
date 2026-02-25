@@ -4,13 +4,18 @@ const leftArrow = document.getElementById('carousel-left');
 const rightArrow = document.getElementById('carousel-right');
 let current = 0;
 
-const PROMOTION_LOGOS = {
-  WWE: 'logos/WWE_LOGO.png',
-  'All Elite Wrestling': 'logos/AEW_LOGO.webp',
-  'Lucha Libre AAA Worldwide': 'logos/AAA_LOGO.png',
-  'TNA Wrestling': 'logos/TNA_LOGO.png',
-  'Consejo Mundial de Lucha Libre': 'logos/CMLL_LOGO.png',
-  'New Japan Pro-Wrestling': 'logos/NJPW_LOGO.png',
+const EVENT_BRANDS = {
+  raw: { logo: 'logos/WWE_RAW_LOGO.svg', color: '#e10600', label: 'RAW' },
+  smackdown: { logo: 'logos/WWE_SMACKDOWN_LOGO.svg', color: '#1677ff', label: 'SmackDown' },
+  nxt: { logo: 'logos/WWE_NXT_LOGO.webp', color: '#f0c10a', label: 'NXT' },
+  dynamite: { logo: 'logos/AEW_DYNAMITE_LOGO.webp', color: '#2d313a', label: 'Dynamite' },
+  tna: { logo: 'logos/TNA_LOGO.png', color: '#d7121f', label: 'TNA' },
+  njpw: { logo: 'logos/NJPW_LOGO.png', color: '#d9ab1a', label: 'NJPW' },
+  aaa: { logo: 'logos/AAA_LOGO.png', color: '#00a650', label: 'AAA' },
+  ppv: { logo: 'logos/WWE_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE' },
+  aewPpv: { logo: 'logos/AEW_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE' },
+  cmll: { logo: 'logos/CMLL_LOGO.png', color: '#6d94ff', label: 'CMLL' },
+  default: { logo: 'assets/wrestling.png', color: '#6d94ff', label: 'Wrestling' },
 };
 
 function escapeHtml(value = '') {
@@ -22,9 +27,30 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#039;');
 }
 
-function getPromotionLogo(promotion = '') {
-  const matched = Object.keys(PROMOTION_LOGOS).find((key) => promotion.includes(key));
-  return matched ? PROMOTION_LOGOS[matched] : 'assets/wrestling.png';
+function getEventBrand(event = {}) {
+  const name = `${event.name || ''}`.toLowerCase();
+  const promotion = `${event.promotion || ''}`.toLowerCase();
+
+  if (name.includes('raw')) return EVENT_BRANDS.raw;
+  if (name.includes('smackdown')) return EVENT_BRANDS.smackdown;
+  if (name.includes('nxt')) return EVENT_BRANDS.nxt;
+  if (name.includes('dynamite')) return EVENT_BRANDS.dynamite;
+  if (name.includes('impact')) return EVENT_BRANDS.tna;
+  if (promotion.includes('new japan')) return EVENT_BRANDS.njpw;
+  if (promotion.includes('aaa')) return EVENT_BRANDS.aaa;
+  if (promotion.includes('consejo mundial')) return EVENT_BRANDS.cmll;
+
+  const tvKeywords = ['#', 'tag', 'live', 'taping', 'collision', 'rampage', 'dark'];
+  const looksLikeTV = tvKeywords.some((keyword) => name.includes(keyword));
+  if (!looksLikeTV) {
+    return promotion.includes('all elite') ? EVENT_BRANDS.aewPpv : EVENT_BRANDS.ppv;
+  }
+
+  if (promotion.includes('all elite')) return EVENT_BRANDS.dynamite;
+  if (promotion.includes('tna')) return EVENT_BRANDS.tna;
+  if (promotion.includes('wwe')) return EVENT_BRANDS.ppv;
+
+  return EVENT_BRANDS.default;
 }
 
 function updateActive() {
@@ -168,12 +194,14 @@ function renderMatches(matches) {
   if (!matches?.length) return '<p class="modal-empty">No se pudieron extraer combates automáticamente.</p>';
 
   return `<ul class="modal-match-list">${matches
-    .map((match) => {
+    .map((match, index) => {
       if (typeof match === 'string') {
-        return `<li><p>${escapeHtml(match)}</p></li>`;
+        return `<li><span class="match-index">#${index + 1}</span><p>${escapeHtml(match)}</p></li>`;
       }
 
-      return `<li><small>${escapeHtml(match.type || 'Match')}</small><p>${escapeHtml(match.result || '')}</p></li>`;
+      return `<li><span class="match-index">#${index + 1}</span><div><small>${escapeHtml(match.type || 'Match')}</small><p>${escapeHtml(
+        match.result || '',
+      )}</p></div></li>`;
     })
     .join('')}</ul>`;
 }
@@ -195,7 +223,7 @@ async function openEventDetail(eventId) {
   const event = await res.json();
 
   const eventLink = event.url && event.url.startsWith('http') ? event.url : '#';
-  const promotionLogo = getPromotionLogo(event.promotion || event.details?.metadata?.Promotion || '');
+  const eventBrand = getEventBrand(event);
   const metadata = {
     ...(event.details?.metadata || {}),
     ...(event.date && !event.details?.metadata?.Date ? { Date: event.date } : {}),
@@ -204,11 +232,11 @@ async function openEventDetail(eventId) {
   };
 
   openModal(`
-    <div class="modal-header">
-      <img class="promotion-logo" src="${promotionLogo}" alt="Logo de promoción" loading="lazy" />
+    <div class="modal-header" style="--event-color: ${eventBrand.color}">
+      <img class="promotion-logo" src="${eventBrand.logo}" alt="Logo de ${escapeHtml(eventBrand.label)}" loading="lazy" />
       <div>
         <h3 id="event-title">${escapeHtml(event.name)}</h3>
-        <p class="modal-sub">${escapeHtml(event.promotion || '')}</p>
+        <p class="modal-sub">${escapeHtml(event.promotion || '')} · <span class="brand-pill">${escapeHtml(eventBrand.label)}</span></p>
       </div>
     </div>
 
@@ -221,12 +249,6 @@ async function openEventDetail(eventId) {
       <h4>Cartelera / combates</h4>
       ${renderMatches(event.details?.matches)}
     </div>
-
-    ${
-      event.details?.allWorkers
-        ? `<div class="modal-section"><h4>All workers</h4><p>${escapeHtml(event.details.allWorkers)}</p></div>`
-        : ''
-    }
 
     ${renderExtraSections(event.details?.additionalSections)}
 
@@ -250,7 +272,14 @@ async function loadWrestlingWeek() {
         ? day.events
             .map(
               (event) =>
-                `<button class="event-chip" data-id="${event.id}"><strong>${escapeHtml(event.name)}</strong><span>${escapeHtml(event.promotion)}</span><small>${escapeHtml(event.location)}</small></button>`,
+                `<button class="event-chip" data-id="${event.id}" style="--event-color: ${getEventBrand(event).color}">
+                  <img class="event-logo" src="${getEventBrand(event).logo}" alt="${escapeHtml(getEventBrand(event).label)}" loading="lazy" />
+                  <div>
+                    <strong>${escapeHtml(event.name)}</strong>
+                    <span>${escapeHtml(event.promotion)}</span>
+                    <small>${escapeHtml(event.location)}</small>
+                  </div>
+                </button>`,
             )
             .join('')
         : '<p class="empty-events">Sin eventos</p>';
