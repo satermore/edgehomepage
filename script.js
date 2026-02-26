@@ -448,6 +448,33 @@ function parseEmbedDateInput(value = '') {
   return '';
 }
 
+function parseEmbedDateInput(value = '') {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+
+  if (/^\d{2}-\d{2}-\d{4}$/.test(raw)) return raw;
+
+  const ymd = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (ymd) {
+    const [, year, month, day] = ymd;
+    return `${month.padStart(2, '0')}-${day.padStart(2, '0')}-${year}`;
+  }
+
+  const slash = raw.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})$/);
+  if (slash) {
+    const [, first, second, yearRaw] = slash;
+    const year = yearRaw.length === 2 ? `20${yearRaw}` : yearRaw;
+    const firstNum = Number(first);
+    const secondNum = Number(second);
+    // Si el primer valor es > 12, asumimos dd/mm/yyyy; si no, mm/dd/yyyy.
+    const month = firstNum > 12 ? second : first;
+    const day = firstNum > 12 ? first : second;
+    return `${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}-${year}`;
+  }
+
+  return '';
+}
+
 function buildEmbedUrl(event = {}, options = {}) {
   const category = (options.category || getEmbedCategory(event) || '').trim().toLowerCase();
   const showDate = parseEmbedDateInput(options.showDate) || toEmbedDate(event.date);
