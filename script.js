@@ -183,7 +183,9 @@ function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
 
     const et = getEtNowParts();
     if (clockEtElement) {
-      clockEtElement.textContent = `ET ${String(et.hour).padStart(2, '0')}:${String(et.minute).padStart(2, '0')}:${String(et.second).padStart(2, '0')}`;
+      const etPeriod = et.hour >= 12 ? 'PM' : 'AM';
+      const etHour12 = et.hour % 12 || 12;
+      clockEtElement.textContent = `ET ${String(etHour12).padStart(2, '0')}:${String(et.minute).padStart(2, '0')}:${String(et.second).padStart(2, '0')} ${etPeriod}`;
     }
     dateElement.textContent = day.charAt(0).toUpperCase() + day.slice(1);
   }
