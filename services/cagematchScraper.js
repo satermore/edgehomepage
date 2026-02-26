@@ -43,6 +43,12 @@ function todayStartTimestamp() {
   return now.getTime();
 }
 
+function rollingStartTimestamp(daysBack = 7) {
+  const start = new Date(todayStartTimestamp());
+  start.setDate(start.getDate() - daysBack);
+  return start.getTime();
+}
+
 function normalizeLink(href, fallbackUrl) {
   if (!href) return fallbackUrl;
   if (href.startsWith('http')) return href;
@@ -71,7 +77,7 @@ function parseTableRows($, sourceUrl, promotion) {
     if (!date) return;
 
     const timestamp = new Date(`${date}T00:00:00Z`).getTime();
-    if (Number.isNaN(timestamp) || timestamp < todayStartTimestamp()) return;
+    if (Number.isNaN(timestamp) || timestamp < rollingStartTimestamp(7)) return;
 
     const detailAnchor = $(row).find('a[href*="id=1"][href*="nr="]').first();
     const nameAnchor = detailAnchor.length ? detailAnchor : $(row).find('a').first();
@@ -199,4 +205,5 @@ module.exports = {
   scrapePromotionEvents,
   scrapeEventDetail,
   todayStartTimestamp,
+  rollingStartTimestamp,
 };
