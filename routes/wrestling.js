@@ -8,6 +8,8 @@ const router = express.Router();
 const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
 
 const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const HISTORY_WINDOW_DAYS = 7;
+const FUTURE_WINDOW_DAYS = 14;
 
 function addDaysIso(isoDate, days) {
   const date = new Date(`${isoDate}T00:00:00Z`);
@@ -60,6 +62,10 @@ function getRollingDaysWindow(dayOffset = 0) {
   const startIso = addDaysIso(getLogicalTodayIso(), dayOffset);
   const endIso = addDaysIso(startIso, 6);
   return { startIso, endIso };
+}
+
+function clampDayOffset(offset) {
+  return Math.max(-HISTORY_WINDOW_DAYS, Math.min(FUTURE_WINDOW_DAYS, offset));
 }
 
 function parseFlexibleDate(value = '') {
@@ -118,9 +124,12 @@ async function resolveCalendarDate(event) {
 router.get('/week', async (req, res) => {
   try {
     const events = await readAndCleanEvents();
-    const dayOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
+    const requestedOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
+    const dayOffset = clampDayOffset(requestedOffset);
     const { startIso, endIso } = getRollingDaysWindow(dayOffset);
     const logicalTodayIso = getLogicalTodayIso();
+    const minAllowedIso = addDaysIso(logicalTodayIso, -HISTORY_WINDOW_DAYS);
+    const maxAllowedIso = addDaysIso(logicalTodayIso, FUTURE_WINDOW_DAYS);
 
     const days = Array.from({ length: 7 }).map((_, i) => {
       const isoDate = addDaysIso(startIso, i);
@@ -133,10 +142,7 @@ router.get('/week', async (req, res) => {
       };
     });
 
-    const candidateStartIso = addDaysIso(startIso, -10);
-    const candidateEndIso = addDaysIso(endIso, 10);
-
-    const candidateEvents = events.filter((event) => event.date >= candidateStartIso && event.date <= candidateEndIso);
+    const candidateEvents = events.filter((event) => event.date >= minAllowedIso && event.date <= maxAllowedIso);
 
     const normalizedEvents = await Promise.all(
       candidateEvents.map(async (event) => ({
