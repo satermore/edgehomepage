@@ -349,8 +349,14 @@ body {
   margin-bottom: 0.9rem;
 }
 
+
+.modal-heading-main {
+  flex: 1;
+  min-width: 0;
+}
+
 .watch-wrestling-btn {
-  margin-left: auto;
+  margin-left: 0.35rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
