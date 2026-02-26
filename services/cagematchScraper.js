@@ -175,6 +175,7 @@ function extractAdditionalSections($) {
     if (!body) return;
 
     if (/all workers/i.test(title)) return;
+    if (/latest\s+comments\s+of\s+the\s+cagematch\s+inmates/i.test(title)) return;
 
     sections.push({ title, body });
   });
