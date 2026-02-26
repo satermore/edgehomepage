@@ -1,0 +1,421 @@
+{
+  "generatedAt": "2026-02-26T05:35:06.852Z",
+  "sourceLastUpdate": "2026-02-26T05:03:13.424Z",
+  "window": {
+    "baseDate": "2026-02-26",
+    "startDate": "2026-02-19",
+    "endDate": "2026-03-12"
+  },
+  "events": [
+    {
+      "id": "3a6e7633-9912-4aa7-bce4-f55a18bba5a1",
+      "name": "WWE NXT Live",
+      "promotion": "WWE",
+      "date": "2026-02-20",
+      "location": "Dade City, Florida, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443867",
+      "timestamp": 1771545600000,
+      "calendarDate": "2026-02-20"
+    },
+    {
+      "id": "7865104e-2e0b-4e32-8e8c-4136b0e54384",
+      "name": "WWE Friday Night SmackDown #1383",
+      "promotion": "WWE",
+      "date": "2026-02-20",
+      "location": "Sunrise, Florida, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=439200",
+      "timestamp": 1771545600000,
+      "calendarDate": "2026-02-20"
+    },
+    {
+      "id": "5f5be421-7854-4528-95af-ef182934160a",
+      "name": "CMLL Viernes Espectacular",
+      "promotion": "Consejo Mundial de Lucha Libre",
+      "date": "2026-02-20",
+      "location": "Mexico City, Distrito Federal, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=447119",
+      "timestamp": 1771545600000,
+      "calendarDate": "2026-02-20"
+    },
+    {
+      "id": "9fe55264-eff4-45b2-93c4-60f914568956",
+      "name": "WWE NXT Live",
+      "promotion": "WWE",
+      "date": "2026-02-21",
+      "location": "Sanford, Florida, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443992",
+      "timestamp": 1771632000000,
+      "calendarDate": "2026-02-21"
+    },
+    {
+      "id": "a78f99bf-639e-4b47-86e0-0ce1b6452ae3",
+      "name": "AEW Collision #132",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-02-21",
+      "location": "Oceanside, California, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443578",
+      "timestamp": 1771632000000,
+      "calendarDate": "2026-02-21"
+    },
+    {
+      "id": "e4cfc916-de16-4e13-8773-f0faeb407343",
+      "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 2",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-21",
+      "location": "Kochi, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=439783",
+      "timestamp": 1771632000000,
+      "calendarDate": "2026-02-21"
+    },
+    {
+      "id": "d3cdf517-96d1-49ea-9a9b-c4ee2978b5ea",
+      "name": "CMLL Sabados De Coliseo",
+      "promotion": "Consejo Mundial de Lucha Libre",
+      "date": "2026-02-21",
+      "location": "Mexico City, Distrito Federal, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=447208",
+      "timestamp": 1771632000000,
+      "calendarDate": "2026-02-21"
+    },
+    {
+      "id": "59cc976e-0c87-435e-89fb-523fada378c7",
+      "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 3",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-22",
+      "location": "Osaka, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=439784",
+      "timestamp": 1771718400000,
+      "calendarDate": "2026-02-22"
+    },
+    {
+      "id": "1f4f9ae6-0142-44c9-a45c-76b9a04914ea",
+      "name": "CMLL Domingo Familiar",
+      "promotion": "Consejo Mundial de Lucha Libre",
+      "date": "2026-02-22",
+      "location": "Mexico City, Distrito Federal, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=447262",
+      "timestamp": 1771718400000,
+      "calendarDate": "2026-02-22"
+    },
+    {
+      "id": "3ab6d3a5-99d8-42e6-a13d-67cd974fe1dc",
+      "name": "WWE Monday Night RAW #1709 - A Tribute To AJ Styles",
+      "promotion": "WWE",
+      "date": "2026-02-23",
+      "location": "Atlanta, Georgia, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=439201",
+      "timestamp": 1771804800000,
+      "calendarDate": "2026-02-23"
+    },
+    {
+      "id": "7e349d8b-cfa5-47d6-86fc-66b3424165b7",
+      "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 4",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-23",
+      "location": "Nagoya, Aichi, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=439785",
+      "timestamp": 1771804800000,
+      "calendarDate": "2026-02-23"
+    },
+    {
+      "id": "31c7a58b-a89e-4c06-82f6-6c2ed5b5330e",
+      "name": "CMLL Lunes Clasico",
+      "promotion": "Consejo Mundial de Lucha Libre",
+      "date": "2026-02-23",
+      "location": "Heroica Puebla de Zaragoza, Puebla, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=447347",
+      "timestamp": 1771804800000,
+      "calendarDate": "2026-02-23"
+    },
+    {
+      "id": "26d7f85d-eb36-4eda-8c0f-459f0323c149",
+      "name": "WWE NXT #826",
+      "promotion": "WWE",
+      "date": "2026-02-24",
+      "location": "Orlando, Florida, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=441904",
+      "timestamp": 1771891200000,
+      "calendarDate": "2026-02-24"
+    },
+    {
+      "id": "28985d5c-d434-4e6c-ab83-720e8e4261e0",
+      "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 5",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-24",
+      "location": "Osaka, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=439786",
+      "timestamp": 1771891200000,
+      "calendarDate": "2026-02-24"
+    },
+    {
+      "id": "783ec6b7-c7f7-4c01-a5a1-29183e970cb6",
+      "name": "CMLL Martes Populares",
+      "promotion": "Consejo Mundial de Lucha Libre",
+      "date": "2026-02-24",
+      "location": "Mexico City, Distrito Federal, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=447415",
+      "timestamp": 1771891200000,
+      "calendarDate": "2026-02-24"
+    },
+    {
+      "id": "d5188945-a566-4f3b-9672-093b97222b6f",
+      "name": "AEW Dynamite #334",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-02-25",
+      "location": "Denver, Colorado, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443579",
+      "timestamp": 1771977600000,
+      "calendarDate": "2026-02-25"
+    },
+    {
+      "id": "13e4f8d0-32cf-42e2-81f2-226f6a0b172b",
+      "name": "AEW Collision #133",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-02-25",
+      "location": "Denver, Colorado, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443580",
+      "timestamp": 1771977600000,
+      "calendarDate": "2026-02-25"
+    },
+    {
+      "id": "ab182819-c280-4ff4-b92f-9d4755b415ac",
+      "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 6",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-26",
+      "location": "Tokyo, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=439787",
+      "timestamp": 1772064000000,
+      "calendarDate": "2026-02-26"
+    },
+    {
+      "id": "22b1df3c-c2f4-458a-9f72-3c70f680be07",
+      "name": "WWE Friday Night SmackDown #1384",
+      "promotion": "WWE",
+      "date": "2026-02-27",
+      "location": "Louisville, Kentucky, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=439202",
+      "timestamp": 1772150400000,
+      "calendarDate": "2026-02-27"
+    },
+    {
+      "id": "3b847a08-34c5-47e0-8453-6873a22da5f1",
+      "name": "NJPW The New Beginning USA 2026",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-27",
+      "location": "Trenton, New Jersey, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=436956",
+      "timestamp": 1772150400000,
+      "calendarDate": "2026-02-27"
+    },
+    {
+      "id": "eec34855-87e4-42e1-a338-96bd93d55d76",
+      "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 7",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-02-27",
+      "location": "Tokyo, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=439788",
+      "timestamp": 1772150400000,
+      "calendarDate": "2026-02-27"
+    },
+    {
+      "id": "5d51702c-85f4-427d-9cfe-8691cd6ac7cd",
+      "name": "WWE Elimination Chamber 2026",
+      "promotion": "WWE",
+      "date": "2026-02-28",
+      "location": "Chicago, Illinois, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=437043",
+      "timestamp": 1772236800000,
+      "calendarDate": "2026-02-28"
+    },
+    {
+      "id": "fd878766-b3b3-49e4-8c00-7b59fe99959d",
+      "name": "AAA on FOX #7",
+      "promotion": "Lucha Libre AAA Worldwide",
+      "date": "2026-02-28",
+      "location": "Monterrey, Nuevo Leon, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=445936",
+      "timestamp": 1772236800000,
+      "calendarDate": "2026-02-28"
+    },
+    {
+      "id": "887c6a06-c959-4f5d-891f-63f121a775d2",
+      "name": "AAA on FOX #8",
+      "promotion": "Lucha Libre AAA Worldwide",
+      "date": "2026-02-28",
+      "location": "Monterrey, Nuevo Leon, Mexiko",
+      "url": "https://www.cagematch.net/?id=1&nr=447344",
+      "timestamp": 1772236800000,
+      "calendarDate": "2026-02-28"
+    },
+    {
+      "id": "3c2422e2-651a-4a1e-88a0-7a34ecf7d752",
+      "name": "WWE Monday Night RAW #1710",
+      "promotion": "WWE",
+      "date": "2026-03-02",
+      "location": "Indianapolis, Indiana, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=439204",
+      "timestamp": 1772409600000,
+      "calendarDate": "2026-03-02"
+    },
+    {
+      "id": "3a4e2276-6279-4f7b-a7b6-962c4cf2d72a",
+      "name": "WWE NXT #827",
+      "promotion": "WWE",
+      "date": "2026-03-03",
+      "location": "Orlando, Florida, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=447423",
+      "timestamp": 1772496000000,
+      "calendarDate": "2026-03-03"
+    },
+    {
+      "id": "dff506a7-4162-481d-9984-a0d22580bd4f",
+      "name": "AEW Dynamite #335",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-03-04",
+      "location": "El Paso, Texas, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=444108",
+      "timestamp": 1772582400000,
+      "calendarDate": "2026-03-04"
+    },
+    {
+      "id": "4995fa4a-839c-4b2c-99e1-9398fd18d11a",
+      "name": "NJPW New Japan Cup 2026 - Tag 1",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-03-04",
+      "location": "Tokyo, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=443011",
+      "timestamp": 1772582400000,
+      "calendarDate": "2026-03-04"
+    },
+    {
+      "id": "702942c0-aa14-46b7-9e31-6c1904d33787",
+      "name": "NJPW New Japan Cup 2026 - Tag 2",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-03-05",
+      "location": "Tokyo, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=443012",
+      "timestamp": 1772668800000,
+      "calendarDate": "2026-03-05"
+    },
+    {
+      "id": "052a132c-d1d4-4eb4-a630-3ecf019ab4fe",
+      "name": "TNA Thursday Night iMPACT #1129",
+      "promotion": "TNA Wrestling",
+      "date": "2026-03-05",
+      "location": "College Park, Georgia, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=444356",
+      "timestamp": 1772668800000,
+      "calendarDate": "2026-03-05"
+    },
+    {
+      "id": "0f54972a-c309-4339-b708-6cc134ba72fc",
+      "name": "WWE Friday Night SmackDown #1385",
+      "promotion": "WWE",
+      "date": "2026-03-06",
+      "location": "Portland, Oregon, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443878",
+      "timestamp": 1772755200000,
+      "calendarDate": "2026-03-06"
+    },
+    {
+      "id": "2dd58b53-d2ab-4cca-b5e0-fd3074d19ec3",
+      "name": "NJPW 54th Anniversary Event & New Japan Cup 2026 - Tag 3",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-03-06",
+      "location": "Tokyo, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=443013",
+      "timestamp": 1772755200000,
+      "calendarDate": "2026-03-06"
+    },
+    {
+      "id": "ce062a07-5498-4b26-94ff-c9962ae082fb",
+      "name": "TNA Thursday Night iMPACT Taping",
+      "promotion": "TNA Wrestling",
+      "date": "2026-03-06",
+      "location": "College Park, Georgia, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=444358",
+      "timestamp": 1772755200000,
+      "calendarDate": "2026-03-06"
+    },
+    {
+      "id": "70aa8dca-88db-4553-a2f3-6e37d702b482",
+      "name": "WWE NXT Vengeance Day 2026",
+      "promotion": "WWE",
+      "date": "2026-03-07",
+      "location": "Orlando, Florida, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=446989",
+      "timestamp": 1772841600000,
+      "calendarDate": "2026-03-07"
+    },
+    {
+      "id": "6a32a56e-e589-439c-9d79-d5a4edc85a8e",
+      "name": "AEW Collision #134",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-03-07",
+      "location": "Tucson, Arizona, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=444109",
+      "timestamp": 1772841600000,
+      "calendarDate": "2026-03-07"
+    },
+    {
+      "id": "85529300-6106-4927-8c08-7ce6751652f6",
+      "name": "NJPW New Japan Cup 2026 - Tag 4",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-03-08",
+      "location": "Amagasaki, Hyogo, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=443014",
+      "timestamp": 1772928000000,
+      "calendarDate": "2026-03-08"
+    },
+    {
+      "id": "1e19d65c-7206-4c8a-8b80-82e89970e319",
+      "name": "WWE Monday Night RAW #1711",
+      "promotion": "WWE",
+      "date": "2026-03-09",
+      "location": "Seattle, Washington, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=443879",
+      "timestamp": 1773014400000,
+      "calendarDate": "2026-03-09"
+    },
+    {
+      "id": "83c05157-8c84-4188-a58d-d0ee82561150",
+      "name": "NJPW New Japan Cup 2026 - Tag 5",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-03-10",
+      "location": "Okayama, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=443015",
+      "timestamp": 1773100800000,
+      "calendarDate": "2026-03-10"
+    },
+    {
+      "id": "41bafeea-3c86-4d37-9aff-b13dd638e5bd",
+      "name": "AEW Dynamite #336",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-03-11",
+      "location": "San Jose, California, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=445333",
+      "timestamp": 1773187200000,
+      "calendarDate": "2026-03-11"
+    },
+    {
+      "id": "ed4e660c-3ff2-43c6-8e6f-432e7c2a5ac2",
+      "name": "AEW Collision #135",
+      "promotion": "All Elite Wrestling",
+      "date": "2026-03-11",
+      "location": "San Jose, California, USA",
+      "url": "https://www.cagematch.net/?id=1&nr=445334",
+      "timestamp": 1773187200000,
+      "calendarDate": "2026-03-11"
+    },
+    {
+      "id": "1dc46f9f-f46c-47e1-aef8-339e8d915870",
+      "name": "NJPW New Japan Cup 2026 - Tag 6",
+      "promotion": "New Japan Pro-Wrestling",
+      "date": "2026-03-12",
+      "location": "Takamatsu, Kagawa, Japan",
+      "url": "https://www.cagematch.net/?id=1&nr=443016",
+      "timestamp": 1773273600000,
+      "calendarDate": "2026-03-12"
+    }
+  ]
+}
