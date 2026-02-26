@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,6 +17,7 @@
 
     <section class="datetime-panel">
         <div id="clock" class="clock">Cargando hora...</div>
+        <div id="clock-et" class="clock-et">ET --:--:--</div>
         <div id="date" class="date">Cargando fecha...</div>
     </section>
 </div>
@@ -38,8 +42,11 @@
 <section class="grid-panels">
     <section class="card-panel">
         <div class="panel-header">
-            <h2>Wrestling de esta semana</h2>
-            <small id="wrestling-status">Actualizando eventos...</small>
+            <h2 id="wrestling-title">Wrestling de esta semana</h2>
+            <div class="wrestling-nav">
+                <button id="wrestling-prev-week" class="mini-nav" aria-label="Semana anterior">❮</button>
+                <button id="wrestling-next-week" class="mini-nav" aria-label="Semana siguiente">❯</button>
+            </div>
         </div>
         <section id="wrestling-week" class="wrestling-week"></section>
     </section>
@@ -54,7 +61,7 @@
 </section>
 
 <div id="event-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="event-title">
-    <div class="modal-content">
+    <div id="event-modal-content" class="modal-content">
         <button id="close-modal" class="close-modal" aria-label="Cerrar modal">✕</button>
         <div id="modal-body"></div>
     </div>
