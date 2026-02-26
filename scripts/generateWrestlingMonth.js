@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+const { scrapeEventDetail } = require('../services/cagematchScraper');
 
 const SOURCE_FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
 const TARGET_FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEventsMonth.json');
@@ -21,6 +22,26 @@ function getIsoFromDate(value) {
   return parsed.toISOString().slice(0, 10);
 }
 
+function parseFlexibleDate(value = '') {
+  const raw = String(value || '').trim();
+  const match = raw.match(/(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})/);
+  if (match) {
+    const [, dd, mm, yy] = match;
+    const year = yy.length === 2 ? `20${yy}` : yy;
+    return `${year}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+  }
+
+  const parsed = new Date(raw);
+  if (!Number.isNaN(parsed.getTime())) {
+    const year = parsed.getFullYear();
+    const month = `${parsed.getMonth() + 1}`.padStart(2, '0');
+    const day = `${parsed.getDate()}`.padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  return '';
+}
+
 function dedupeEvents(events = []) {
   const seen = new Set();
 
@@ -30,6 +51,25 @@ function dedupeEvents(events = []) {
     seen.add(key);
     return true;
   });
+}
+
+async function resolveCalendarDate(event) {
+  try {
+    const details = await scrapeEventDetail(event.url);
+    const metadata = details?.metadata || {};
+    const entries = Object.entries(metadata);
+
+    const broadcastType = String(entries.find(([key]) => /broadcast\s*type/i.test(key))?.[1] || '').toLowerCase();
+    const broadcastDateRaw = entries.find(([key]) => /broadcast\s*date|air\s*date|tv\s*date/i.test(key))?.[1] || '';
+    const broadcastDate = parseFlexibleDate(broadcastDateRaw);
+
+    if (/\blive\b/i.test(broadcastType)) return event.date;
+    if (/\btaped\b/i.test(broadcastType) && broadcastDate) return broadcastDate;
+  } catch {
+    // fallback al date original si no se pueden resolver detalles
+  }
+
+  return event.date;
 }
 
 async function generateWrestlingMonth() {
@@ -48,6 +88,15 @@ async function generateWrestlingMonth() {
     }),
   ).sort((a, b) => Number(a?.timestamp || 0) - Number(b?.timestamp || 0));
 
+  const eventsWithCalendarDate = [];
+  for (const event of scopedEvents) {
+    const calendarDate = await resolveCalendarDate(event);
+    eventsWithCalendarDate.push({
+      ...event,
+      calendarDate,
+    });
+  }
+
   const payload = {
     generatedAt: new Date().toISOString(),
     sourceLastUpdate: parsed.lastUpdate || '',
@@ -56,7 +105,7 @@ async function generateWrestlingMonth() {
       startDate: minIso,
       endDate: maxIso,
     },
-    events: scopedEvents,
+    events: eventsWithCalendarDate,
   };
 
   await fs.writeFile(TARGET_FILE_PATH, JSON.stringify(payload, null, 2), 'utf8');

@@ -90,8 +90,9 @@ router.get('/week', async (req, res) => {
     });
 
     events.forEach((event) => {
-      if (event.date < startIso || event.date > endIso) return;
-      const target = days.find((day) => day.date === event.date);
+      const calendarDate = event.calendarDate || event.date;
+      if (calendarDate < startIso || calendarDate > endIso) return;
+      const target = days.find((day) => day.date === calendarDate);
       if (!target) return;
       target.events.push({
         id: event.id,
