@@ -30,9 +30,14 @@ async function requestHtml(url) {
 
     if (response.status >= 300 && response.status < 400) {
       const nextUrl = resolveRedirectUrl(currentUrl, response.headers?.location || '');
-      if (!nextUrl) throw new Error(`Redirección sin destino (${response.status})`);
-      currentUrl = nextUrl;
-      continue;
+      if (nextUrl) {
+        currentUrl = nextUrl;
+        continue;
+      }
+
+      // Algunos edge/CDN devuelven 307 sin header Location pero con HTML útil.
+      // En ese caso devolvemos la respuesta para que el parser intente extraer datos.
+      return response;
     }
 
     return response;
