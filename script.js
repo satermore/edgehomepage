@@ -116,15 +116,12 @@ function getEventSchedule(event = {}) {
   const nowMinutes = nowEt.hour * 60 + nowEt.minute;
   const live = nowEt.isoDate === event.date && nowMinutes >= startMinutes && nowMinutes < startMinutes + 240;
 
-  const etTime = new Date(Date.UTC(2000, 0, 1, schedule.hour, schedule.minute || 0, 0)).toLocaleTimeString('en-US', {
-    timeZone: 'America/New_York',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  });
+  const displayHour = schedule.hour % 12 || 12;
+  const period = schedule.hour >= 12 ? 'PM' : 'AM';
+  const displayMinute = String(schedule.minute || 0).padStart(2, '0');
 
   return {
-    label: `${etTime} ET`,
+    label: `${displayHour}:${displayMinute} ${period} ET`,
     live,
   };
 }

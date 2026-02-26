@@ -119,15 +119,16 @@ async function resolveCalendarDate(event) {
   const metadata = details?.metadata || {};
   const entries = Object.entries(metadata);
 
-  const broadcastType = entries.find(([key]) => /broadcast\s*type/i.test(key))?.[1] || '';
+  const broadcastType = String(entries.find(([key]) => /broadcast\s*type/i.test(key))?.[1] || '').toLowerCase();
   const broadcastDateRaw = entries.find(([key]) => /broadcast\s*date|air\s*date|tv\s*date/i.test(key))?.[1] || '';
-  const looksTaped = /taped/i.test(String(broadcastType)) || /\btaped\b/i.test(Object.values(metadata).join(' '));
-
-  if (!looksTaped) return event.date;
-
   const broadcastDate = parseFlexibleDate(broadcastDateRaw);
-  return broadcastDate || event.date;
+
+  if (/\blive\b/i.test(broadcastType)) return event.date;
+  if (/\btaped\b/i.test(broadcastType) && broadcastDate) return broadcastDate;
+
+  return event.date;
 }
+
 
 router.get('/week', async (req, res) => {
   try {
