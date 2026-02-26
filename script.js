@@ -382,8 +382,17 @@ function getEmbedCategory(event = {}) {
   const name = `${event.name || ''}`.toLowerCase();
   const promotion = `${event.promotion || ''}`.toLowerCase();
 
-  // DailyWrestling suele indexar por categoría general (promoción),
-  // y espera el valor invertido en minúsculas sin espacios.
+  // DailyWrestling usa category tags invertidos.
+  // Para WWE/AEW/TNA suelen funcionar mejor categorías por show.
+  if (name.includes('smackdown')) return 'nwodkcams';
+  if (name.includes('raw')) return 'war';
+  if (name.includes('nxt')) return 'txn';
+  if (name.includes('dynamite')) return 'etimanyd';
+  if (name.includes('collision')) return 'noisilloc';
+  if (name.includes('rampage')) return 'egapmar';
+  if (name.includes('impact')) return 'tcapmi';
+  if (name.includes('new beginning')) return 'gninnigebwen';
+
   if (promotion.includes('new japan') || name.includes('njpw')) return 'wpjn';
   if (promotion.includes('all elite') || name.includes('aew')) return 'wea';
   if (promotion.includes('world wrestling entertainment') || promotion === 'wwe' || name.includes('wwe')) return 'eww';
@@ -394,7 +403,7 @@ function getEmbedCategory(event = {}) {
   const normalizedPromotion = toCompactSlug(event.promotion || '');
   const normalizedName = toCompactSlug(event.name || '');
 
-  return reverseString(normalizedPromotion || normalizedName) || 'eww';
+  return reverseString(normalizedName || normalizedPromotion) || 'eww';
 }
 
 function toEmbedDate(isoDate = '') {
@@ -403,9 +412,36 @@ function toEmbedDate(isoDate = '') {
   return `${month.padStart(2, '0')}-${day.padStart(2, '0')}-${year}`;
 }
 
+function parseEmbedDateInput(value = '') {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+
+  if (/^\d{2}-\d{2}-\d{4}$/.test(raw)) return raw;
+
+  const ymd = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (ymd) {
+    const [, year, month, day] = ymd;
+    return `${month.padStart(2, '0')}-${day.padStart(2, '0')}-${year}`;
+  }
+
+  const slash = raw.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})$/);
+  if (slash) {
+    const [, first, second, yearRaw] = slash;
+    const year = yearRaw.length === 2 ? `20${yearRaw}` : yearRaw;
+    const firstNum = Number(first);
+    const secondNum = Number(second);
+    // Si el primer valor es > 12, asumimos dd/mm/yyyy; si no, mm/dd/yyyy.
+    const month = firstNum > 12 ? second : first;
+    const day = firstNum > 12 ? first : second;
+    return `${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}-${year}`;
+  }
+
+  return '';
+}
+
 function buildEmbedUrl(event = {}, options = {}) {
-  const category = getEmbedCategory(event);
-  const showDate = toEmbedDate(event.date);
+  const category = (options.category || getEmbedCategory(event) || '').trim().toLowerCase();
+  const showDate = parseEmbedDateInput(options.showDate) || toEmbedDate(event.date);
   if (!category || !showDate) return '';
 
   const postIndex = Math.max(1, Number(options.postIndex || 1));
@@ -415,15 +451,44 @@ function buildEmbedUrl(event = {}, options = {}) {
   return `https://dailywrestling.cc/embed/${category}/${showDate}/select-post-${postIndex}/${sourceIndex}/${buttonIndex}`;
 }
 
+function buildEmbedLookupUrl(event = {}, options = {}) {
+  const category = (options.category || getEmbedCategory(event) || '').trim().toLowerCase();
+  const showDate = parseEmbedDateInput(options.showDate) || toEmbedDate(event.date);
+  if (!category || !showDate) return '';
+
+  return `https://dailywrestling.cc/embed/${category}/${showDate}`;
+}
+
+function resolveEventEmbedDate(event = {}) {
+  const metadata = event.details?.metadata || {};
+  const broadcastDate = metadataValue(metadata, /broadcast\s*date|air\s*date|tv\s*date/i);
+  return parseEmbedDateInput(broadcastDate) || toEmbedDate(event.date);
+}
+
 function renderEmbedControls(event) {
   const postIndexes = [1, 2, 3];
   const sourceIndexes = [1, 2, 3, 4];
   const buttonIndexes = [1, 2, 3, 4];
+  const initialDate = resolveEventEmbedDate(event);
+  const initialCategory = getEmbedCategory(event);
+  const initialLookupUrl = buildEmbedLookupUrl(event, { category: initialCategory, showDate: initialDate });
+  const initialEmbedUrl = buildEmbedUrl(event, { category: initialCategory, showDate: initialDate });
 
   return `
     <div class="modal-section">
       <h4>Embed API (dailywrestling.cc)</h4>
       <p class="embed-hint">Selecciona Post/Fuente/Botón para generar el enlace de reproducción.</p>
+
+      <div class="embed-pickers">
+        <div>
+          <small>Categoría (invertida)</small>
+          <input type="text" id="embed-category-input" class="embed-input" value="${escapeHtml(initialCategory)}" />
+        </div>
+        <div>
+          <small>Fecha (mm-dd-yyyy)</small>
+          <input type="text" id="embed-date-input" class="embed-input" value="${escapeHtml(initialDate)}" />
+        </div>
+      </div>
 
       <div class="embed-pickers">
         <div>
@@ -448,9 +513,11 @@ function renderEmbedControls(event) {
         </div>
       </div>
 
-      <code class="embed-url" id="embed-url-preview">${escapeHtml(buildEmbedUrl(event))}</code>
+      <code class="embed-url" id="embed-lookup-preview">${escapeHtml(initialLookupUrl)}</code>
+      <code class="embed-url" id="embed-url-preview">${escapeHtml(initialEmbedUrl)}</code>
       <div class="embed-actions">
-        <a class="modal-link embed-open" id="embed-open-link" href="${buildEmbedUrl(event)}" target="_blank" rel="noopener noreferrer">Abrir embed</a>
+        <a class="modal-link embed-open" id="embed-lookup-link" href="${initialLookupUrl}" target="_blank" rel="noopener noreferrer">1) Abrir búsqueda</a>
+        <a class="modal-link embed-open" id="embed-open-link" href="${initialEmbedUrl}" target="_blank" rel="noopener noreferrer">2) Abrir embed</a>
         <button type="button" class="embed-copy" id="embed-copy-link">Copiar URL</button>
       </div>
     </div>
@@ -458,15 +525,28 @@ function renderEmbedControls(event) {
 }
 
 function setupEmbedControls(event) {
+  const lookupPreview = document.getElementById('embed-lookup-preview');
   const preview = document.getElementById('embed-url-preview');
+  const lookupLink = document.getElementById('embed-lookup-link');
   const openLink = document.getElementById('embed-open-link');
   const copyButton = document.getElementById('embed-copy-link');
-  if (!preview || !openLink || !copyButton) return;
+  const categoryInput = document.getElementById('embed-category-input');
+  const dateInput = document.getElementById('embed-date-input');
+  if (!preview || !openLink || !copyButton || !lookupPreview || !lookupLink) return;
 
-  const state = { postIndex: 1, sourceIndex: 1, buttonIndex: 1 };
+  const state = {
+    postIndex: 1,
+    sourceIndex: 1,
+    buttonIndex: 1,
+    category: categoryInput?.value || getEmbedCategory(event),
+    showDate: dateInput?.value || resolveEventEmbedDate(event),
+  };
 
   function updateUrl() {
+    const lookupUrl = buildEmbedLookupUrl(event, state);
     const nextUrl = buildEmbedUrl(event, state);
+    lookupPreview.textContent = lookupUrl;
+    lookupLink.href = lookupUrl;
     preview.textContent = nextUrl;
     openLink.href = nextUrl;
   }
@@ -486,6 +566,16 @@ function setupEmbedControls(event) {
   bindSelector('[data-embed-post]', 'embedPost', 'postIndex');
   bindSelector('[data-embed-source]', 'embedSource', 'sourceIndex');
   bindSelector('[data-embed-button]', 'embedButton', 'buttonIndex');
+
+  categoryInput?.addEventListener('input', () => {
+    state.category = categoryInput.value;
+    updateUrl();
+  });
+
+  dateInput?.addEventListener('input', () => {
+    state.showDate = dateInput.value;
+    updateUrl();
+  });
 
   copyButton.addEventListener('click', async () => {
     try {
