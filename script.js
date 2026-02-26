@@ -365,6 +365,143 @@ function renderExtraSections(sections) {
     .join('');
 }
 
+function toCompactSlug(value = '') {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '')
+    .trim();
+}
+
+function reverseString(value = '') {
+  return String(value || '').split('').reverse().join('');
+}
+
+function getEmbedCategory(event = {}) {
+  const name = `${event.name || ''}`.toLowerCase();
+  const promotion = `${event.promotion || ''}`.toLowerCase();
+
+  if (name.includes('smackdown')) return 'nwodkcams';
+  if (name.includes('raw')) return 'war';
+  if (name.includes('nxt')) return 'txn';
+  if (name.includes('dynamite')) return 'etimanyd';
+  if (name.includes('collision')) return 'noisilloc';
+  if (name.includes('rampage')) return 'egapmar';
+  if (name.includes('impact')) return 'tcapmi';
+  if (promotion.includes('new japan')) return 'wpjn';
+  if (promotion.includes('all elite')) return 'wea';
+  if (promotion.includes('wwe')) return 'eww';
+
+  const normalizedPromotion = toCompactSlug(event.promotion || event.name || '');
+  return reverseString(normalizedPromotion) || 'eww';
+}
+
+function toEmbedDate(isoDate = '') {
+  const [year, month, day] = String(isoDate).split('-');
+  if (!year || !month || !day) return '';
+  return `${month.padStart(2, '0')}-${day.padStart(2, '0')}-${year}`;
+}
+
+function buildEmbedUrl(event = {}, options = {}) {
+  const category = getEmbedCategory(event);
+  const showDate = toEmbedDate(event.date);
+  if (!category || !showDate) return '';
+
+  const postIndex = Math.max(1, Number(options.postIndex || 1));
+  const sourceIndex = Math.max(1, Number(options.sourceIndex || 1));
+  const buttonIndex = Math.max(1, Number(options.buttonIndex || 1));
+
+  return `https://dailywrestling.cc/embed/${category}/${showDate}/select-post-${postIndex}/${sourceIndex}/${buttonIndex}`;
+}
+
+function renderEmbedControls(event) {
+  const postIndexes = [1, 2, 3];
+  const sourceIndexes = [1, 2, 3, 4];
+  const buttonIndexes = [1, 2, 3, 4];
+
+  return `
+    <div class="modal-section">
+      <h4>Embed API (dailywrestling.cc)</h4>
+      <p class="embed-hint">Selecciona Post/Fuente/Botón para generar el enlace de reproducción.</p>
+
+      <div class="embed-pickers">
+        <div>
+          <small>Post</small>
+          <div class="embed-button-row" data-embed-group="post">${postIndexes
+            .map((value) => `<button type="button" class="embed-select is-active" data-embed-post="${value}">#${value}</button>`)
+            .join('')}</div>
+        </div>
+
+        <div>
+          <small>Fuente</small>
+          <div class="embed-button-row" data-embed-group="source">${sourceIndexes
+            .map((value) => `<button type="button" class="embed-select${value === 1 ? ' is-active' : ''}" data-embed-source="${value}">S${value}</button>`)
+            .join('')}</div>
+        </div>
+
+        <div>
+          <small>Botón</small>
+          <div class="embed-button-row" data-embed-group="button">${buttonIndexes
+            .map((value) => `<button type="button" class="embed-select${value === 1 ? ' is-active' : ''}" data-embed-button="${value}">B${value}</button>`)
+            .join('')}</div>
+        </div>
+      </div>
+
+      <code class="embed-url" id="embed-url-preview">${escapeHtml(buildEmbedUrl(event))}</code>
+      <div class="embed-actions">
+        <a class="modal-link embed-open" id="embed-open-link" href="${buildEmbedUrl(event)}" target="_blank" rel="noopener noreferrer">Abrir embed</a>
+        <button type="button" class="embed-copy" id="embed-copy-link">Copiar URL</button>
+      </div>
+    </div>
+  `;
+}
+
+function setupEmbedControls(event) {
+  const preview = document.getElementById('embed-url-preview');
+  const openLink = document.getElementById('embed-open-link');
+  const copyButton = document.getElementById('embed-copy-link');
+  if (!preview || !openLink || !copyButton) return;
+
+  const state = { postIndex: 1, sourceIndex: 1, buttonIndex: 1 };
+
+  function updateUrl() {
+    const nextUrl = buildEmbedUrl(event, state);
+    preview.textContent = nextUrl;
+    openLink.href = nextUrl;
+  }
+
+  function bindSelector(selector, datasetKey, stateKey) {
+    document.querySelectorAll(selector).forEach((button) => {
+      button.addEventListener('click', () => {
+        const value = Number(button.dataset[datasetKey] || 1);
+        state[stateKey] = value;
+        document.querySelectorAll(selector).forEach((item) => item.classList.remove('is-active'));
+        button.classList.add('is-active');
+        updateUrl();
+      });
+    });
+  }
+
+  bindSelector('[data-embed-post]', 'embedPost', 'postIndex');
+  bindSelector('[data-embed-source]', 'embedSource', 'sourceIndex');
+  bindSelector('[data-embed-button]', 'embedButton', 'buttonIndex');
+
+  copyButton.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(preview.textContent || '');
+      copyButton.textContent = '¡Copiado!';
+      setTimeout(() => {
+        copyButton.textContent = 'Copiar URL';
+      }, 1500);
+    } catch {
+      copyButton.textContent = 'No se pudo copiar';
+    }
+  });
+
+  updateUrl();
+}
+
 async function openEventDetail(eventId) {
   const res = await fetch(`/api/wrestling/event/${eventId}`);
   if (!res.ok) return;
@@ -398,10 +535,14 @@ async function openEventDetail(eventId) {
       ${renderMatches(event.details?.matches)}
     </div>
 
+    ${renderEmbedControls(event)}
+
     ${renderExtraSections(event.details?.additionalSections)}
 
     <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento completo en Cagematch</a>
   `, eventBrand.theme);
+
+  setupEmbedControls(event);
 }
 
 async function loadWrestlingWeek(offset = wrestlingDayOffset) {
