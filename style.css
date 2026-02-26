@@ -194,6 +194,11 @@ body {
   box-shadow: inset 0 0 0 1px rgba(225, 6, 0, 0.35);
 }
 
+.day-column.is-today {
+  border-color: #e10600;
+  box-shadow: inset 0 0 0 1px rgba(225, 6, 0, 0.35);
+}
+
 .day-column header {
   margin-bottom: 0.45rem;
 }
