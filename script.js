@@ -382,19 +382,19 @@ function getEmbedCategory(event = {}) {
   const name = `${event.name || ''}`.toLowerCase();
   const promotion = `${event.promotion || ''}`.toLowerCase();
 
-  if (name.includes('smackdown')) return 'nwodkcams';
-  if (name.includes('raw')) return 'war';
-  if (name.includes('nxt')) return 'txn';
-  if (name.includes('dynamite')) return 'etimanyd';
-  if (name.includes('collision')) return 'noisilloc';
-  if (name.includes('rampage')) return 'egapmar';
-  if (name.includes('impact')) return 'tcapmi';
-  if (promotion.includes('new japan')) return 'wpjn';
-  if (promotion.includes('all elite')) return 'wea';
-  if (promotion.includes('wwe')) return 'eww';
+  // DailyWrestling suele indexar por categoría general (promoción),
+  // y espera el valor invertido en minúsculas sin espacios.
+  if (promotion.includes('new japan') || name.includes('njpw')) return 'wpjn';
+  if (promotion.includes('all elite') || name.includes('aew')) return 'wea';
+  if (promotion.includes('world wrestling entertainment') || promotion === 'wwe' || name.includes('wwe')) return 'eww';
+  if (promotion.includes('total nonstop action') || promotion.includes('tna') || name.includes('tna')) return 'ant';
+  if (promotion.includes('consejo mundial')) return 'llmc';
+  if (promotion.includes('aaa')) return 'aaa';
 
-  const normalizedPromotion = toCompactSlug(event.promotion || event.name || '');
-  return reverseString(normalizedPromotion) || 'eww';
+  const normalizedPromotion = toCompactSlug(event.promotion || '');
+  const normalizedName = toCompactSlug(event.name || '');
+
+  return reverseString(normalizedPromotion || normalizedName) || 'eww';
 }
 
 function toEmbedDate(isoDate = '') {
@@ -429,7 +429,7 @@ function renderEmbedControls(event) {
         <div>
           <small>Post</small>
           <div class="embed-button-row" data-embed-group="post">${postIndexes
-            .map((value) => `<button type="button" class="embed-select is-active" data-embed-post="${value}">#${value}</button>`)
+            .map((value) => `<button type="button" class="embed-select${value === 1 ? ' is-active' : ''}" data-embed-post="${value}">#${value}</button>`)
             .join('')}</div>
         </div>
 
