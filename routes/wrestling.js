@@ -97,6 +97,23 @@ function parseFlexibleDate(value = '') {
   return '';
 }
 
+async function readAndCleanEvents() {
+  const raw = await fs.readFile(FILE_PATH, 'utf8');
+  const parsed = JSON.parse(raw);
+  const events = Array.isArray(parsed.events) ? parsed.events : [];
+  const cleaned = removeOldEvents(events);
+
+  if (events.length !== cleaned.length) {
+    await fs.writeFile(
+      FILE_PATH,
+      JSON.stringify({ lastUpdate: parsed.lastUpdate || '', events: cleaned }, null, 2),
+      'utf8',
+    );
+  }
+
+  return cleaned;
+}
+
 async function resolveCalendarDate(event) {
   const details = await scrapeEventDetail(event.url);
   const metadata = details?.metadata || {};
