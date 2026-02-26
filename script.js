@@ -4,13 +4,18 @@ const leftArrow = document.getElementById('carousel-left');
 const rightArrow = document.getElementById('carousel-right');
 let current = 0;
 
-const PROMOTION_LOGOS = {
-  WWE: 'logos/WWE_LOGO.png',
-  'All Elite Wrestling': 'logos/AEW_LOGO.webp',
-  'Lucha Libre AAA Worldwide': 'logos/AAA_LOGO.png',
-  'TNA Wrestling': 'logos/TNA_LOGO.png',
-  'Consejo Mundial de Lucha Libre': 'logos/CMLL_LOGO.png',
-  'New Japan Pro-Wrestling': 'logos/NJPW_LOGO.png',
+const EVENT_BRANDS = {
+  raw: { logo: 'logos/WWE_RAW_LOGO.svg', color: '#e10600', label: 'RAW' },
+  smackdown: { logo: 'logos/WWE_SMACKDOWN_LOGO.svg', color: '#1677ff', label: 'SmackDown' },
+  nxt: { logo: 'logos/WWE_NXT_LOGO.webp', color: '#f0c10a', label: 'NXT' },
+  dynamite: { logo: 'logos/AEW_DYNAMITE_LOGO.webp', color: '#2d313a', label: 'Dynamite' },
+  tna: { logo: 'logos/TNA_LOGO.png', color: '#d7121f', label: 'TNA' },
+  njpw: { logo: 'logos/NJPW_LOGO.png', color: '#d9ab1a', label: 'NJPW' },
+  aaa: { logo: 'logos/AAA_LOGO.png', color: '#00a650', label: 'AAA' },
+  ppv: { logo: 'logos/WWE_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE' },
+  aewPpv: { logo: 'logos/AEW_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE' },
+  cmll: { logo: 'logos/CMLL_LOGO.png', color: '#6d94ff', label: 'CMLL' },
+  default: { logo: 'assets/wrestling.png', color: '#6d94ff', label: 'Wrestling' },
 };
 
 function escapeHtml(value = '') {
@@ -22,9 +27,30 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#039;');
 }
 
-function getPromotionLogo(promotion = '') {
-  const matched = Object.keys(PROMOTION_LOGOS).find((key) => promotion.includes(key));
-  return matched ? PROMOTION_LOGOS[matched] : 'assets/wrestling.png';
+function getEventBrand(event = {}) {
+  const name = `${event.name || ''}`.toLowerCase();
+  const promotion = `${event.promotion || ''}`.toLowerCase();
+
+  if (name.includes('raw')) return EVENT_BRANDS.raw;
+  if (name.includes('smackdown')) return EVENT_BRANDS.smackdown;
+  if (name.includes('nxt')) return EVENT_BRANDS.nxt;
+  if (name.includes('dynamite')) return EVENT_BRANDS.dynamite;
+  if (name.includes('impact')) return EVENT_BRANDS.tna;
+  if (promotion.includes('new japan')) return EVENT_BRANDS.njpw;
+  if (promotion.includes('aaa')) return EVENT_BRANDS.aaa;
+  if (promotion.includes('consejo mundial')) return EVENT_BRANDS.cmll;
+
+  const tvKeywords = ['#', 'tag', 'live', 'taping', 'collision', 'rampage', 'dark'];
+  const looksLikeTV = tvKeywords.some((keyword) => name.includes(keyword));
+  if (!looksLikeTV) {
+    return promotion.includes('all elite') ? EVENT_BRANDS.aewPpv : EVENT_BRANDS.ppv;
+  }
+
+  if (promotion.includes('all elite')) return EVENT_BRANDS.dynamite;
+  if (promotion.includes('tna')) return EVENT_BRANDS.tna;
+  if (promotion.includes('wwe')) return EVENT_BRANDS.ppv;
+
+  return EVENT_BRANDS.default;
 }
 
 function updateActive() {
@@ -129,6 +155,10 @@ function startWeather({ apiKey, lat, lon, units = 'metric', lang = 'es' } = {}) 
 
 const wrestlingWeek = document.getElementById('wrestling-week');
 const wrestlingStatus = document.getElementById('wrestling-status');
+const wrestlingTitle = document.getElementById('wrestling-title');
+const wrestlingPrevWeekBtn = document.getElementById('wrestling-prev-week');
+const wrestlingNextWeekBtn = document.getElementById('wrestling-next-week');
+let wrestlingWeekOffset = 0;
 const nbaWeek = document.getElementById('nba-week');
 const nbaStatus = document.getElementById('nba-status');
 const eventModal = document.getElementById('event-modal');
@@ -153,8 +183,9 @@ document.addEventListener('keydown', (event) => {
 });
 
 function renderDetailMetadata(metadata) {
-  const entries = Object.entries(metadata || {});
-  if (!entries.length) return '<p class="modal-empty">No se encontraron metadatos del evento.</p>';
+  const hiddenLabels = [/^date$/i, /^location$/i, /^arena$/i, /^attendance$/i, /broadcast\s*type/i, /broadcast\s*date/i];
+  const entries = Object.entries(metadata || {}).filter(([label]) => !hiddenLabels.some((pattern) => pattern.test(label)));
+  if (!entries.length) return '';
 
   return `<div class="modal-meta-grid">${entries
     .map(
@@ -164,16 +195,53 @@ function renderDetailMetadata(metadata) {
     .join('')}</div>`;
 }
 
+
+
+function metadataValue(metadata = {}, keyPattern) {
+  return Object.entries(metadata).find(([key]) => keyPattern.test(key))?.[1] || '';
+}
+
+function formatDateLabel(raw = '') {
+  if (!raw) return '';
+  const date = new Date(raw.includes('T') ? raw : `${raw}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return raw;
+  return date.toLocaleDateString('es-ES');
+}
+
+function renderEventInfo(metadata, event) {
+  const date = metadataValue(metadata, /^date$/i) || event.date;
+  const location = metadataValue(metadata, /^location$/i) || event.location;
+  const arena = metadataValue(metadata, /^arena$/i);
+  const attendance = metadataValue(metadata, /^attendance$/i);
+  const broadcastType = metadataValue(metadata, /broadcast\s*type/i);
+  const broadcastDate = metadataValue(metadata, /broadcast\s*date/i);
+
+  const infoItems = [
+    { icon: '📅', value: formatDateLabel(date) },
+    { icon: '📍', value: location },
+    { icon: '🏟️', value: arena },
+    { icon: '👥', value: attendance },
+    { icon: '📺', value: broadcastType },
+    { icon: '🗓️', value: formatDateLabel(broadcastDate) },
+  ].filter((item) => item.value);
+
+  return `<div class="event-facts">${infoItems
+    .map((item) => `<span class="event-fact"><b>${item.icon}</b>${escapeHtml(item.value)}</span>`)
+    .join('')}</div>`;
+}
+
 function renderMatches(matches) {
   if (!matches?.length) return '<p class="modal-empty">No se pudieron extraer combates automáticamente.</p>';
 
   return `<ul class="modal-match-list">${matches
-    .map((match) => {
+    .map((match, index) => {
       if (typeof match === 'string') {
-        return `<li><p>${escapeHtml(match)}</p></li>`;
+        return `<li><span class="match-index">#${index + 1}</span><p>${escapeHtml(match)}</p></li>`;
       }
 
-      return `<li><small>${escapeHtml(match.type || 'Match')}</small><p>${escapeHtml(match.result || '')}</p></li>`;
+      return `<li><span class="match-index">#${index + 1}</span><div><small>${escapeHtml(match.type || 'Match')}</small><p>${escapeHtml(
+        match.result || '',
+      )}</p></div></li>`;
     })
     .join('')}</ul>`;
 }
@@ -195,7 +263,7 @@ async function openEventDetail(eventId) {
   const event = await res.json();
 
   const eventLink = event.url && event.url.startsWith('http') ? event.url : '#';
-  const promotionLogo = getPromotionLogo(event.promotion || event.details?.metadata?.Promotion || '');
+  const eventBrand = getEventBrand(event);
   const metadata = {
     ...(event.details?.metadata || {}),
     ...(event.date && !event.details?.metadata?.Date ? { Date: event.date } : {}),
@@ -204,16 +272,16 @@ async function openEventDetail(eventId) {
   };
 
   openModal(`
-    <div class="modal-header">
-      <img class="promotion-logo" src="${promotionLogo}" alt="Logo de promoción" loading="lazy" />
+    <div class="modal-header" style="--event-color: ${eventBrand.color}">
+      <img class="promotion-logo" src="${eventBrand.logo}" alt="Logo de ${escapeHtml(eventBrand.label)}" loading="lazy" />
       <div>
         <h3 id="event-title">${escapeHtml(event.name)}</h3>
-        <p class="modal-sub">${escapeHtml(event.promotion || '')}</p>
+        <p class="modal-sub">${escapeHtml(event.promotion || '')} · <span class="brand-pill">${escapeHtml(eventBrand.label)}</span></p>
       </div>
     </div>
 
     <div class="modal-section">
-      <h4>Información del evento</h4>
+      ${renderEventInfo(metadata, event)}
       ${renderDetailMetadata(metadata)}
     </div>
 
@@ -222,35 +290,39 @@ async function openEventDetail(eventId) {
       ${renderMatches(event.details?.matches)}
     </div>
 
-    ${
-      event.details?.allWorkers
-        ? `<div class="modal-section"><h4>All workers</h4><p>${escapeHtml(event.details.allWorkers)}</p></div>`
-        : ''
-    }
-
     ${renderExtraSections(event.details?.additionalSections)}
 
     <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento completo en Cagematch</a>
   `);
 }
 
-async function loadWrestlingWeek() {
+async function loadWrestlingWeek(offset = wrestlingWeekOffset) {
   try {
-    const response = await fetch('/api/wrestling/week');
+    const response = await fetch(`/api/wrestling/week?offset=${offset}`);
     if (!response.ok) throw new Error('No se pudo cargar wrestling');
 
-    const week = await response.json();
+    const payload = await response.json();
+    const week = payload.days || [];
     wrestlingWeek.innerHTML = '';
+    wrestlingWeekOffset = payload.weekOffset || 0;
+    wrestlingTitle.textContent = wrestlingWeekOffset === 0 ? 'Wrestling de esta semana' : `Wrestling (${payload.rangeLabel})`;
 
     week.forEach((day) => {
       const dayCard = document.createElement('article');
-      dayCard.className = 'day-column';
+      dayCard.className = `day-column${day.isToday ? ' is-today' : ''}`;
 
       const eventsHtml = day.events.length
         ? day.events
             .map(
               (event) =>
-                `<button class="event-chip" data-id="${event.id}"><strong>${escapeHtml(event.name)}</strong><span>${escapeHtml(event.promotion)}</span><small>${escapeHtml(event.location)}</small></button>`,
+                `<button class="event-chip" data-id="${event.id}" style="--event-color: ${getEventBrand(event).color}">
+                  <img class="event-logo" src="${getEventBrand(event).logo}" alt="${escapeHtml(getEventBrand(event).label)}" loading="lazy" />
+                  <div>
+                    <strong>${escapeHtml(event.name)}</strong>
+                    <span>${escapeHtml(event.promotion)}</span>
+                    <small>${escapeHtml(event.location)}</small>
+                  </div>
+                </button>`,
             )
             .join('')
         : '<p class="empty-events">Sin eventos</p>';
@@ -299,6 +371,9 @@ async function loadNbaWeek() {
     nbaStatus.textContent = `Error: ${error.message}`;
   }
 }
+
+wrestlingPrevWeekBtn.addEventListener('click', () => loadWrestlingWeek(wrestlingWeekOffset - 1));
+wrestlingNextWeekBtn.addEventListener('click', () => loadWrestlingWeek(wrestlingWeekOffset + 1));
 
 startDateTime({ locale: 'es-ES', withSeconds: true });
 startWeather({

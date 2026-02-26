@@ -149,6 +149,23 @@ body {
   font-size: 0.78rem;
 }
 
+
+.wrestling-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mini-nav {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+}
+
 .wrestling-week {
   display: grid;
   grid-template-columns: repeat(7, minmax(130px, 1fr));
@@ -161,6 +178,11 @@ body {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.04);
   padding: 0.5rem;
+}
+
+.day-column.is-today {
+  border-color: #e10600;
+  box-shadow: inset 0 0 0 1px rgba(225, 6, 0, 0.35);
 }
 
 .day-column header {
@@ -180,15 +202,32 @@ body {
 .event-chip {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid rgba(109, 148, 255, 0.45);
-  background: rgba(109, 148, 255, 0.17);
+  border: 1px solid color-mix(in srgb, var(--event-color, #6d94ff) 70%, #ffffff 30%);
+  background: color-mix(in srgb, var(--event-color, #6d94ff) 18%, #000000 82%);
   color: var(--text);
   text-align: left;
-  padding: 0.4rem;
+  padding: 0.45rem;
   margin-bottom: 0.4rem;
   cursor: pointer;
   display: grid;
-  gap: 0.12rem;
+  grid-template-columns: 44px 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.event-chip strong,
+.event-chip span,
+.event-chip small {
+  display: block;
+}
+
+.event-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 8px;
+  padding: 0.2rem;
 }
 
 .event-chip span,
@@ -237,8 +276,8 @@ body {
   max-height: 92vh;
   overflow: auto;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: linear-gradient(165deg, #121f3a, #0f1a30);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(165deg, #0b0d12, #06080c);
   box-shadow: 0 26px 80px rgba(0, 0, 0, 0.5);
   padding: 1.2rem 1.4rem;
   position: relative;
@@ -259,7 +298,9 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--event-color, #e10600);
+  padding-left: 0.7rem;
   padding-bottom: 0.9rem;
   margin-bottom: 0.9rem;
 }
@@ -278,13 +319,41 @@ body {
   margin-top: 0.25rem;
 }
 
+.brand-pill {
+  color: #fff;
+  background: color-mix(in srgb, var(--event-color, #e10600) 85%, #000 15%);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+
+.event-facts {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.event-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #cbd3e6;
+  font-size: 0.88rem;
+}
+
+.event-fact b {
+  font-weight: 400;
+}
+
 .modal-section {
   margin-bottom: 1rem;
 }
 
 .modal-section h4 {
   margin-bottom: 0.45rem;
-  color: #c9d6ff;
+  color: #fff;
 }
 
 .modal-meta-grid {
@@ -297,7 +366,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 0.55rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .meta-row span {
@@ -317,10 +386,26 @@ body {
 }
 
 .modal-match-list li {
-  border: 1px solid rgba(109, 148, 255, 0.32);
+  border-left: 2px solid #e10600;
   border-radius: 10px;
-  padding: 0.6rem;
-  background: rgba(109, 148, 255, 0.12);
+  padding: 0.65rem;
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 0.65rem;
+  align-items: start;
+}
+
+.match-index {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e10600;
+  color: #fff;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
 }
 
 .modal-match-list li small {
