@@ -53,6 +53,47 @@ function getEventBrand(event = {}) {
   return EVENT_BRANDS.default;
 }
 
+
+
+const SHOW_SCHEDULE = {
+  raw: { hour: 2, minute: 0 },
+  nxt: { hour: 2, minute: 0 },
+  dynamite: { hour: 2, minute: 0 },
+  tna: { hour: 3, minute: 0 },
+  smackdown: { hour: 2, minute: 0 },
+  collision: { hour: 2, minute: 0 },
+};
+
+function getScheduleKey(event = {}) {
+  const name = `${event.name || ''}`.toLowerCase();
+  if (name.includes('raw')) return 'raw';
+  if (name.includes('nxt')) return 'nxt';
+  if (name.includes('dynamite')) return 'dynamite';
+  if (name.includes('impact')) return 'tna';
+  if (name.includes('smackdown')) return 'smackdown';
+  if (name.includes('collision')) return 'collision';
+  return '';
+}
+
+function getEventSchedule(event = {}) {
+  const key = getScheduleKey(event);
+  if (!key) return { label: '', live: false };
+
+  const schedule = SHOW_SCHEDULE[key];
+  const [year, month, day] = `${event.date || ''}`.split('-').map(Number);
+  if (!year || !month || !day) return { label: '', live: false };
+
+  const start = new Date(year, month - 1, day, schedule.hour, schedule.minute || 0, 0, 0);
+  const end = new Date(start.getTime() + 4 * 60 * 60 * 1000);
+  const now = new Date();
+  const live = now >= start && now <= end;
+
+  return {
+    label: `${String(schedule.hour).padStart(2, '0')}:${String(schedule.minute || 0).padStart(2, '0')}`,
+    live,
+  };
+}
+
 function updateActive() {
   banners.forEach((b) => b.classList.remove('active'));
   banners[current].classList.add('active');
@@ -332,15 +373,21 @@ async function loadWrestlingWeek(offset = wrestlingDayOffset) {
       const eventsHtml = day.events.length
         ? day.events
             .map(
-              (event) =>
-                `<button class="event-chip" data-id="${event.id}" style="--event-color: ${getEventBrand(event).color}">
+              (event) => {
+                const schedule = getEventSchedule(event);
+                const scheduleHtml = schedule.label
+                  ? `<small>${escapeHtml(event.location)} · ⏰ ${schedule.label}${schedule.live ? ' · 🔴 Live' : ''}</small>`
+                  : `<small>${escapeHtml(event.location)}</small>`;
+
+                return `<button class="event-chip" data-id="${event.id}" style="--event-color: ${getEventBrand(event).color}">
                   <img class="event-logo" src="${getEventBrand(event).logo}" alt="${escapeHtml(getEventBrand(event).label)}" loading="lazy" />
                   <div>
                     <strong>${escapeHtml(event.name)}</strong>
                     <span>${escapeHtml(event.promotion)}</span>
-                    <small>${escapeHtml(event.location)}</small>
+                    ${scheduleHtml}
                   </div>
-                </button>`,
+                </button>`;
+              },
             )
             .join('')
         : '<p class="empty-events">Sin eventos</p>';
