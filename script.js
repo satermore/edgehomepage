@@ -310,6 +310,58 @@ function formatDateLabel(raw = '') {
   return formatDisplayDate(raw);
 }
 
+function parseEventDate(raw = '') {
+  const value = String(raw || '').trim();
+  if (!value) return null;
+
+  const isoMatch = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (isoMatch) {
+    return {
+      year: Number(isoMatch[1]),
+      month: Number(isoMatch[2]),
+      day: Number(isoMatch[3]),
+    };
+  }
+
+  const dotMatch = value.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
+  if (dotMatch) {
+    return {
+      year: Number(dotMatch[3]),
+      month: Number(dotMatch[2]),
+      day: Number(dotMatch[1]),
+    };
+  }
+
+  const parsed = new Date(value.includes('T') ? value : `${value}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return null;
+
+  return {
+    year: parsed.getFullYear(),
+    month: parsed.getMonth() + 1,
+    day: parsed.getDate(),
+  };
+}
+
+function buildWatchWrestlingLink(event = {}, metadata = {}) {
+  const eventName = String(event.name || '').trim();
+  if (!eventName) return '';
+
+  const dateValue = metadataValue(metadata, /^date$/i) || event.date;
+  const parsedDate = parseEventDate(dateValue);
+  if (!parsedDate) return '';
+
+  const slug = eventName
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+  if (!slug) return '';
+
+  return `https://watch-wrestling.eu/${slug}-${parsedDate.month}-${parsedDate.day}-${parsedDate.year}`;
+}
+
 function renderEventInfo(metadata, event) {
   const date = metadataValue(metadata, /^date$/i) || event.date;
   const location = metadataValue(metadata, /^location$/i) || event.location;
@@ -378,6 +430,7 @@ async function openEventDetail(eventId) {
     ...(event.location && !event.details?.metadata?.Location ? { Location: event.location } : {}),
     ...(event.promotion && !event.details?.metadata?.Promotion ? { Promotion: event.promotion } : {}),
   };
+  const watchWrestlingLink = buildWatchWrestlingLink(event, metadata);
 
   openModal(`
     <div class="modal-header" style="--event-color: ${eventBrand.color}">
@@ -401,6 +454,9 @@ async function openEventDetail(eventId) {
     ${renderExtraSections(event.details?.additionalSections)}
 
     <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento completo en Cagematch</a>
+    ${watchWrestlingLink
+      ? `<a class="modal-link" href="${watchWrestlingLink}" target="_blank" rel="noopener noreferrer">Abrir en Watch Wrestling</a>`
+      : ''}
   `, eventBrand.theme);
 }
 
