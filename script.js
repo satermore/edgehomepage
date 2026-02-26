@@ -53,6 +53,47 @@ function getEventBrand(event = {}) {
   return EVENT_BRANDS.default;
 }
 
+
+
+const SHOW_SCHEDULE = {
+  raw: { hour: 2, minute: 0 },
+  nxt: { hour: 2, minute: 0 },
+  dynamite: { hour: 2, minute: 0 },
+  tna: { hour: 3, minute: 0 },
+  smackdown: { hour: 2, minute: 0 },
+  collision: { hour: 2, minute: 0 },
+};
+
+function getScheduleKey(event = {}) {
+  const name = `${event.name || ''}`.toLowerCase();
+  if (name.includes('raw')) return 'raw';
+  if (name.includes('nxt')) return 'nxt';
+  if (name.includes('dynamite')) return 'dynamite';
+  if (name.includes('impact')) return 'tna';
+  if (name.includes('smackdown')) return 'smackdown';
+  if (name.includes('collision')) return 'collision';
+  return '';
+}
+
+function getEventSchedule(event = {}) {
+  const key = getScheduleKey(event);
+  if (!key) return { label: '', live: false };
+
+  const schedule = SHOW_SCHEDULE[key];
+  const [year, month, day] = `${event.date || ''}`.split('-').map(Number);
+  if (!year || !month || !day) return { label: '', live: false };
+
+  const start = new Date(year, month - 1, day, schedule.hour, schedule.minute || 0, 0, 0);
+  const end = new Date(start.getTime() + 4 * 60 * 60 * 1000);
+  const now = new Date();
+  const live = now >= start && now <= end;
+
+  return {
+    label: `${String(schedule.hour).padStart(2, '0')}:${String(schedule.minute || 0).padStart(2, '0')}`,
+    live,
+  };
+}
+
 function updateActive() {
   banners.forEach((b) => b.classList.remove('active'));
   banners[current].classList.add('active');
@@ -213,11 +254,20 @@ function metadataValue(metadata = {}, keyPattern) {
   return Object.entries(metadata).find(([key]) => keyPattern.test(key))?.[1] || '';
 }
 
-function formatDateLabel(raw = '') {
+function formatDisplayDate(raw = '') {
   if (!raw) return '';
+  const [year, month, day] = String(raw).split('-');
+  if (year && month && day) return `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
+
   const date = new Date(raw.includes('T') ? raw : `${raw}T00:00:00`);
   if (Number.isNaN(date.getTime())) return raw;
-  return date.toLocaleDateString('es-ES');
+  const dd = `${date.getDate()}`.padStart(2, '0');
+  const mm = `${date.getMonth() + 1}`.padStart(2, '0');
+  return `${dd}.${mm}.${date.getFullYear()}`;
+}
+
+function formatDateLabel(raw = '') {
+  return formatDisplayDate(raw);
 }
 
 function renderEventInfo(metadata, event) {
@@ -323,7 +373,8 @@ async function loadWrestlingWeek(offset = wrestlingDayOffset) {
     const week = payload.days || [];
     wrestlingWeek.innerHTML = '';
     wrestlingDayOffset = payload.dayOffset || 0;
-    wrestlingTitle.textContent = `Wrestling (${payload.rangeLabel})`;
+    const [rangeStart, rangeEnd] = String(payload.rangeLabel || '').split(' · ');
+    wrestlingTitle.textContent = `Wrestling (${formatDisplayDate(rangeStart)} · ${formatDisplayDate(rangeEnd)})`;
 
     week.forEach((day) => {
       const dayCard = document.createElement('article');
@@ -332,20 +383,26 @@ async function loadWrestlingWeek(offset = wrestlingDayOffset) {
       const eventsHtml = day.events.length
         ? day.events
             .map(
-              (event) =>
-                `<button class="event-chip" data-id="${event.id}" style="--event-color: ${getEventBrand(event).color}">
+              (event) => {
+                const schedule = getEventSchedule(event);
+                const scheduleHtml = schedule.label
+                  ? `<small>${escapeHtml(event.location)} · ⏰ ${schedule.label}${schedule.live ? ' · 🔴 Live' : ''}</small>`
+                  : `<small>${escapeHtml(event.location)}</small>`;
+
+                return `<button class="event-chip" data-id="${event.id}" style="--event-color: ${getEventBrand(event).color}">
                   <img class="event-logo" src="${getEventBrand(event).logo}" alt="${escapeHtml(getEventBrand(event).label)}" loading="lazy" />
                   <div>
                     <strong>${escapeHtml(event.name)}</strong>
                     <span>${escapeHtml(event.promotion)}</span>
-                    <small>${escapeHtml(event.location)}</small>
+                    ${scheduleHtml}
                   </div>
-                </button>`,
+                </button>`;
+              },
             )
             .join('')
         : '<p class="empty-events">Sin eventos</p>';
 
-      dayCard.innerHTML = `<header><span>${day.dayLabel}</span><h4>${day.date}</h4></header>${eventsHtml}`;
+      dayCard.innerHTML = `<header><span>${day.dayLabel}</span><h4>${formatDisplayDate(day.date)}</h4></header>${eventsHtml}`;
       wrestlingWeek.appendChild(dayCard);
     });
 

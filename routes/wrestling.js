@@ -9,6 +9,14 @@ const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
 
 const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
+
+function toLocalIsoDate(date) {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day = `${date.getDate()}`.padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 async function readAndCleanEvents() {
   const raw = await fs.readFile(FILE_PATH, 'utf8');
   const parsed = JSON.parse(raw);
@@ -96,12 +104,12 @@ router.get('/week', async (req, res) => {
     const events = await readAndCleanEvents();
     const dayOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
     const { startDate, endDate } = getRollingDaysWindow(dayOffset);
-    const logicalTodayIso = getLogicalToday().toISOString().slice(0, 10);
+    const logicalTodayIso = toLocalIsoDate(getLogicalToday());
 
     const days = Array.from({ length: 7 }).map((_, i) => {
       const date = new Date(startDate);
       date.setDate(startDate.getDate() + i);
-      const isoDate = date.toISOString().slice(0, 10);
+      const isoDate = toLocalIsoDate(date);
       return {
         date: isoDate,
         dayLabel: DAY_LABELS[date.getDay()],
