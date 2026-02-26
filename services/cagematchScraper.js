@@ -4,12 +4,42 @@ const { v4: uuidv4 } = require('uuid');
 
 const REQUEST_CONFIG = {
   timeout: 15_000,
+  maxRedirects: 10,
   headers: {
     'User-Agent':
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   },
 };
+
+function resolveRedirectUrl(currentUrl, location = '') {
+  if (!location) return '';
+  if (location.startsWith('http')) return location;
+  if (location.startsWith('/')) return `https://www.cagematch.net${location}`;
+  return new URL(location, currentUrl).toString();
+}
+
+async function requestHtml(url) {
+  let currentUrl = url;
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const response = await axios.get(currentUrl, {
+      ...REQUEST_CONFIG,
+      validateStatus: (status) => status >= 200 && status < 400,
+    });
+
+    if (response.status >= 300 && response.status < 400) {
+      const nextUrl = resolveRedirectUrl(currentUrl, response.headers?.location || '');
+      if (!nextUrl) throw new Error(`Redirección sin destino (${response.status})`);
+      currentUrl = nextUrl;
+      continue;
+    }
+
+    return response;
+  }
+
+  throw new Error('Demasiadas redirecciones al solicitar Cagematch');
+}
 
 function cleanText(value = '') {
   return value.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
@@ -154,7 +184,7 @@ function extractAdditionalSections($) {
 
 async function scrapeEventDetail(url) {
   try {
-    const response = await axios.get(url, REQUEST_CONFIG);
+    const response = await requestHtml(url);
     const $ = cheerio.load(response.data);
 
     const pageTitle = cleanText($('h1').first().text()) || cleanText($('title').first().text());
@@ -184,7 +214,7 @@ async function scrapeEventDetail(url) {
 
 async function scrapePromotionEvents(url, promotion) {
   try {
-    const response = await axios.get(url, REQUEST_CONFIG);
+    const response = await requestHtml(url);
     const $ = cheerio.load(response.data);
 
     const parsed = parseTableRows($, url, promotion);

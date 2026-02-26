@@ -6,27 +6,27 @@ const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
 const PROMOTIONS = [
   {
     name: 'WWE',
-    url: 'https://www.cagematch.net/en/?id=8&nr=1&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=1&page=4',
   },
   {
     name: 'All Elite Wrestling',
-    url: 'https://www.cagematch.net/en/?id=8&nr=2287&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=2287&page=4',
   },
   {
     name: 'New Japan Pro-Wrestling',
-    url: 'https://www.cagematch.net/en/?id=8&nr=7&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=7&page=4',
   },
   {
     name: 'TNA Wrestling',
-    url: 'https://www.cagematch.net/en/?id=8&nr=5&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=5&page=4',
   },
   {
     name: 'Consejo Mundial de Lucha Libre',
-    url: 'https://www.cagematch.net/en/?id=8&nr=78&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=78&page=4',
   },
   {
     name: 'Lucha Libre AAA Worldwide',
-    url: 'https://www.cagematch.net/en/?id=8&nr=122&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=122&page=4',
   },
 ];
 
