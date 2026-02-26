@@ -378,6 +378,14 @@ function reverseString(value = '') {
   return String(value || '').split('').reverse().join('');
 }
 
+function normalizeCategoryBase(value = '') {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
 function getEmbedCategory(event = {}) {
   const name = `${event.name || ''}`.toLowerCase();
   const promotion = `${event.promotion || ''}`.toLowerCase();
@@ -459,6 +467,12 @@ function buildEmbedLookupUrl(event = {}, options = {}) {
   return `https://dailywrestling.cc/embed/${category}/${showDate}`;
 }
 
+function toEmbedCategoryFromBase(base = '') {
+  const normalized = normalizeCategoryBase(base);
+  if (!normalized) return '';
+  return reverseString(normalized.replaceAll('-', ''));
+}
+
 function resolveEventEmbedDate(event = {}) {
   const metadata = event.details?.metadata || {};
   const broadcastDate = metadataValue(metadata, /broadcast\s*date|air\s*date|tv\s*date/i);
@@ -471,6 +485,7 @@ function renderEmbedControls(event) {
   const buttonIndexes = [1, 2, 3, 4];
   const initialDate = resolveEventEmbedDate(event);
   const initialCategory = getEmbedCategory(event);
+  const initialCategoryBase = reverseString(initialCategory);
   const initialLookupUrl = buildEmbedLookupUrl(event, { category: initialCategory, showDate: initialDate });
   const initialEmbedUrl = buildEmbedUrl(event, { category: initialCategory, showDate: initialDate });
 
@@ -481,8 +496,9 @@ function renderEmbedControls(event) {
 
       <div class="embed-pickers">
         <div>
-          <small>Categoría (invertida)</small>
-          <input type="text" id="embed-category-input" class="embed-input" value="${escapeHtml(initialCategory)}" />
+          <small>Categoría base (sin invertir, ej: njpw / aew / wwe-raw)</small>
+          <input type="text" id="embed-category-input" class="embed-input" value="${escapeHtml(initialCategoryBase)}" />
+          <small id="embed-category-preview">Invertida: ${escapeHtml(initialCategory)}</small>
         </div>
         <div>
           <small>Fecha (mm-dd-yyyy)</small>
@@ -531,6 +547,7 @@ function setupEmbedControls(event) {
   const openLink = document.getElementById('embed-open-link');
   const copyButton = document.getElementById('embed-copy-link');
   const categoryInput = document.getElementById('embed-category-input');
+  const categoryPreview = document.getElementById('embed-category-preview');
   const dateInput = document.getElementById('embed-date-input');
   if (!preview || !openLink || !copyButton || !lookupPreview || !lookupLink) return;
 
@@ -538,13 +555,14 @@ function setupEmbedControls(event) {
     postIndex: 1,
     sourceIndex: 1,
     buttonIndex: 1,
-    category: categoryInput?.value || getEmbedCategory(event),
+    category: toEmbedCategoryFromBase(categoryInput?.value || reverseString(getEmbedCategory(event))),
     showDate: dateInput?.value || resolveEventEmbedDate(event),
   };
 
   function updateUrl() {
     const lookupUrl = buildEmbedLookupUrl(event, state);
     const nextUrl = buildEmbedUrl(event, state);
+    if (categoryPreview) categoryPreview.textContent = `Invertida: ${state.category || '—'}`;
     lookupPreview.textContent = lookupUrl;
     lookupLink.href = lookupUrl;
     preview.textContent = nextUrl;
@@ -568,7 +586,7 @@ function setupEmbedControls(event) {
   bindSelector('[data-embed-button]', 'embedButton', 'buttonIndex');
 
   categoryInput?.addEventListener('input', () => {
-    state.category = categoryInput.value;
+    state.category = toEmbedCategoryFromBase(categoryInput.value);
     updateUrl();
   });
 
