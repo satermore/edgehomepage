@@ -239,6 +239,8 @@ const wrestlingTitle = document.getElementById('wrestling-title');
 const wrestlingPrevWeekBtn = document.getElementById('wrestling-prev-week');
 const wrestlingNextWeekBtn = document.getElementById('wrestling-next-week');
 let wrestlingDayOffset = 0;
+const MIN_WRESTLING_DAY_OFFSET = -7;
+const MAX_WRESTLING_DAY_OFFSET = 14;
 const nbaWeek = document.getElementById('nba-week');
 const nbaStatus = document.getElementById('nba-status');
 const eventModal = document.getElementById('event-modal');
@@ -431,13 +433,16 @@ async function openEventDetail(eventId) {
 
 async function loadWrestlingWeek(offset = wrestlingDayOffset) {
   try {
-    const response = await fetch(`/api/wrestling/week?dayOffset=${offset}`);
+    const safeOffset = Math.max(MIN_WRESTLING_DAY_OFFSET, Math.min(MAX_WRESTLING_DAY_OFFSET, offset));
+    const response = await fetch(`/api/wrestling/week?dayOffset=${safeOffset}`);
     if (!response.ok) throw new Error('No se pudo cargar wrestling');
 
     const payload = await response.json();
     const week = payload.days || [];
     wrestlingWeek.innerHTML = '';
     wrestlingDayOffset = payload.dayOffset || 0;
+    wrestlingPrevWeekBtn.disabled = wrestlingDayOffset <= MIN_WRESTLING_DAY_OFFSET;
+    wrestlingNextWeekBtn.disabled = wrestlingDayOffset >= MAX_WRESTLING_DAY_OFFSET;
     const [rangeStart, rangeEnd] = String(payload.rangeLabel || '').split(' · ');
     wrestlingTitle.textContent = `Wrestling (${formatDisplayDate(rangeStart)} · ${formatDisplayDate(rangeEnd)})`;
 
