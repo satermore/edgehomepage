@@ -5,17 +5,17 @@ const rightArrow = document.getElementById('carousel-right');
 let current = 0;
 
 const EVENT_BRANDS = {
-  raw: { logo: 'logos/WWE_RAW_LOGO.svg', color: '#e10600', label: 'RAW' },
-  smackdown: { logo: 'logos/WWE_SMACKDOWN_LOGO.svg', color: '#1677ff', label: 'SmackDown' },
-  nxt: { logo: 'logos/WWE_NXT_LOGO.webp', color: '#f0c10a', label: 'NXT' },
-  dynamite: { logo: 'logos/AEW_DYNAMITE_LOGO.webp', color: '#2d313a', label: 'Dynamite' },
-  tna: { logo: 'logos/TNA_LOGO.png', color: '#d7121f', label: 'TNA' },
-  njpw: { logo: 'logos/NJPW_LOGO.png', color: '#d9ab1a', label: 'NJPW' },
-  aaa: { logo: 'logos/AAA_LOGO.png', color: '#00a650', label: 'AAA' },
-  ppv: { logo: 'logos/WWE_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE' },
-  aewPpv: { logo: 'logos/AEW_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE' },
-  cmll: { logo: 'logos/CMLL_LOGO.png', color: '#6d94ff', label: 'CMLL' },
-  default: { logo: 'assets/wrestling.png', color: '#6d94ff', label: 'Wrestling' },
+  raw: { logo: 'logos/WWE_RAW_LOGO.svg', color: '#e10600', label: 'RAW', theme: 'brand-raw' },
+  smackdown: { logo: 'logos/WWE_SMACKDOWN_LOGO.svg', color: '#1677ff', label: 'SmackDown', theme: 'brand-smackdown' },
+  nxt: { logo: 'logos/WWE_NXT_LOGO.webp', color: '#f0c10a', label: 'NXT', theme: 'brand-nxt' },
+  dynamite: { logo: 'logos/AEW_DYNAMITE_LOGO.webp', color: '#2d313a', label: 'Dynamite', theme: 'brand-dynamite' },
+  tna: { logo: 'logos/TNA_LOGO.png', color: '#d7121f', label: 'TNA', theme: 'brand-tna' },
+  njpw: { logo: 'logos/NJPW_LOGO.png', color: '#d9ab1a', label: 'NJPW', theme: 'brand-njpw' },
+  aaa: { logo: 'logos/AAA_LOGO.png', color: '#00a650', label: 'AAA', theme: 'brand-aaa' },
+  ppv: { logo: 'logos/WWE_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE', theme: 'brand-ppv' },
+  aewPpv: { logo: 'logos/AEW_PPV_LOGO.png', color: '#ff8b1f', label: 'PPV / PLE', theme: 'brand-ppv' },
+  cmll: { logo: 'logos/CMLL_LOGO.png', color: '#bb2035', label: 'CMLL', theme: 'brand-cmll' },
+  default: { logo: 'assets/wrestling.png', color: '#e10600', label: 'Wrestling', theme: 'brand-default' },
 };
 
 function escapeHtml(value = '') {
@@ -164,9 +164,11 @@ const nbaStatus = document.getElementById('nba-status');
 const eventModal = document.getElementById('event-modal');
 const modalBody = document.getElementById('modal-body');
 const closeModalBtn = document.getElementById('close-modal');
+const modalContent = document.getElementById('event-modal-content');
 
-function openModal(content) {
+function openModal(content, brandTheme = 'brand-default') {
   modalBody.innerHTML = content;
+  modalContent.className = `modal-content ${brandTheme}`;
   eventModal.classList.remove('hidden');
 }
 
@@ -183,7 +185,18 @@ document.addEventListener('keydown', (event) => {
 });
 
 function renderDetailMetadata(metadata) {
-  const hiddenLabels = [/^date$/i, /^location$/i, /^arena$/i, /^attendance$/i, /broadcast\s*type/i, /broadcast\s*date/i];
+  const hiddenLabels = [
+    /^name of the event$/i,
+    /^date$/i,
+    /^location$/i,
+    /^arena$/i,
+    /^attendance$/i,
+    /^promotion$/i,
+    /^type$/i,
+    /tv\s*station\s*\/\s*network/i,
+    /broadcast\s*type/i,
+    /broadcast\s*date/i,
+  ];
   const entries = Object.entries(metadata || {}).filter(([label]) => !hiddenLabels.some((pattern) => pattern.test(label)));
   if (!entries.length) return '';
 
@@ -215,14 +228,20 @@ function renderEventInfo(metadata, event) {
   const attendance = metadataValue(metadata, /^attendance$/i);
   const broadcastType = metadataValue(metadata, /broadcast\s*type/i);
   const broadcastDate = metadataValue(metadata, /broadcast\s*date/i);
+  const promotion = metadataValue(metadata, /^promotion$/i) || event.promotion;
+  const eventType = metadataValue(metadata, /^type$/i);
+  const tvNetwork = metadataValue(metadata, /tv\s*station\s*\/\s*network/i);
 
   const infoItems = [
     { icon: '📅', value: formatDateLabel(date) },
     { icon: '📍', value: location },
     { icon: '🏟️', value: arena },
     { icon: '👥', value: attendance },
-    { icon: '📺', value: broadcastType },
+    { icon: '🎬', value: broadcastType },
     { icon: '🗓️', value: formatDateLabel(broadcastDate) },
+    { icon: '🏢', value: promotion },
+    { icon: '📺', value: eventType },
+    { icon: '📡', value: tvNetwork },
   ].filter((item) => item.value);
 
   return `<div class="event-facts">${infoItems
@@ -293,7 +312,7 @@ async function openEventDetail(eventId) {
     ${renderExtraSections(event.details?.additionalSections)}
 
     <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento completo en Cagematch</a>
-  `);
+  `, eventBrand.theme);
 }
 
 async function loadWrestlingWeek(offset = wrestlingWeekOffset) {

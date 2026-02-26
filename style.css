@@ -5,20 +5,20 @@
 }
 
 :root {
-  --bg: #070b14;
-  --panel: #111a2f;
-  --panel-alt: #0d1528;
+  --bg: #070708;
+  --panel: #101012;
+  --panel-alt: #0b0b0d;
   --panel-border: rgba(255, 255, 255, 0.12);
-  --text: #eef3ff;
-  --muted: #a8b3d1;
-  --accent: #6d94ff;
+  --text: #f2f2f3;
+  --muted: #a5a5ad;
+  --accent: #e10600;
 }
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at top left, #162848, var(--bg) 40%);
+  background: radial-gradient(circle at top left, #1a0b0d, #0a0a0b 45%, var(--bg) 100%);
   color: var(--text);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Inter, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', system-ui, sans-serif;
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ body {
 .weather-panel,
 .datetime-panel,
 .card-panel {
-  background: linear-gradient(165deg, var(--panel), var(--panel-alt));
+  background: linear-gradient(165deg, #141417, #0a0a0c);
   border: 1px solid var(--panel-border);
   border-radius: 16px;
   padding: 1rem;
@@ -202,8 +202,8 @@ body {
 .event-chip {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--event-color, #6d94ff) 70%, #ffffff 30%);
-  background: color-mix(in srgb, var(--event-color, #6d94ff) 18%, #000000 82%);
+  border: 1px solid color-mix(in srgb, var(--event-color, #e10600) 70%, #ffffff 30%);
+  background: color-mix(in srgb, var(--event-color, #e10600) 18%, #000000 82%);
   color: var(--text);
   text-align: left;
   padding: 0.45rem;
@@ -277,10 +277,38 @@ body {
   overflow: auto;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(165deg, #0b0d12, #06080c);
+  background: linear-gradient(165deg, #0d0d10, #070708);
   box-shadow: 0 26px 80px rgba(0, 0, 0, 0.5);
   padding: 1.2rem 1.4rem;
   position: relative;
+}
+
+.modal-content.brand-raw,
+.modal-content.brand-tna,
+.modal-content.brand-default {
+  background: linear-gradient(165deg, #140809, #070708);
+}
+
+.modal-content.brand-smackdown {
+  background: linear-gradient(165deg, #08111e, #07080c);
+}
+
+.modal-content.brand-nxt,
+.modal-content.brand-njpw {
+  background: linear-gradient(165deg, #191407, #090807);
+}
+
+.modal-content.brand-dynamite {
+  background: linear-gradient(165deg, #111215, #080809);
+}
+
+.modal-content.brand-aaa {
+  background: linear-gradient(165deg, #08150f, #060907);
+}
+
+.modal-content.brand-ppv,
+.modal-content.brand-cmll {
+  background: linear-gradient(165deg, #1a1008, #080706);
 }
 
 .close-modal {
@@ -330,17 +358,21 @@ body {
 
 .event-facts {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.55rem;
   flex-wrap: wrap;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.85rem;
 }
 
 .event-fact {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  color: #cbd3e6;
-  font-size: 0.88rem;
+  gap: 0.35rem;
+  color: #d7d7db;
+  font-size: 0.87rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .event-fact b {
