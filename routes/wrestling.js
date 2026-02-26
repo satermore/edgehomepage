@@ -53,22 +53,7 @@ function getEtNowParts() {
 }
 
 function getLogicalTodayIso() {
-  const nowEt = getEtNowParts();
-  const broadcastHourByDay = {
-    0: 2,
-    2: 2,
-    3: 2,
-    4: 2,
-    5: 3,
-    6: 2,
-  };
-
-  const threshold = broadcastHourByDay[nowEt.weekday];
-  if (threshold !== undefined && nowEt.hour < threshold) {
-    return addDaysIso(nowEt.isoDate, -1);
-  }
-
-  return nowEt.isoDate;
+  return getEtNowParts().isoDate;
 }
 
 function getRollingDaysWindow(dayOffset = 0) {
