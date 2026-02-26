@@ -238,7 +238,8 @@ const wrestlingWeek = document.getElementById('wrestling-week');
 const wrestlingTitle = document.getElementById('wrestling-title');
 const wrestlingPrevWeekBtn = document.getElementById('wrestling-prev-week');
 const wrestlingNextWeekBtn = document.getElementById('wrestling-next-week');
-let wrestlingDayOffset = 0;
+const DEFAULT_WRESTLING_DAY_OFFSET = -2;
+let wrestlingDayOffset = DEFAULT_WRESTLING_DAY_OFFSET;
 const MIN_WRESTLING_DAY_OFFSET = -7;
 const MAX_WRESTLING_DAY_OFFSET = 14;
 const nbaWeek = document.getElementById('nba-week');
@@ -431,6 +432,15 @@ async function openEventDetail(eventId) {
   `, eventBrand.theme);
 }
 
+
+function centerTodayWrestlingCard() {
+  const todayCard = wrestlingWeek.querySelector('.day-column.is-today');
+  if (!todayCard) return;
+
+  const targetLeft = todayCard.offsetLeft - (wrestlingWeek.clientWidth / 2 - todayCard.clientWidth / 2);
+  wrestlingWeek.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+}
+
 async function loadWrestlingWeek(offset = wrestlingDayOffset) {
   try {
     const safeOffset = Math.max(MIN_WRESTLING_DAY_OFFSET, Math.min(MAX_WRESTLING_DAY_OFFSET, offset));
@@ -443,8 +453,7 @@ async function loadWrestlingWeek(offset = wrestlingDayOffset) {
     wrestlingDayOffset = payload.dayOffset || 0;
     wrestlingPrevWeekBtn.disabled = wrestlingDayOffset <= MIN_WRESTLING_DAY_OFFSET;
     wrestlingNextWeekBtn.disabled = wrestlingDayOffset >= MAX_WRESTLING_DAY_OFFSET;
-    const [rangeStart, rangeEnd] = String(payload.rangeLabel || '').split(' · ');
-    wrestlingTitle.textContent = `Wrestling (${formatDisplayDate(rangeStart)} · ${formatDisplayDate(rangeEnd)})`;
+    wrestlingTitle.textContent = 'WRESTLING';
 
     week.forEach((day) => {
       const dayCard = document.createElement('article');
@@ -479,6 +488,7 @@ async function loadWrestlingWeek(offset = wrestlingDayOffset) {
     wrestlingWeek.querySelectorAll('.event-chip').forEach((button) => {
       button.addEventListener('click', () => openEventDetail(button.dataset.id));
     });
+
   } catch (error) {
     console.error(error);
   }
@@ -542,5 +552,5 @@ startWeather({
   units: 'metric',
   lang: 'es',
 });
-loadWrestlingWeek();
+loadWrestlingWeek(DEFAULT_WRESTLING_DAY_OFFSET);
 loadNbaWeek();
