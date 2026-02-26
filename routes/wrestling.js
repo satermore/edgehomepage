@@ -1,11 +1,10 @@
 const express = require('express');
 const fs = require('fs/promises');
 const path = require('path');
-const { removeOldEvents } = require('../scripts/updateWrestlingEvents');
 const { scrapeEventDetail } = require('../services/cagematchScraper');
 
 const router = express.Router();
-const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
+const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEventsMonth.json');
 
 const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 const HISTORY_WINDOW_DAYS = 7;
@@ -64,68 +63,16 @@ function getRollingDaysWindow(dayOffset = 0) {
   return { startIso, endIso };
 }
 
-function clampDayOffset(offset) {
-  return Math.max(-HISTORY_WINDOW_DAYS, Math.min(FUTURE_WINDOW_DAYS, offset));
-}
-
-function parseFlexibleDate(value = '') {
-  const raw = String(value || '').trim();
-  const match = raw.match(/(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})/);
-  if (match) {
-    const [, dd, mm, yy] = match;
-    const year = yy.length === 2 ? `20${yy}` : yy;
-    return `${year}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
-  }
-
-  const parsed = new Date(raw);
-  if (!Number.isNaN(parsed.getTime())) {
-    const year = parsed.getFullYear();
-    const month = `${parsed.getMonth() + 1}`.padStart(2, '0');
-    const day = `${parsed.getDate()}`.padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
-  return '';
-}
-
-async function readAndCleanEvents() {
+async function readMonthEvents() {
   const raw = await fs.readFile(FILE_PATH, 'utf8');
   const parsed = JSON.parse(raw);
-  const events = Array.isArray(parsed.events) ? parsed.events : [];
-  const cleaned = removeOldEvents(events);
-
-  if (events.length !== cleaned.length) {
-    await fs.writeFile(
-      FILE_PATH,
-      JSON.stringify({ lastUpdate: parsed.lastUpdate || '', events: cleaned }, null, 2),
-      'utf8',
-    );
-  }
-
-  return cleaned;
+  return Array.isArray(parsed.events) ? parsed.events : [];
 }
-
-async function resolveCalendarDate(event) {
-  const details = await scrapeEventDetail(event.url);
-  const metadata = details?.metadata || {};
-  const entries = Object.entries(metadata);
-
-  const broadcastType = String(entries.find(([key]) => /broadcast\s*type/i.test(key))?.[1] || '').toLowerCase();
-  const broadcastDateRaw = entries.find(([key]) => /broadcast\s*date|air\s*date|tv\s*date/i.test(key))?.[1] || '';
-  const broadcastDate = parseFlexibleDate(broadcastDateRaw);
-
-  if (/\blive\b/i.test(broadcastType)) return event.date;
-  if (/\btaped\b/i.test(broadcastType) && broadcastDate) return broadcastDate;
-
-  return event.date;
-}
-
 
 router.get('/week', async (req, res) => {
   try {
-    const events = await readAndCleanEvents();
-    const requestedOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
-    const dayOffset = clampDayOffset(requestedOffset);
+    const events = await readMonthEvents();
+    const dayOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
     const { startIso, endIso } = getRollingDaysWindow(dayOffset);
     const logicalTodayIso = getLogicalTodayIso();
     const minAllowedIso = addDaysIso(logicalTodayIso, -HISTORY_WINDOW_DAYS);
@@ -142,18 +89,9 @@ router.get('/week', async (req, res) => {
       };
     });
 
-    const candidateEvents = events.filter((event) => event.date >= minAllowedIso && event.date <= maxAllowedIso);
-
-    const normalizedEvents = await Promise.all(
-      candidateEvents.map(async (event) => ({
-        ...event,
-        calendarDate: await resolveCalendarDate(event),
-      })),
-    );
-
-    normalizedEvents.forEach((event) => {
-      if (event.calendarDate < startIso || event.calendarDate > endIso) return;
-      const target = days.find((day) => day.date === event.calendarDate);
+    events.forEach((event) => {
+      if (event.date < startIso || event.date > endIso) return;
+      const target = days.find((day) => day.date === event.date);
       if (!target) return;
       target.events.push({
         id: event.id,
@@ -175,7 +113,7 @@ router.get('/week', async (req, res) => {
 
 router.get('/event/:id', async (req, res) => {
   try {
-    const events = await readAndCleanEvents();
+    const events = await readMonthEvents();
     const event = events.find((item) => item.id === req.params.id);
     if (!event) {
       return res.status(404).json({ error: 'Evento no encontrado' });

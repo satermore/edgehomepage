@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "update:wrestling": "node scripts/updateWrestlingEvents.js",
+    "update:wrestling": "node scripts/updateWrestlingEvents.js && node scripts/generateWrestlingMonth.js",
     "update:nba": "node scripts/updateNbaGames.js",
-    "extract:wrestling-details": "node scripts/extractCagematchEventDetails.js"
+    "extract:wrestling-details": "node scripts/extractCagematchEventDetails.js",
+    "generate:wrestling-month": "node scripts/generateWrestlingMonth.js"
   },
   "dependencies": {
     "axios": "^1.11.0",
