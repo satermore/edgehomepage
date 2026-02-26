@@ -310,6 +310,67 @@ function formatDateLabel(raw = '') {
   return formatDisplayDate(raw);
 }
 
+function parseEventDate(raw = '') {
+  const value = String(raw || '').trim();
+  if (!value) return null;
+
+  const isoMatch = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (isoMatch) {
+    return {
+      year: Number(isoMatch[1]),
+      month: Number(isoMatch[2]),
+      day: Number(isoMatch[3]),
+    };
+  }
+
+  const dotMatch = value.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
+  if (dotMatch) {
+    return {
+      year: Number(dotMatch[3]),
+      month: Number(dotMatch[2]),
+      day: Number(dotMatch[1]),
+    };
+  }
+
+  const parsed = new Date(value.includes('T') ? value : `${value}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return null;
+
+  return {
+    year: parsed.getFullYear(),
+    month: parsed.getMonth() + 1,
+    day: parsed.getDate(),
+  };
+}
+
+function sanitizeWatchWrestlingShowName(name = '') {
+  return String(name || '')
+    .replace(/\s*#\s*\d+\b/g, '')
+    .replace(/\b(?:episode|ep\.?)\s*\d+\b/gi, '')
+    .replace(/\s[-–:]\s\d+\b$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buildWatchWrestlingLink(event = {}, metadata = {}) {
+  const eventName = sanitizeWatchWrestlingShowName(event.name);
+  if (!eventName) return '';
+
+  const dateValue = metadataValue(metadata, /^date$/i) || event.date;
+  const parsedDate = parseEventDate(dateValue);
+  if (!parsedDate) return '';
+
+  const slug = eventName
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+  if (!slug) return '';
+
+  return `https://watch-wrestling.eu/${slug}-${parsedDate.month}-${parsedDate.day}-${parsedDate.year}`;
+}
+
 function renderEventInfo(metadata, event) {
   const date = metadataValue(metadata, /^date$/i) || event.date;
   const location = metadataValue(metadata, /^location$/i) || event.location;
@@ -378,6 +439,7 @@ async function openEventDetail(eventId) {
     ...(event.location && !event.details?.metadata?.Location ? { Location: event.location } : {}),
     ...(event.promotion && !event.details?.metadata?.Promotion ? { Promotion: event.promotion } : {}),
   };
+  const watchWrestlingLink = buildWatchWrestlingLink(event, metadata);
 
   openModal(`
     <div class="modal-header" style="--event-color: ${eventBrand.color}">
@@ -386,6 +448,9 @@ async function openEventDetail(eventId) {
         <h3 id="event-title">${escapeHtml(event.name)}</h3>
         <p class="modal-sub">${escapeHtml(event.promotion || '')} · <span class="brand-pill">${escapeHtml(eventBrand.label)}</span></p>
       </div>
+      ${watchWrestlingLink
+        ? `<a class="watch-wrestling-btn" href="${watchWrestlingLink}" target="_blank" rel="noopener noreferrer" aria-label="Abrir en Watch Wrestling"><span aria-hidden="true">▶</span> Watch Wrestling</a>`
+        : ''}
     </div>
 
     <div class="modal-section">

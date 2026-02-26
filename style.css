@@ -349,6 +349,25 @@ body {
   margin-bottom: 0.9rem;
 }
 
+.watch-wrestling-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--event-color, #e10600) 65%, #ffffff 35%);
+  background: color-mix(in srgb, var(--event-color, #e10600) 22%, #000000 78%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.42rem 0.8rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.watch-wrestling-btn:hover {
+  filter: brightness(1.12);
+}
+
 .promotion-logo {
   width: 76px;
   height: 76px;
