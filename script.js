@@ -154,11 +154,10 @@ function startWeather({ apiKey, lat, lon, units = 'metric', lang = 'es' } = {}) 
 }
 
 const wrestlingWeek = document.getElementById('wrestling-week');
-const wrestlingStatus = document.getElementById('wrestling-status');
 const wrestlingTitle = document.getElementById('wrestling-title');
 const wrestlingPrevWeekBtn = document.getElementById('wrestling-prev-week');
 const wrestlingNextWeekBtn = document.getElementById('wrestling-next-week');
-let wrestlingWeekOffset = 0;
+let wrestlingDayOffset = 0;
 const nbaWeek = document.getElementById('nba-week');
 const nbaStatus = document.getElementById('nba-status');
 const eventModal = document.getElementById('event-modal');
@@ -315,16 +314,16 @@ async function openEventDetail(eventId) {
   `, eventBrand.theme);
 }
 
-async function loadWrestlingWeek(offset = wrestlingWeekOffset) {
+async function loadWrestlingWeek(offset = wrestlingDayOffset) {
   try {
-    const response = await fetch(`/api/wrestling/week?offset=${offset}`);
+    const response = await fetch(`/api/wrestling/week?dayOffset=${offset}`);
     if (!response.ok) throw new Error('No se pudo cargar wrestling');
 
     const payload = await response.json();
     const week = payload.days || [];
     wrestlingWeek.innerHTML = '';
-    wrestlingWeekOffset = payload.weekOffset || 0;
-    wrestlingTitle.textContent = wrestlingWeekOffset === 0 ? 'Wrestling de esta semana' : `Wrestling (${payload.rangeLabel})`;
+    wrestlingDayOffset = payload.dayOffset || 0;
+    wrestlingTitle.textContent = `Wrestling (${payload.rangeLabel})`;
 
     week.forEach((day) => {
       const dayCard = document.createElement('article');
@@ -353,10 +352,8 @@ async function loadWrestlingWeek(offset = wrestlingWeekOffset) {
     wrestlingWeek.querySelectorAll('.event-chip').forEach((button) => {
       button.addEventListener('click', () => openEventDetail(button.dataset.id));
     });
-
-    wrestlingStatus.textContent = 'Eventos listos';
   } catch (error) {
-    wrestlingStatus.textContent = `Error: ${error.message}`;
+    console.error(error);
   }
 }
 
@@ -391,8 +388,25 @@ async function loadNbaWeek() {
   }
 }
 
-wrestlingPrevWeekBtn.addEventListener('click', () => loadWrestlingWeek(wrestlingWeekOffset - 1));
-wrestlingNextWeekBtn.addEventListener('click', () => loadWrestlingWeek(wrestlingWeekOffset + 1));
+function scrollDays(direction) {
+  const firstCard = wrestlingWeek.querySelector('.day-column');
+  if (!firstCard) return;
+  const gap = 10;
+  const amount = firstCard.getBoundingClientRect().width + gap;
+  wrestlingWeek.scrollBy({ left: direction * amount, behavior: 'smooth' });
+}
+
+wrestlingPrevWeekBtn.addEventListener('click', () => {
+  wrestlingDayOffset -= 1;
+  loadWrestlingWeek(wrestlingDayOffset);
+  requestAnimationFrame(() => scrollDays(-1));
+});
+
+wrestlingNextWeekBtn.addEventListener('click', () => {
+  wrestlingDayOffset += 1;
+  loadWrestlingWeek(wrestlingDayOffset);
+  requestAnimationFrame(() => scrollDays(1));
+});
 
 startDateTime({ locale: 'es-ES', withSeconds: true });
 startWeather({

@@ -25,22 +25,36 @@ async function readAndCleanEvents() {
   return cleaned;
 }
 
-function getCurrentWeekRange(weekOffset = 0) {
+function getLogicalToday() {
   const now = new Date();
-  const day = now.getDay();
-  const diffToMonday = (day + 6) % 7;
+  const broadcastHourByDay = {
+    0: 2,
+    2: 2,
+    3: 2,
+    4: 2,
+    5: 3,
+    6: 2,
+  };
 
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - diffToMonday + weekOffset * 7);
-  monday.setHours(0, 0, 0, 0);
+  const threshold = broadcastHourByDay[now.getDay()];
+  if (threshold !== undefined && now.getHours() < threshold) {
+    now.setDate(now.getDate() - 1);
+  }
 
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-  sunday.setHours(23, 59, 59, 999);
-
-  return { monday, sunday };
+  now.setHours(0, 0, 0, 0);
+  return now;
 }
 
+function getRollingDaysWindow(dayOffset = 0) {
+  const startDate = getLogicalToday();
+  startDate.setDate(startDate.getDate() + dayOffset);
+
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 6);
+  endDate.setHours(23, 59, 59, 999);
+
+  return { startDate, endDate };
+}
 
 function parseFlexibleDate(value = '') {
   const raw = String(value || '').trim();
@@ -63,14 +77,15 @@ function parseFlexibleDate(value = '') {
 }
 
 async function resolveCalendarDate(event) {
-  if (!/taping/i.test(event.name || '')) return event.date;
-
   const details = await scrapeEventDetail(event.url);
   const metadata = details?.metadata || {};
-  const broadcastType = Object.entries(metadata).find(([key]) => /broadcast\s*type/i.test(key))?.[1] || '';
-  const broadcastDateRaw = Object.entries(metadata).find(([key]) => /broadcast\s*date/i.test(key))?.[1] || '';
+  const entries = Object.entries(metadata);
 
-  if (!/taped/i.test(String(broadcastType))) return event.date;
+  const broadcastType = entries.find(([key]) => /broadcast\s*type/i.test(key))?.[1] || '';
+  const broadcastDateRaw = entries.find(([key]) => /broadcast\s*date|air\s*date|tv\s*date/i.test(key))?.[1] || '';
+  const looksTaped = /taped/i.test(String(broadcastType)) || /\btaped\b/i.test(Object.values(metadata).join(' '));
+
+  if (!looksTaped) return event.date;
 
   const broadcastDate = parseFlexibleDate(broadcastDateRaw);
   return broadcastDate || event.date;
@@ -79,25 +94,26 @@ async function resolveCalendarDate(event) {
 router.get('/week', async (req, res) => {
   try {
     const events = await readAndCleanEvents();
-    const weekOffset = Number.parseInt(req.query.offset || '0', 10) || 0;
-    const { monday, sunday } = getCurrentWeekRange(weekOffset);
+    const dayOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
+    const { startDate, endDate } = getRollingDaysWindow(dayOffset);
+    const logicalTodayIso = getLogicalToday().toISOString().slice(0, 10);
 
-    const weekDays = Array.from({ length: 7 }).map((_, i) => {
-      const date = new Date(monday);
-      date.setDate(monday.getDate() + i);
+    const days = Array.from({ length: 7 }).map((_, i) => {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i);
       const isoDate = date.toISOString().slice(0, 10);
       return {
         date: isoDate,
         dayLabel: DAY_LABELS[date.getDay()],
-        isToday: weekOffset === 0 && isoDate === new Date().toISOString().slice(0, 10),
+        isToday: isoDate === logicalTodayIso,
         events: [],
       };
     });
 
-    const candidateStart = new Date(monday);
-    candidateStart.setDate(candidateStart.getDate() - 7);
-    const candidateEnd = new Date(sunday);
-    candidateEnd.setDate(candidateEnd.getDate() + 7);
+    const candidateStart = new Date(startDate);
+    candidateStart.setDate(candidateStart.getDate() - 10);
+    const candidateEnd = new Date(endDate);
+    candidateEnd.setDate(candidateEnd.getDate() + 10);
 
     const candidateEvents = events.filter((event) => {
       const eventDate = new Date(`${event.date}T00:00:00`);
@@ -113,8 +129,8 @@ router.get('/week', async (req, res) => {
 
     normalizedEvents.forEach((event) => {
       const eventDate = new Date(`${event.calendarDate}T00:00:00`);
-      if (eventDate < monday || eventDate > sunday) return;
-      const target = weekDays.find((day) => day.date === event.calendarDate);
+      if (eventDate < startDate || eventDate > endDate) return;
+      const target = days.find((day) => day.date === event.calendarDate);
       if (!target) return;
       target.events.push({
         id: event.id,
@@ -125,9 +141,9 @@ router.get('/week', async (req, res) => {
     });
 
     res.json({
-      weekOffset,
-      rangeLabel: `${weekDays[0].date} · ${weekDays[6].date}`,
-      days: weekDays,
+      dayOffset,
+      rangeLabel: `${days[0].date} · ${days[6].date}`,
+      days,
     });
   } catch (error) {
     res.status(500).json({ error: 'No se pudieron cargar los eventos semanales', detail: error.message });
