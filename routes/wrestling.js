@@ -57,9 +57,11 @@ function getLogicalTodayIso() {
   return getEtNowParts().isoDate;
 }
 
+const WRESTLING_WINDOW_DAYS = 11;
+
 function getRollingDaysWindow(dayOffset = 0) {
   const startIso = addDaysIso(getLogicalTodayIso(), dayOffset);
-  const endIso = addDaysIso(startIso, 6);
+  const endIso = addDaysIso(startIso, WRESTLING_WINDOW_DAYS - 1);
   return { startIso, endIso };
 }
 
@@ -78,7 +80,7 @@ router.get('/week', async (req, res) => {
     const minAllowedIso = addDaysIso(logicalTodayIso, -HISTORY_WINDOW_DAYS);
     const maxAllowedIso = addDaysIso(logicalTodayIso, FUTURE_WINDOW_DAYS);
 
-    const days = Array.from({ length: 7 }).map((_, i) => {
+    const days = Array.from({ length: WRESTLING_WINDOW_DAYS }).map((_, i) => {
       const isoDate = addDaysIso(startIso, i);
       const date = new Date(`${isoDate}T00:00:00Z`);
       return {
