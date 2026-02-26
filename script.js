@@ -466,6 +466,9 @@ async function openEventDetail(eventId) {
     ${renderExtraSections(event.details?.additionalSections)}
 
     <a class="modal-link" href="${eventLink}" target="_blank" rel="noopener noreferrer">Abrir evento completo en Cagematch</a>
+    ${watchWrestlingLink
+      ? `<a class="modal-link" href="${watchWrestlingLink}" target="_blank" rel="noopener noreferrer">Abrir en Watch Wrestling</a>`
+      : ''}
   `, eventBrand.theme);
 }
 
