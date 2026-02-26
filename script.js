@@ -342,8 +342,17 @@ function parseEventDate(raw = '') {
   };
 }
 
+function sanitizeWatchWrestlingShowName(name = '') {
+  return String(name || '')
+    .replace(/\s*#\s*\d+\b/g, '')
+    .replace(/\b(?:episode|ep\.?)\s*\d+\b/gi, '')
+    .replace(/\s[-–:]\s\d+\b$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function buildWatchWrestlingLink(event = {}, metadata = {}) {
-  const eventName = String(event.name || '').trim();
+  const eventName = sanitizeWatchWrestlingShowName(event.name);
   if (!eventName) return '';
 
   const dateValue = metadataValue(metadata, /^date$/i) || event.date;
@@ -439,6 +448,9 @@ async function openEventDetail(eventId) {
         <h3 id="event-title">${escapeHtml(event.name)}</h3>
         <p class="modal-sub">${escapeHtml(event.promotion || '')} · <span class="brand-pill">${escapeHtml(eventBrand.label)}</span></p>
       </div>
+      ${watchWrestlingLink
+        ? `<a class="watch-wrestling-btn" href="${watchWrestlingLink}" target="_blank" rel="noopener noreferrer" aria-label="Abrir en Watch Wrestling"><span aria-hidden="true">▶</span> Watch Wrestling</a>`
+        : ''}
     </div>
 
     <div class="modal-section">
