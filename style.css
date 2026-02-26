@@ -52,6 +52,13 @@ body {
   font-weight: 700;
 }
 
+.clock-et {
+  margin-top: 0.2rem;
+  color: #ffb3b3;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
 .date {
   color: var(--muted);
 }

@@ -9,32 +9,38 @@ const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
 
 const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-
-function toLocalIsoDate(date) {
-  const year = date.getFullYear();
-  const month = `${date.getMonth() + 1}`.padStart(2, '0');
-  const day = `${date.getDate()}`.padStart(2, '0');
-  return `${year}-${month}-${day}`;
+function addDaysIso(isoDate, days) {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
 }
 
-async function readAndCleanEvents() {
-  const raw = await fs.readFile(FILE_PATH, 'utf8');
-  const parsed = JSON.parse(raw);
-  const cleaned = removeOldEvents(parsed.events || []);
+function getEtNowParts() {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+    weekday: 'short',
+  });
 
-  if ((parsed.events || []).length !== cleaned.length) {
-    await fs.writeFile(
-      FILE_PATH,
-      JSON.stringify({ lastUpdate: parsed.lastUpdate || '', events: cleaned }, null, 2),
-      'utf8',
-    );
-  }
+  const parts = Object.fromEntries(formatter.formatToParts(new Date()).map((item) => [item.type, item.value]));
+  const weekdayMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
-  return cleaned;
+  return {
+    isoDate: `${parts.year}-${parts.month}-${parts.day}`,
+    hour: Number(parts.hour || 0),
+    minute: Number(parts.minute || 0),
+    weekday: weekdayMap[parts.weekday] ?? new Date().getDay(),
+  };
 }
 
-function getLogicalToday() {
-  const now = new Date();
+function getLogicalTodayIso() {
+  const nowEt = getEtNowParts();
   const broadcastHourByDay = {
     0: 2,
     2: 2,
@@ -44,24 +50,18 @@ function getLogicalToday() {
     6: 2,
   };
 
-  const threshold = broadcastHourByDay[now.getDay()];
-  if (threshold !== undefined && now.getHours() < threshold) {
-    now.setDate(now.getDate() - 1);
+  const threshold = broadcastHourByDay[nowEt.weekday];
+  if (threshold !== undefined && nowEt.hour < threshold) {
+    return addDaysIso(nowEt.isoDate, -1);
   }
 
-  now.setHours(0, 0, 0, 0);
-  return now;
+  return nowEt.isoDate;
 }
 
 function getRollingDaysWindow(dayOffset = 0) {
-  const startDate = getLogicalToday();
-  startDate.setDate(startDate.getDate() + dayOffset);
-
-  const endDate = new Date(startDate);
-  endDate.setDate(startDate.getDate() + 6);
-  endDate.setHours(23, 59, 59, 999);
-
-  return { startDate, endDate };
+  const startIso = addDaysIso(getLogicalTodayIso(), dayOffset);
+  const endIso = addDaysIso(startIso, 6);
+  return { startIso, endIso };
 }
 
 function parseFlexibleDate(value = '') {
@@ -103,13 +103,12 @@ router.get('/week', async (req, res) => {
   try {
     const events = await readAndCleanEvents();
     const dayOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
-    const { startDate, endDate } = getRollingDaysWindow(dayOffset);
-    const logicalTodayIso = toLocalIsoDate(getLogicalToday());
+    const { startIso, endIso } = getRollingDaysWindow(dayOffset);
+    const logicalTodayIso = getLogicalTodayIso();
 
     const days = Array.from({ length: 7 }).map((_, i) => {
-      const date = new Date(startDate);
-      date.setDate(startDate.getDate() + i);
-      const isoDate = toLocalIsoDate(date);
+      const isoDate = addDaysIso(startIso, i);
+      const date = new Date(`${isoDate}T00:00:00Z`);
       return {
         date: isoDate,
         dayLabel: DAY_LABELS[date.getDay()],
@@ -118,15 +117,10 @@ router.get('/week', async (req, res) => {
       };
     });
 
-    const candidateStart = new Date(startDate);
-    candidateStart.setDate(candidateStart.getDate() - 10);
-    const candidateEnd = new Date(endDate);
-    candidateEnd.setDate(candidateEnd.getDate() + 10);
+    const candidateStartIso = addDaysIso(startIso, -10);
+    const candidateEndIso = addDaysIso(endIso, 10);
 
-    const candidateEvents = events.filter((event) => {
-      const eventDate = new Date(`${event.date}T00:00:00`);
-      return eventDate >= candidateStart && eventDate <= candidateEnd;
-    });
+    const candidateEvents = events.filter((event) => event.date >= candidateStartIso && event.date <= candidateEndIso);
 
     const normalizedEvents = await Promise.all(
       candidateEvents.map(async (event) => ({
@@ -136,8 +130,7 @@ router.get('/week', async (req, res) => {
     );
 
     normalizedEvents.forEach((event) => {
-      const eventDate = new Date(`${event.calendarDate}T00:00:00`);
-      if (eventDate < startDate || eventDate > endDate) return;
+      if (event.calendarDate < startIso || event.calendarDate > endIso) return;
       const target = days.find((day) => day.date === event.calendarDate);
       if (!target) return;
       target.events.push({
@@ -150,7 +143,7 @@ router.get('/week', async (req, res) => {
 
     res.json({
       dayOffset,
-      rangeLabel: `${days[0].date} · ${days[6].date}`,
+      rangeLabel: `${startIso} · ${endIso}`,
       days,
     });
   } catch (error) {

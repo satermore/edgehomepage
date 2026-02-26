@@ -75,21 +75,39 @@ function getScheduleKey(event = {}) {
   return '';
 }
 
+function getEtNowParts() {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+
+  const parts = Object.fromEntries(formatter.formatToParts(new Date()).map((item) => [item.type, item.value]));
+  return {
+    isoDate: `${parts.year}-${parts.month}-${parts.day}`,
+    hour: Number(parts.hour || 0),
+    minute: Number(parts.minute || 0),
+    second: Number(parts.second || 0),
+  };
+}
+
 function getEventSchedule(event = {}) {
   const key = getScheduleKey(event);
   if (!key) return { label: '', live: false };
 
   const schedule = SHOW_SCHEDULE[key];
-  const [year, month, day] = `${event.date || ''}`.split('-').map(Number);
-  if (!year || !month || !day) return { label: '', live: false };
-
-  const start = new Date(year, month - 1, day, schedule.hour, schedule.minute || 0, 0, 0);
-  const end = new Date(start.getTime() + 4 * 60 * 60 * 1000);
-  const now = new Date();
-  const live = now >= start && now <= end;
+  const nowEt = getEtNowParts();
+  const startMinutes = schedule.hour * 60 + (schedule.minute || 0);
+  const nowMinutes = nowEt.hour * 60 + nowEt.minute;
+  const live = nowEt.isoDate === event.date && nowMinutes >= startMinutes && nowMinutes < startMinutes + 240;
 
   return {
-    label: `${String(schedule.hour).padStart(2, '0')}:${String(schedule.minute || 0).padStart(2, '0')}`,
+    label: `${String(schedule.hour).padStart(2, '0')}:${String(schedule.minute || 0).padStart(2, '0')} ET`,
     live,
   };
 }
@@ -130,6 +148,7 @@ updateActive();
 
 function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
   const clockElement = document.getElementById('clock');
+  const clockEtElement = document.getElementById('clock-et');
   const dateElement = document.getElementById('date');
 
   function renderDateTime() {
@@ -147,6 +166,8 @@ function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
       year: 'numeric',
     });
 
+    const et = getEtNowParts();
+    clockEtElement.textContent = `ET ${String(et.hour).padStart(2, '0')}:${String(et.minute).padStart(2, '0')}:${String(et.second).padStart(2, '0')}`;
     dateElement.textContent = day.charAt(0).toUpperCase() + day.slice(1);
   }
 
@@ -445,24 +466,23 @@ async function loadNbaWeek() {
   }
 }
 
-function scrollDays(direction) {
-  const firstCard = wrestlingWeek.querySelector('.day-column');
-  if (!firstCard) return;
-  const gap = 10;
-  const amount = firstCard.getBoundingClientRect().width + gap;
-  wrestlingWeek.scrollBy({ left: direction * amount, behavior: 'smooth' });
-}
+wrestlingWeek.addEventListener(
+  'wheel',
+  (event) => {
+    event.preventDefault();
+    wrestlingWeek.scrollBy({ left: event.deltaY + event.deltaX, behavior: 'smooth' });
+  },
+  { passive: false },
+);
 
 wrestlingPrevWeekBtn.addEventListener('click', () => {
   wrestlingDayOffset -= 1;
   loadWrestlingWeek(wrestlingDayOffset);
-  requestAnimationFrame(() => scrollDays(-1));
 });
 
 wrestlingNextWeekBtn.addEventListener('click', () => {
   wrestlingDayOffset += 1;
   loadWrestlingWeek(wrestlingDayOffset);
-  requestAnimationFrame(() => scrollDays(1));
 });
 
 startDateTime({ locale: 'es-ES', withSeconds: true });
