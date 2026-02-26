@@ -16,27 +16,40 @@ function addDaysIso(isoDate, days) {
 }
 
 function getEtNowParts() {
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-    weekday: 'short',
-  });
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      weekday: 'short',
+    });
 
-  const parts = Object.fromEntries(formatter.formatToParts(new Date()).map((item) => [item.type, item.value]));
-  const weekdayMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    const parts = Object.fromEntries(formatter.formatToParts(new Date()).map((item) => [item.type, item.value]));
+    const weekdayMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
-  return {
-    isoDate: `${parts.year}-${parts.month}-${parts.day}`,
-    hour: Number(parts.hour || 0),
-    minute: Number(parts.minute || 0),
-    weekday: weekdayMap[parts.weekday] ?? new Date().getDay(),
-  };
+    return {
+      isoDate: `${parts.year}-${parts.month}-${parts.day}`,
+      hour: Number(parts.hour || 0),
+      minute: Number(parts.minute || 0),
+      weekday: weekdayMap[parts.weekday] ?? new Date().getDay(),
+    };
+  } catch {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = `${now.getMonth() + 1}`.padStart(2, '0');
+    const day = `${now.getDate()}`.padStart(2, '0');
+    return {
+      isoDate: `${year}-${month}-${day}`,
+      hour: now.getHours(),
+      minute: now.getMinutes(),
+      weekday: now.getDay(),
+    };
+  }
 }
 
 function getLogicalTodayIso() {

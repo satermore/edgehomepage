@@ -76,24 +76,34 @@ function getScheduleKey(event = {}) {
 }
 
 function getEtNowParts() {
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  });
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
 
-  const parts = Object.fromEntries(formatter.formatToParts(new Date()).map((item) => [item.type, item.value]));
-  return {
-    isoDate: `${parts.year}-${parts.month}-${parts.day}`,
-    hour: Number(parts.hour || 0),
-    minute: Number(parts.minute || 0),
-    second: Number(parts.second || 0),
-  };
+    const parts = Object.fromEntries(formatter.formatToParts(new Date()).map((item) => [item.type, item.value]));
+    return {
+      isoDate: `${parts.year}-${parts.month}-${parts.day}`,
+      hour: Number(parts.hour || 0),
+      minute: Number(parts.minute || 0),
+      second: Number(parts.second || 0),
+    };
+  } catch {
+    const now = new Date();
+    return {
+      isoDate: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`,
+      hour: now.getHours(),
+      minute: now.getMinutes(),
+      second: now.getSeconds(),
+    };
+  }
 }
 
 function getEventSchedule(event = {}) {
@@ -150,6 +160,7 @@ function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
   const clockElement = document.getElementById('clock');
   const clockEtElement = document.getElementById('clock-et');
   const dateElement = document.getElementById('date');
+  if (!clockElement || !dateElement) return;
 
   function renderDateTime() {
     const now = new Date();
@@ -167,7 +178,9 @@ function startDateTime({ locale = 'es-ES', withSeconds = true } = {}) {
     });
 
     const et = getEtNowParts();
-    clockEtElement.textContent = `ET ${String(et.hour).padStart(2, '0')}:${String(et.minute).padStart(2, '0')}:${String(et.second).padStart(2, '0')}`;
+    if (clockEtElement) {
+      clockEtElement.textContent = `ET ${String(et.hour).padStart(2, '0')}:${String(et.minute).padStart(2, '0')}:${String(et.second).padStart(2, '0')}`;
+    }
     dateElement.textContent = day.charAt(0).toUpperCase() + day.slice(1);
   }
 
