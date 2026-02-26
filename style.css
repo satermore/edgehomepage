@@ -5,20 +5,20 @@
 }
 
 :root {
-  --bg: #070b14;
-  --panel: #111a2f;
-  --panel-alt: #0d1528;
+  --bg: #070708;
+  --panel: #101012;
+  --panel-alt: #0b0b0d;
   --panel-border: rgba(255, 255, 255, 0.12);
-  --text: #eef3ff;
-  --muted: #a8b3d1;
-  --accent: #6d94ff;
+  --text: #f2f2f3;
+  --muted: #a5a5ad;
+  --accent: #e10600;
 }
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at top left, #162848, var(--bg) 40%);
+  background: radial-gradient(circle at top left, #1a0b0d, #0a0a0b 45%, var(--bg) 100%);
   color: var(--text);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Inter, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', system-ui, sans-serif;
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ body {
 .weather-panel,
 .datetime-panel,
 .card-panel {
-  background: linear-gradient(165deg, var(--panel), var(--panel-alt));
+  background: linear-gradient(165deg, #141417, #0a0a0c);
   border: 1px solid var(--panel-border);
   border-radius: 16px;
   padding: 1rem;
@@ -138,7 +138,7 @@ body {
 
 .panel-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   margin-bottom: 0.7rem;
@@ -149,11 +149,34 @@ body {
   font-size: 0.78rem;
 }
 
+
+.wrestling-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mini-nav {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+}
+
 .wrestling-week {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(130px, 1fr));
-  gap: 0.5rem;
+  display: flex;
+  gap: 0.6rem;
   overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.wrestling-week::-webkit-scrollbar {
+  display: none;
 }
 
 .day-column {
@@ -161,6 +184,14 @@ body {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.04);
   padding: 0.5rem;
+  flex: 0 0 min(250px, 78vw);
+  scroll-snap-align: start;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.day-column.is-today {
+  border-color: #e10600;
+  box-shadow: inset 0 0 0 1px rgba(225, 6, 0, 0.35);
 }
 
 .day-column header {
@@ -180,15 +211,32 @@ body {
 .event-chip {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid rgba(109, 148, 255, 0.45);
-  background: rgba(109, 148, 255, 0.17);
+  border: 1px solid color-mix(in srgb, var(--event-color, #e10600) 70%, #ffffff 30%);
+  background: color-mix(in srgb, var(--event-color, #e10600) 18%, #000000 82%);
   color: var(--text);
   text-align: left;
-  padding: 0.4rem;
+  padding: 0.45rem;
   margin-bottom: 0.4rem;
   cursor: pointer;
   display: grid;
-  gap: 0.12rem;
+  grid-template-columns: 44px 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.event-chip strong,
+.event-chip span,
+.event-chip small {
+  display: block;
+}
+
+.event-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 
 .event-chip span,
@@ -237,11 +285,39 @@ body {
   max-height: 92vh;
   overflow: auto;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: linear-gradient(165deg, #121f3a, #0f1a30);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(165deg, #0d0d10, #070708);
   box-shadow: 0 26px 80px rgba(0, 0, 0, 0.5);
   padding: 1.2rem 1.4rem;
   position: relative;
+}
+
+.modal-content.brand-raw,
+.modal-content.brand-tna,
+.modal-content.brand-default {
+  background: linear-gradient(165deg, #140809, #070708);
+}
+
+.modal-content.brand-smackdown {
+  background: linear-gradient(165deg, #08111e, #07080c);
+}
+
+.modal-content.brand-nxt,
+.modal-content.brand-njpw {
+  background: linear-gradient(165deg, #191407, #090807);
+}
+
+.modal-content.brand-dynamite {
+  background: linear-gradient(165deg, #111215, #080809);
+}
+
+.modal-content.brand-aaa {
+  background: linear-gradient(165deg, #08150f, #060907);
+}
+
+.modal-content.brand-ppv,
+.modal-content.brand-cmll {
+  background: linear-gradient(165deg, #1a1008, #080706);
 }
 
 .close-modal {
@@ -259,7 +335,9 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--event-color, #e10600);
+  padding-left: 0.7rem;
   padding-bottom: 0.9rem;
   margin-bottom: 0.9rem;
 }
@@ -268,14 +346,46 @@ body {
   width: 76px;
   height: 76px;
   object-fit: contain;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 0.35rem;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
 }
 
 .modal-sub {
   color: var(--muted);
   margin-top: 0.25rem;
+}
+
+.brand-pill {
+  color: #fff;
+  background: color-mix(in srgb, var(--event-color, #e10600) 85%, #000 15%);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+
+.event-facts {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.event-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #d7d7db;
+  font-size: 0.87rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.event-fact b {
+  font-weight: 400;
 }
 
 .modal-section {
@@ -284,7 +394,7 @@ body {
 
 .modal-section h4 {
   margin-bottom: 0.45rem;
-  color: #c9d6ff;
+  color: #fff;
 }
 
 .modal-meta-grid {
@@ -297,7 +407,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 0.55rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .meta-row span {
@@ -317,10 +427,26 @@ body {
 }
 
 .modal-match-list li {
-  border: 1px solid rgba(109, 148, 255, 0.32);
+  border-left: 2px solid #e10600;
   border-radius: 10px;
-  padding: 0.6rem;
-  background: rgba(109, 148, 255, 0.12);
+  padding: 0.65rem;
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 0.65rem;
+  align-items: start;
+}
+
+.match-index {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e10600;
+  color: #fff;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
 }
 
 .modal-match-list li small {
@@ -353,9 +479,6 @@ body {
     align-items: flex-start;
   }
 
-  .wrestling-week {
-    grid-template-columns: repeat(7, minmax(170px, 1fr));
-  }
 
   .modal-meta-grid {
     grid-template-columns: 1fr;
