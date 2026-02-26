@@ -6,29 +6,44 @@ const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEvents.json');
 const PROMOTIONS = [
   {
     name: 'WWE',
-    url: 'https://www.cagematch.net/en/?id=8&nr=1&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=1&page=4',
   },
   {
     name: 'All Elite Wrestling',
-    url: 'https://www.cagematch.net/en/?id=8&nr=2287&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=2287&page=4',
   },
   {
     name: 'New Japan Pro-Wrestling',
-    url: 'https://www.cagematch.net/en/?id=8&nr=7&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=7&page=4',
   },
   {
     name: 'TNA Wrestling',
-    url: 'https://www.cagematch.net/en/?id=8&nr=5&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=5&page=4',
   },
   {
     name: 'Consejo Mundial de Lucha Libre',
-    url: 'https://www.cagematch.net/en/?id=8&nr=78&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=78&page=4',
   },
   {
     name: 'Lucha Libre AAA Worldwide',
-    url: 'https://www.cagematch.net/en/?id=8&nr=122&page=4',
+    url: 'https://www.cagematch.net/?id=8&nr=122&page=4',
   },
 ];
+
+function addDaysIso(isoDate, days) {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function getTodayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function removeOldEvents(events = [], retentionDays = 30) {
+  const minDate = addDaysIso(getTodayIso(), -Math.abs(retentionDays));
+  return events.filter((event) => String(event?.date || '') >= minDate);
+}
 
 function dedupeEvents(events) {
   const seen = new Set();
@@ -57,7 +72,7 @@ async function updateWrestlingEvents() {
 
   const existingEvents = await loadExistingEvents();
   const mergedEvents = dedupeEvents([...existingEvents, ...scraped.flat()]);
-  const cleanedEvents = mergedEvents.sort((a, b) => a.timestamp - b.timestamp);
+  const cleanedEvents = removeOldEvents(mergedEvents).sort((a, b) => a.timestamp - b.timestamp);
 
   const payload = {
     lastUpdate: new Date().toISOString(),
@@ -80,5 +95,6 @@ if (require.main === module) {
 }
 
 module.exports = {
+  removeOldEvents,
   updateWrestlingEvents,
 };
