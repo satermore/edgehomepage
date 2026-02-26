@@ -155,6 +155,10 @@ function startWeather({ apiKey, lat, lon, units = 'metric', lang = 'es' } = {}) 
 
 const wrestlingWeek = document.getElementById('wrestling-week');
 const wrestlingStatus = document.getElementById('wrestling-status');
+const wrestlingTitle = document.getElementById('wrestling-title');
+const wrestlingPrevWeekBtn = document.getElementById('wrestling-prev-week');
+const wrestlingNextWeekBtn = document.getElementById('wrestling-next-week');
+let wrestlingWeekOffset = 0;
 const nbaWeek = document.getElementById('nba-week');
 const nbaStatus = document.getElementById('nba-status');
 const eventModal = document.getElementById('event-modal');
@@ -179,14 +183,50 @@ document.addEventListener('keydown', (event) => {
 });
 
 function renderDetailMetadata(metadata) {
-  const entries = Object.entries(metadata || {});
-  if (!entries.length) return '<p class="modal-empty">No se encontraron metadatos del evento.</p>';
+  const hiddenLabels = [/^date$/i, /^location$/i, /^arena$/i, /^attendance$/i, /broadcast\s*type/i, /broadcast\s*date/i];
+  const entries = Object.entries(metadata || {}).filter(([label]) => !hiddenLabels.some((pattern) => pattern.test(label)));
+  if (!entries.length) return '';
 
   return `<div class="modal-meta-grid">${entries
     .map(
       ([label, value]) =>
         `<div class="meta-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(value || ''))}</strong></div>`,
     )
+    .join('')}</div>`;
+}
+
+
+
+function metadataValue(metadata = {}, keyPattern) {
+  return Object.entries(metadata).find(([key]) => keyPattern.test(key))?.[1] || '';
+}
+
+function formatDateLabel(raw = '') {
+  if (!raw) return '';
+  const date = new Date(raw.includes('T') ? raw : `${raw}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return raw;
+  return date.toLocaleDateString('es-ES');
+}
+
+function renderEventInfo(metadata, event) {
+  const date = metadataValue(metadata, /^date$/i) || event.date;
+  const location = metadataValue(metadata, /^location$/i) || event.location;
+  const arena = metadataValue(metadata, /^arena$/i);
+  const attendance = metadataValue(metadata, /^attendance$/i);
+  const broadcastType = metadataValue(metadata, /broadcast\s*type/i);
+  const broadcastDate = metadataValue(metadata, /broadcast\s*date/i);
+
+  const infoItems = [
+    { icon: '📅', value: formatDateLabel(date) },
+    { icon: '📍', value: location },
+    { icon: '🏟️', value: arena },
+    { icon: '👥', value: attendance },
+    { icon: '📺', value: broadcastType },
+    { icon: '🗓️', value: formatDateLabel(broadcastDate) },
+  ].filter((item) => item.value);
+
+  return `<div class="event-facts">${infoItems
+    .map((item) => `<span class="event-fact"><b>${item.icon}</b>${escapeHtml(item.value)}</span>`)
     .join('')}</div>`;
 }
 
@@ -241,7 +281,7 @@ async function openEventDetail(eventId) {
     </div>
 
     <div class="modal-section">
-      <h4>Información del evento</h4>
+      ${renderEventInfo(metadata, event)}
       ${renderDetailMetadata(metadata)}
     </div>
 
@@ -256,17 +296,20 @@ async function openEventDetail(eventId) {
   `);
 }
 
-async function loadWrestlingWeek() {
+async function loadWrestlingWeek(offset = wrestlingWeekOffset) {
   try {
-    const response = await fetch('/api/wrestling/week');
+    const response = await fetch(`/api/wrestling/week?offset=${offset}`);
     if (!response.ok) throw new Error('No se pudo cargar wrestling');
 
-    const week = await response.json();
+    const payload = await response.json();
+    const week = payload.days || [];
     wrestlingWeek.innerHTML = '';
+    wrestlingWeekOffset = payload.weekOffset || 0;
+    wrestlingTitle.textContent = wrestlingWeekOffset === 0 ? 'Wrestling de esta semana' : `Wrestling (${payload.rangeLabel})`;
 
     week.forEach((day) => {
       const dayCard = document.createElement('article');
-      dayCard.className = 'day-column';
+      dayCard.className = `day-column${day.isToday ? ' is-today' : ''}`;
 
       const eventsHtml = day.events.length
         ? day.events
@@ -328,6 +371,9 @@ async function loadNbaWeek() {
     nbaStatus.textContent = `Error: ${error.message}`;
   }
 }
+
+wrestlingPrevWeekBtn.addEventListener('click', () => loadWrestlingWeek(wrestlingWeekOffset - 1));
+wrestlingNextWeekBtn.addEventListener('click', () => loadWrestlingWeek(wrestlingWeekOffset + 1));
 
 startDateTime({ locale: 'es-ES', withSeconds: true });
 startWeather({
