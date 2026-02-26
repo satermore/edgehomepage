@@ -57,7 +57,7 @@ function getLogicalTodayIso() {
   return getEtNowParts().isoDate;
 }
 
-const WRESTLING_WINDOW_DAYS = 11;
+const WRESTLING_WINDOW_DAYS = 14;
 
 function getRollingDaysWindow(dayOffset = 0) {
   const startIso = addDaysIso(getLogicalTodayIso(), dayOffset);

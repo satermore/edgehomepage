@@ -238,7 +238,7 @@ const wrestlingWeek = document.getElementById('wrestling-week');
 const wrestlingTitle = document.getElementById('wrestling-title');
 const wrestlingPrevWeekBtn = document.getElementById('wrestling-prev-week');
 const wrestlingNextWeekBtn = document.getElementById('wrestling-next-week');
-const DEFAULT_WRESTLING_DAY_OFFSET = -5;
+const DEFAULT_WRESTLING_DAY_OFFSET = -2;
 let wrestlingDayOffset = DEFAULT_WRESTLING_DAY_OFFSET;
 const MIN_WRESTLING_DAY_OFFSET = -7;
 const MAX_WRESTLING_DAY_OFFSET = 14;
@@ -489,7 +489,6 @@ async function loadWrestlingWeek(offset = wrestlingDayOffset) {
       button.addEventListener('click', () => openEventDetail(button.dataset.id));
     });
 
-    requestAnimationFrame(centerTodayWrestlingCard);
   } catch (error) {
     console.error(error);
   }

@@ -162,6 +162,15 @@ body {
   border: none;
 }
 
+.wrestling-panel {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.wrestling-panel .panel-header {
+  padding: 0 1rem;
+}
+
 .wrestling-panel .panel-header,
 .nba-panel .panel-header {
   justify-content: center;
@@ -218,7 +227,7 @@ body {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.04);
   padding: 0.5rem;
-  flex: 0 0 min(180px, 62vw);
+  flex: 0 0 min(230px, 70vw);
   scroll-snap-align: start;
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
