@@ -56,12 +56,12 @@ function getEventBrand(event = {}) {
 
 
 const SHOW_SCHEDULE = {
-  raw: { hour: 2, minute: 0 },
-  nxt: { hour: 2, minute: 0 },
-  dynamite: { hour: 2, minute: 0 },
-  tna: { hour: 3, minute: 0 },
-  smackdown: { hour: 2, minute: 0 },
-  collision: { hour: 2, minute: 0 },
+  raw: { hour: 20, minute: 0 },
+  nxt: { hour: 20, minute: 0 },
+  dynamite: { hour: 20, minute: 0 },
+  tna: { hour: 21, minute: 0 },
+  smackdown: { hour: 20, minute: 0 },
+  collision: { hour: 20, minute: 0 },
 };
 
 function getScheduleKey(event = {}) {
@@ -116,8 +116,12 @@ function getEventSchedule(event = {}) {
   const nowMinutes = nowEt.hour * 60 + nowEt.minute;
   const live = nowEt.isoDate === event.date && nowMinutes >= startMinutes && nowMinutes < startMinutes + 240;
 
+  const displayHour = schedule.hour % 12 || 12;
+  const period = schedule.hour >= 12 ? 'PM' : 'AM';
+  const displayMinute = String(schedule.minute || 0).padStart(2, '0');
+
   return {
-    label: `${String(schedule.hour).padStart(2, '0')}:${String(schedule.minute || 0).padStart(2, '0')} ET`,
+    label: `${displayHour}:${displayMinute} ${period} ET`,
     live,
   };
 }
