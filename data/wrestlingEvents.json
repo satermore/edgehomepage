@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-02-26T01:50:38.309Z",
+  "lastUpdate": "2026-02-26T04:21:00.956Z",
   "events": [
     {
-      "id": "f73a04ad-746c-42c1-a851-fcabb94591bd",
+      "id": "222733bb-f795-49be-bd20-f098e47c6299",
       "name": "WWE NXT #822",
       "promotion": "WWE",
       "date": "2026-01-27",
@@ -11,7 +11,7 @@
       "timestamp": 1769472000000
     },
     {
-      "id": "48caff9a-9dd6-48c8-a9df-5e7482f0d522",
+      "id": "618f025e-8dfd-4ad6-b4a6-4cb3ee21eb95",
       "name": "CMLL Martes Populares",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-27",
@@ -20,7 +20,7 @@
       "timestamp": 1769472000000
     },
     {
-      "id": "e6900ab5-dec6-4793-8837-663cc3de2347",
+      "id": "455b3b9f-ec0a-4d3f-abdd-b55d63c66512",
       "name": "CMLL Martes De Glamour",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-27",
@@ -29,7 +29,7 @@
       "timestamp": 1769472000000
     },
     {
-      "id": "693ae6d6-3cf1-4941-8ec8-4396b6a1d4f7",
+      "id": "ef23a110-b762-490e-89c2-be87703fb5c3",
       "name": "AEW Dynamite #330",
       "promotion": "All Elite Wrestling",
       "date": "2026-01-28",
@@ -38,7 +38,7 @@
       "timestamp": 1769558400000
     },
     {
-      "id": "2634443c-cf83-4d96-8c58-9aca4ca77e74",
+      "id": "c4da07d4-bb05-4c96-a6e4-ad1eacaf881b",
       "name": "NJPW Road To The New Beginning 2026 - Tag 3",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-01-28",
@@ -47,7 +47,7 @@
       "timestamp": 1769558400000
     },
     {
-      "id": "a7bfd835-7fd3-4aa3-8cd3-2dd436c43d3a",
+      "id": "67278aae-e26b-4b4c-a4ea-f69f70a04bd2",
       "name": "CMLL",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-28",
@@ -56,7 +56,7 @@
       "timestamp": 1769558400000
     },
     {
-      "id": "d390842f-27e2-4bca-9b50-7de26a723092",
+      "id": "eec38ab1-a035-4a53-b998-f49539b5faff",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-01-29",
@@ -65,7 +65,7 @@
       "timestamp": 1769644800000
     },
     {
-      "id": "39f69269-f519-4ddc-bd26-638f7ba3a6cd",
+      "id": "719c0a90-757f-4b5c-899f-ffbc076b368e",
       "name": "NJPW Road To The New Beginning 2026 - Tag 4",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-01-29",
@@ -74,7 +74,7 @@
       "timestamp": 1769644800000
     },
     {
-      "id": "b4fb58fc-bbba-438e-ac1a-b2f319a64acd",
+      "id": "fc04344f-4f3b-48df-8e3d-3b88d8f93dd5",
       "name": "CMLL/MaxProad 74 Aniversario Arena Aficion",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-29",
@@ -83,7 +83,7 @@
       "timestamp": 1769644800000
     },
     {
-      "id": "e66a5540-446c-4f65-b3bb-8b79f9970d0b",
+      "id": "10c06a11-b151-4c7e-a6f1-449a3426ea05",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-01-30",
@@ -92,7 +92,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "83cc5b4d-1ffa-4a4a-a532-3b54b213c244",
+      "id": "08a7d234-00a3-4723-9593-05c12a4382aa",
       "name": "WWE EVOLVE #49 - Season Finale",
       "promotion": "WWE",
       "date": "2026-01-30",
@@ -101,7 +101,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "f38e5b4f-48a9-4b59-b0a0-2519b14a55cc",
+      "id": "484bd698-7840-4465-a24f-d9689e2243de",
       "name": "WWE EVOLVE #50 - Succession II",
       "promotion": "WWE",
       "date": "2026-01-30",
@@ -110,7 +110,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "46d192d0-7a0e-4cee-a047-8ae312233ef0",
+      "id": "7460743c-91fd-433e-8f36-e0c747c76325",
       "name": "WWE Friday Night SmackDown #1380",
       "promotion": "WWE",
       "date": "2026-01-30",
@@ -119,7 +119,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "416599ce-aae4-4ac2-b395-8614f84928ce",
+      "id": "968af283-ebfe-4299-b955-52fa82fb88b3",
       "name": "WWE EVOLVE #48",
       "promotion": "WWE",
       "date": "2026-01-30",
@@ -128,7 +128,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "25bd0367-7260-4d02-a9bc-213bd22f2c13",
+      "id": "b0dae17d-d176-48d2-a534-2744de1c9c9a",
       "name": "CMLL Viernes Espectacular",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-30",
@@ -137,7 +137,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "58605037-47ff-4442-a73a-e69b3250da44",
+      "id": "2dd57e27-2b87-4da5-9db5-dca3b3dd8062",
       "name": "AAA",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-01-30",
@@ -146,7 +146,7 @@
       "timestamp": 1769731200000
     },
     {
-      "id": "6db612fa-5179-417f-9b48-5c97e1b1f875",
+      "id": "531f0d0b-15c5-4566-9ae2-7926ddf26888",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-01-31",
@@ -155,7 +155,7 @@
       "timestamp": 1769817600000
     },
     {
-      "id": "0d7d5b3f-b72f-4489-9ddc-890e4a0648d9",
+      "id": "0cf7be09-cc7a-4e02-a87d-e98cab618ef5",
       "name": "WWE Royal Rumble 2026",
       "promotion": "WWE",
       "date": "2026-01-31",
@@ -164,7 +164,7 @@
       "timestamp": 1769817600000
     },
     {
-      "id": "79dd6771-eff8-4afc-831f-47b4cc68897d",
+      "id": "be976056-2695-48f8-848f-bfbe75bbfa3f",
       "name": "AEW Collision #130",
       "promotion": "All Elite Wrestling",
       "date": "2026-01-31",
@@ -173,7 +173,7 @@
       "timestamp": 1769817600000
     },
     {
-      "id": "a6e8b606-1895-4a2e-8da1-81f9387c94e8",
+      "id": "1c43e0c7-79b6-4d51-beb4-ba98935f7687",
       "name": "CMLL Sabados De Coliseo",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-31",
@@ -182,7 +182,7 @@
       "timestamp": 1769817600000
     },
     {
-      "id": "8313058e-ba96-4486-9a33-be7d9e272e9d",
+      "id": "7c13c5c1-acf8-479b-bd35-992d520a07e8",
       "name": "CMLL/Promo Eventos F3",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-01-31",
@@ -191,7 +191,7 @@
       "timestamp": 1769817600000
     },
     {
-      "id": "05196b18-fa29-4fc7-bab7-3f059a521dd5",
+      "id": "fe3dd584-187d-4bb7-b9b1-f4eb3dc6bf8c",
       "name": "NJPW Road To The New Beginning 2026 - Tag 5",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-01",
@@ -200,7 +200,7 @@
       "timestamp": 1769904000000
     },
     {
-      "id": "a5b49690-0893-4a2b-95b6-66987e096b45",
+      "id": "ac1d8e00-12ac-4879-b055-8828774ef2e2",
       "name": "CMLL Domingo Familiar",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-01",
@@ -209,7 +209,7 @@
       "timestamp": 1769904000000
     },
     {
-      "id": "b6cc3636-4af5-4515-a918-b5661e9f76b7",
+      "id": "0d7e7e00-0c6b-43a2-bf21-deb137d78f6d",
       "name": "CMLL/Suplexmania",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-01",
@@ -218,7 +218,7 @@
       "timestamp": 1769904000000
     },
     {
-      "id": "65d1c965-49d4-42ff-9105-bf7e15920562",
+      "id": "9f07c822-0eef-4ae4-b77b-2ae5e7427dc8",
       "name": "WWE Monday Night RAW #1706",
       "promotion": "WWE",
       "date": "2026-02-02",
@@ -227,7 +227,7 @@
       "timestamp": 1769990400000
     },
     {
-      "id": "0ff61404-c2ec-4c3a-a2f9-996e98d78b59",
+      "id": "b2b26ed7-2f70-4609-ad06-faf3febdaefb",
       "name": "WWE Main Event #697",
       "promotion": "WWE",
       "date": "2026-02-02",
@@ -236,7 +236,7 @@
       "timestamp": 1769990400000
     },
     {
-      "id": "31ddbe8b-9eeb-46c4-955b-fe319c764b4d",
+      "id": "228342fa-bac8-4229-be6f-4676f7a1babc",
       "name": "NJPW Road To The New Beginning 2026 - Tag 6",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-02",
@@ -245,7 +245,7 @@
       "timestamp": 1769990400000
     },
     {
-      "id": "7147d263-daf0-4a50-a3e0-2856c9879a56",
+      "id": "80ab111a-a3e9-46a2-834f-5c89cce01a84",
       "name": "CMLL Lunes Clasico",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-02",
@@ -254,7 +254,7 @@
       "timestamp": 1769990400000
     },
     {
-      "id": "3ac776fd-c970-4c09-9ade-024d4b05aec4",
+      "id": "6b7a656f-2f90-44a6-853b-450f95869772",
       "name": "WWE NXT #823",
       "promotion": "WWE",
       "date": "2026-02-03",
@@ -263,7 +263,7 @@
       "timestamp": 1770076800000
     },
     {
-      "id": "fbceb965-a7fc-474c-9b3f-e21ee78549ab",
+      "id": "a40454b0-06b7-4751-85dc-16dd5b85e509",
       "name": "NJPW Road To The New Beginning 2026 - Tag 7",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-03",
@@ -272,7 +272,7 @@
       "timestamp": 1770076800000
     },
     {
-      "id": "8969f1d0-a54e-4991-a8da-bbfc8dfc6dc3",
+      "id": "8cfec0d1-4e71-4a8e-bb18-20cbfbce8e32",
       "name": "CMLL Martes Populares",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-03",
@@ -281,7 +281,7 @@
       "timestamp": 1770076800000
     },
     {
-      "id": "06fd5c60-cebc-4fdf-b077-9b046fc0eb3c",
+      "id": "4835b3d1-0060-4d5d-be2b-1fc338da0f3f",
       "name": "CMLL Martes De Glamour",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-03",
@@ -290,7 +290,7 @@
       "timestamp": 1770076800000
     },
     {
-      "id": "62609b77-3119-47cb-91d0-17f58ce4210e",
+      "id": "6212bb0e-6266-47b6-a9ef-83aa0e2b0fb4",
       "name": "AEW Dynamite #331",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-04",
@@ -299,7 +299,7 @@
       "timestamp": 1770163200000
     },
     {
-      "id": "78b45bc5-bcbb-4605-bf4f-906c0eca45b1",
+      "id": "c4e58164-ce38-44b8-8bf3-b69b3da9c443",
       "name": "AEW Collision #131",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-04",
@@ -308,7 +308,7 @@
       "timestamp": 1770163200000
     },
     {
-      "id": "996a7a08-3661-4f8c-8272-3aa4e2e20db9",
+      "id": "17eed0c7-44ed-4c48-a367-bb0d921fca0f",
       "name": "NJPW Road To The New Beginning 2026 - Tag 8",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-04",
@@ -317,7 +317,7 @@
       "timestamp": 1770163200000
     },
     {
-      "id": "aff67488-08f2-4970-996d-d0a911a6e473",
+      "id": "ceaa7803-581b-4586-a454-f14125a4ace9",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-06",
@@ -326,7 +326,7 @@
       "timestamp": 1770336000000
     },
     {
-      "id": "7337d733-663d-466a-bfa5-64d89f2fed04",
+      "id": "138b5390-58c8-45a2-9289-982b857bc610",
       "name": "WWE Friday Night SmackDown #1381",
       "promotion": "WWE",
       "date": "2026-02-06",
@@ -335,7 +335,7 @@
       "timestamp": 1770336000000
     },
     {
-      "id": "8e5a77d7-0047-46e2-adb8-99a62f002925",
+      "id": "147bf866-d240-4cb3-96ba-7f5033c9ab82",
       "name": "CMLL Viernes Espectacular",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-06",
@@ -344,7 +344,7 @@
       "timestamp": 1770336000000
     },
     {
-      "id": "e917b0ca-9df4-4de6-a041-ff9acbdef0eb",
+      "id": "5e70325e-a47e-4328-9d09-a81a517799da",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-07",
@@ -353,7 +353,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "8f41a6c0-2087-4f73-91b3-148c215b72cd",
+      "id": "caa8d3de-a5dd-46b2-af3c-133419302b94",
       "name": "NJPW Road To The New Beginning 2026 - Tag 9",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-07",
@@ -362,7 +362,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "bad0009e-392b-45ec-a317-b23cf19fc7fb",
+      "id": "8e8b93c7-84ac-47f1-9a8d-6a400f86779c",
       "name": "MLW Lucha Apocalypto 2026",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-07",
@@ -371,7 +371,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "e44c536f-e72e-44cf-ae03-15d5bc5c3b21",
+      "id": "3eeb2ecc-59f0-4696-82ea-ac3331003958",
       "name": "CMLL Sabados De Coliseo",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-07",
@@ -380,7 +380,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "e97be867-47b1-4ec5-aa19-b8258d2c9421",
+      "id": "0f4934da-b66e-4d9d-badd-2cc043eedbaa",
       "name": "AAA on FOX #4",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-07",
@@ -389,7 +389,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "fcac24d8-b0d5-4192-bacf-dac53bb7ba13",
+      "id": "6e0bc78f-1eb5-469e-b7a6-9cd6785e1a5e",
       "name": "AAA on FOX #5",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-07",
@@ -398,7 +398,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "8b6d724c-d1ad-437e-a95d-7cd4e102c9d1",
+      "id": "6708d524-d5ae-4993-a743-c3ffd159e257",
       "name": "AAA on FOX #6",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-07",
@@ -407,7 +407,7 @@
       "timestamp": 1770422400000
     },
     {
-      "id": "d678e956-0da8-43bf-8f0f-db84b66c3c44",
+      "id": "224b7acc-6aa5-4986-9b01-d6441d890e4a",
       "name": "NJPW Road To The New Beginning 2026 - Tag 10",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-08",
@@ -416,7 +416,7 @@
       "timestamp": 1770508800000
     },
     {
-      "id": "940d82cc-ab17-41e6-8ae0-ab324713f31d",
+      "id": "58f389f3-3901-40bb-b668-2fd08338022a",
       "name": "CMLL Domingo Familiar",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-08",
@@ -425,7 +425,7 @@
       "timestamp": 1770508800000
     },
     {
-      "id": "fd6dbeea-20fa-4043-b97b-d0f974b7398b",
+      "id": "c8ca6d13-dc08-443d-9013-2a44179c64ef",
       "name": "AAA",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-08",
@@ -434,7 +434,7 @@
       "timestamp": 1770508800000
     },
     {
-      "id": "4e97bae8-3a10-4f89-acdc-54075750b735",
+      "id": "1fdd06ea-a5cc-42e6-97e8-d911373df18e",
       "name": "WWE Main Event #698",
       "promotion": "WWE",
       "date": "2026-02-09",
@@ -443,7 +443,7 @@
       "timestamp": 1770595200000
     },
     {
-      "id": "6e00ad6f-9104-4a51-a894-1aec9ad43f21",
+      "id": "540d4b74-7e94-4be7-b492-804f6caef8b1",
       "name": "WWE Monday Night RAW #1707",
       "promotion": "WWE",
       "date": "2026-02-09",
@@ -452,7 +452,7 @@
       "timestamp": 1770595200000
     },
     {
-      "id": "b64ca816-b804-4a68-9660-876abe95fbd9",
+      "id": "4315f3e8-1531-4e2f-89f2-71ea76ac3fc3",
       "name": "CMLL Lunes Clasico",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-09",
@@ -461,7 +461,7 @@
       "timestamp": 1770595200000
     },
     {
-      "id": "748944e0-bfd9-494d-974c-93f478a94ee2",
+      "id": "55edf9fb-4c1e-475d-ac80-2a6f85ca657b",
       "name": "WWE NXT #824",
       "promotion": "WWE",
       "date": "2026-02-10",
@@ -470,7 +470,7 @@
       "timestamp": 1770681600000
     },
     {
-      "id": "0c10ee3c-6c52-42f5-b51e-14efb321aeb2",
+      "id": "ad62a4d7-8264-4cd1-90e7-3e1e5c894846",
       "name": "CMLL Martes Populares",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-10",
@@ -479,7 +479,7 @@
       "timestamp": 1770681600000
     },
     {
-      "id": "5ae97208-d3a7-4706-907a-092addfee407",
+      "id": "8d24a33d-b6f7-41c6-a487-8141f46f7204",
       "name": "CMLL Martes De Glamour",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-10",
@@ -488,7 +488,7 @@
       "timestamp": 1770681600000
     },
     {
-      "id": "ab668585-bd38-42d0-95b8-c0ca86b3ac11",
+      "id": "0bc96b2f-ee13-40eb-b64e-ec5164625874",
       "name": "AEW Dynamite #332",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-11",
@@ -497,7 +497,7 @@
       "timestamp": 1770768000000
     },
     {
-      "id": "5eb02dbb-b16e-4e98-84a0-0788c17aa07c",
+      "id": "3eee31b5-f597-4c9b-84c7-8dadde2b6521",
       "name": "NJPW The New Beginning In Osaka 2026",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-11",
@@ -506,7 +506,7 @@
       "timestamp": 1770768000000
     },
     {
-      "id": "32b9fbfc-19d2-42ff-8a2e-1722945c30ba",
+      "id": "77138910-91f5-46ff-a320-36f3723febb6",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-12",
@@ -515,7 +515,7 @@
       "timestamp": 1770854400000
     },
     {
-      "id": "9b582d7c-2f44-467b-a14b-413d7ce43fe7",
+      "id": "5a4e6788-25a5-41a6-964c-097147678338",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-13",
@@ -524,7 +524,7 @@
       "timestamp": 1770940800000
     },
     {
-      "id": "81d86f36-cc3e-4980-8723-ef2125d16669",
+      "id": "6c13a989-107d-4856-bee7-9961012d84ea",
       "name": "WWE Friday Night SmackDown #1382",
       "promotion": "WWE",
       "date": "2026-02-13",
@@ -533,7 +533,7 @@
       "timestamp": 1770940800000
     },
     {
-      "id": "87769ca4-ac86-4e97-a235-9bc48cd32c06",
+      "id": "221d766e-ded3-44e0-9586-2048a0bd9d05",
       "name": "TNA No Surrender 2026",
       "promotion": "TNA Wrestling",
       "date": "2026-02-13",
@@ -542,7 +542,7 @@
       "timestamp": 1770940800000
     },
     {
-      "id": "d92ea577-da43-46b7-996c-bb27c80060ce",
+      "id": "16d0ee09-a5b4-40d3-9ae6-5c258e5cde9a",
       "name": "TNA Countdown To No Surrender 2026",
       "promotion": "TNA Wrestling",
       "date": "2026-02-13",
@@ -551,7 +551,7 @@
       "timestamp": 1770940800000
     },
     {
-      "id": "9b27c98e-3371-4944-8351-af2f0d6b8b78",
+      "id": "40b4588e-5d76-4496-8ce2-b3614216083b",
       "name": "CMLL Viernes Espectacular",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-13",
@@ -560,7 +560,7 @@
       "timestamp": 1770940800000
     },
     {
-      "id": "596b01d8-e923-40cb-aa91-949b516376d1",
+      "id": "1c4318d3-aad8-45c9-a78a-7b2bb705338d",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-14",
@@ -569,7 +569,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "2f1ae333-27e1-4b54-b7d6-f1c2b4beb8c0",
+      "id": "e651cb91-767b-47fc-b0d9-b4fd7d2819a8",
       "name": "WWE Road To WrestleMania 2026",
       "promotion": "WWE",
       "date": "2026-02-14",
@@ -578,7 +578,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "1db3ef34-0a25-448d-810e-45746647d389",
+      "id": "5b2919d6-2989-42a4-999e-83f3bd13fa8c",
       "name": "AEW Grand Slam Australia 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-14",
@@ -587,7 +587,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "bec3c2fe-f588-4187-a15d-44d8bc3be760",
+      "id": "9aa08d60-cd9f-4e65-9fed-9b1e5f3c7fdc",
       "name": "TNA Thursday Night iMPACT #1128",
       "promotion": "TNA Wrestling",
       "date": "2026-02-14",
@@ -596,7 +596,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "9cb6f9eb-ade8-4d9f-a5ce-3c2fde386edb",
+      "id": "d85521cd-99d2-490c-bef5-596eacf88638",
       "name": "TNA Xplosion Taping",
       "promotion": "TNA Wrestling",
       "date": "2026-02-14",
@@ -605,7 +605,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "068ad32a-631f-4bac-99ab-cc13e0132afc",
+      "id": "eb37adf9-267a-4d74-97e2-73508c9d4974",
       "name": "TNA Thursday Night iMPACT #1127",
       "promotion": "TNA Wrestling",
       "date": "2026-02-14",
@@ -614,7 +614,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "94a7e62b-772a-4764-884c-1599df9dd92c",
+      "id": "5a36803d-80c4-4f69-ad74-00d7694b22cf",
       "name": "CMLL Sabados De Coliseo",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-14",
@@ -623,7 +623,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "71af43aa-23f9-40a9-b182-1f56fc597ab7",
+      "id": "fff4a8e6-da41-4ba9-9811-fe6c1b08063b",
       "name": "AAA/Producciones Sanchez Blood & Roses",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-14",
@@ -632,7 +632,7 @@
       "timestamp": 1771027200000
     },
     {
-      "id": "bb1ced2a-ac01-488b-95c4-624a77b90629",
+      "id": "fae22d85-9cc0-479c-8033-4935c22edbbf",
       "name": "AEW House Rules Australia",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-15",
@@ -641,7 +641,7 @@
       "timestamp": 1771113600000
     },
     {
-      "id": "67d9be8a-121c-4ee2-af12-952b7d5018f0",
+      "id": "ab09179f-0fb9-4903-beb6-a2ddf0399b04",
       "name": "CMLL Domingo Familiar",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-15",
@@ -650,7 +650,7 @@
       "timestamp": 1771113600000
     },
     {
-      "id": "1cb9f958-0f0a-45e4-bebd-89402a211190",
+      "id": "1d2cc142-7f77-4cc2-8128-fd60f7db50ca",
       "name": "CMLL/Alto Voltaje",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-15",
@@ -659,7 +659,7 @@
       "timestamp": 1771113600000
     },
     {
-      "id": "bc070c2a-9e14-454f-a5a9-476c4d79041e",
+      "id": "5c9ffa1b-5c36-46dc-bed8-cd6884eae967",
       "name": "WWE Monday Night RAW #1708",
       "promotion": "WWE",
       "date": "2026-02-16",
@@ -668,7 +668,7 @@
       "timestamp": 1771200000000
     },
     {
-      "id": "ffc0422a-0369-48d0-9afb-d7e8dd70ecd7",
+      "id": "5141122a-a638-419f-8be7-1b5cef7060ab",
       "name": "WWE Main Event #699",
       "promotion": "WWE",
       "date": "2026-02-16",
@@ -677,7 +677,7 @@
       "timestamp": 1771200000000
     },
     {
-      "id": "bbad654a-ec10-4db4-81c5-7e027548f1b2",
+      "id": "aa7bffd6-5b24-4bba-8532-63d3eee7bc2b",
       "name": "CMLL Lunes Clasico",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-16",
@@ -686,7 +686,7 @@
       "timestamp": 1771200000000
     },
     {
-      "id": "1b6d4148-c020-4d63-99a7-6ffca48f6f02",
+      "id": "c0e57ae4-ee67-4416-ad39-d095e1b0bfd4",
       "name": "WWE NXT #825",
       "promotion": "WWE",
       "date": "2026-02-17",
@@ -695,7 +695,7 @@
       "timestamp": 1771286400000
     },
     {
-      "id": "ad3e0602-a427-4654-8a04-634ad0d570b6",
+      "id": "df783e2a-79ff-46fa-a65c-0dcd8abcb5f1",
       "name": "CMLL Martes Populares",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-17",
@@ -704,7 +704,7 @@
       "timestamp": 1771286400000
     },
     {
-      "id": "b480b938-5887-4233-8248-761b01077b46",
+      "id": "b35d96f1-31d4-4131-b27c-e36c64aae945",
       "name": "CMLL Martes De Glamour",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-17",
@@ -713,7 +713,7 @@
       "timestamp": 1771286400000
     },
     {
-      "id": "0cda6f16-0299-4d26-85e7-6e913a5fa74d",
+      "id": "38fe215d-f0a5-402e-8e42-7ddc2498ee4d",
       "name": "AEW Dynamite #333",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-18",
@@ -722,7 +722,7 @@
       "timestamp": 1771372800000
     },
     {
-      "id": "7033d826-1644-47d3-888c-47eaa4556932",
+      "id": "01af8868-49ff-4e94-b823-aa73c0f7319c",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 1",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-18",
@@ -731,7 +731,7 @@
       "timestamp": 1771372800000
     },
     {
-      "id": "57c95861-a478-4970-bccb-54d748c3682f",
+      "id": "3a6e7633-9912-4aa7-bce4-f55a18bba5a1",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-20",
@@ -740,7 +740,7 @@
       "timestamp": 1771545600000
     },
     {
-      "id": "60badfae-5eb0-4f42-bcac-9e1fe9987f9e",
+      "id": "7865104e-2e0b-4e32-8e8c-4136b0e54384",
       "name": "WWE Friday Night SmackDown #1383",
       "promotion": "WWE",
       "date": "2026-02-20",
@@ -749,7 +749,7 @@
       "timestamp": 1771545600000
     },
     {
-      "id": "c2d79a94-e5f3-44c0-bd8d-31b86a775c13",
+      "id": "5f5be421-7854-4528-95af-ef182934160a",
       "name": "CMLL Viernes Espectacular",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-20",
@@ -758,7 +758,7 @@
       "timestamp": 1771545600000
     },
     {
-      "id": "bbd2c413-19a5-481a-a652-cf94f13b3db4",
+      "id": "9fe55264-eff4-45b2-93c4-60f914568956",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-02-21",
@@ -767,7 +767,7 @@
       "timestamp": 1771632000000
     },
     {
-      "id": "666ad7b8-5711-4757-b54f-b84c62d0b9e2",
+      "id": "a78f99bf-639e-4b47-86e0-0ce1b6452ae3",
       "name": "AEW Collision #132",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-21",
@@ -776,7 +776,7 @@
       "timestamp": 1771632000000
     },
     {
-      "id": "61a61eae-7b8d-44db-a7d6-000c35947474",
+      "id": "e4cfc916-de16-4e13-8773-f0faeb407343",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 2",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-21",
@@ -785,7 +785,7 @@
       "timestamp": 1771632000000
     },
     {
-      "id": "912c7071-80af-4de1-85d7-8c0119e93662",
+      "id": "d3cdf517-96d1-49ea-9a9b-c4ee2978b5ea",
       "name": "CMLL Sabados De Coliseo",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-21",
@@ -794,7 +794,7 @@
       "timestamp": 1771632000000
     },
     {
-      "id": "25b66448-8252-4f04-b860-268aba3fab7f",
+      "id": "59cc976e-0c87-435e-89fb-523fada378c7",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 3",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-22",
@@ -803,7 +803,7 @@
       "timestamp": 1771718400000
     },
     {
-      "id": "75568745-34a7-40f1-aad7-26f08fa5e1da",
+      "id": "1f4f9ae6-0142-44c9-a45c-76b9a04914ea",
       "name": "CMLL Domingo Familiar",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-22",
@@ -812,7 +812,7 @@
       "timestamp": 1771718400000
     },
     {
-      "id": "862ac6bf-ca01-41e4-b6d3-9a6664ba67e4",
+      "id": "3ab6d3a5-99d8-42e6-a13d-67cd974fe1dc",
       "name": "WWE Monday Night RAW #1709 - A Tribute To AJ Styles",
       "promotion": "WWE",
       "date": "2026-02-23",
@@ -821,7 +821,7 @@
       "timestamp": 1771804800000
     },
     {
-      "id": "63d86374-5c5b-4685-8fd6-518b723f0d73",
+      "id": "7e349d8b-cfa5-47d6-86fc-66b3424165b7",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 4",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-23",
@@ -830,7 +830,7 @@
       "timestamp": 1771804800000
     },
     {
-      "id": "64bcac1d-2d4b-4204-af19-ca7d6497363e",
+      "id": "31c7a58b-a89e-4c06-82f6-6c2ed5b5330e",
       "name": "CMLL Lunes Clasico",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-23",
@@ -839,7 +839,7 @@
       "timestamp": 1771804800000
     },
     {
-      "id": "a4eec28b-4363-41fc-8c6b-d2eaed9e7086",
+      "id": "26d7f85d-eb36-4eda-8c0f-459f0323c149",
       "name": "WWE NXT #826",
       "promotion": "WWE",
       "date": "2026-02-24",
@@ -848,7 +848,7 @@
       "timestamp": 1771891200000
     },
     {
-      "id": "921cdfb3-dd36-449e-bce6-b98a7d2b7d01",
+      "id": "28985d5c-d434-4e6c-ab83-720e8e4261e0",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 5",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-24",
@@ -857,7 +857,7 @@
       "timestamp": 1771891200000
     },
     {
-      "id": "cafcc390-d061-41ac-aa90-6eff4c075cb2",
+      "id": "783ec6b7-c7f7-4c01-a5a1-29183e970cb6",
       "name": "CMLL Martes Populares",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-02-24",
@@ -866,7 +866,7 @@
       "timestamp": 1771891200000
     },
     {
-      "id": "c1001e43-a2b8-4484-96e6-46ce82be0734",
+      "id": "d5188945-a566-4f3b-9672-093b97222b6f",
       "name": "AEW Dynamite #334",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-25",
@@ -875,7 +875,7 @@
       "timestamp": 1771977600000
     },
     {
-      "id": "9817dc8a-51fa-4663-b26a-269f7413ffcf",
+      "id": "13e4f8d0-32cf-42e2-81f2-226f6a0b172b",
       "name": "AEW Collision #133",
       "promotion": "All Elite Wrestling",
       "date": "2026-02-25",
@@ -884,7 +884,7 @@
       "timestamp": 1771977600000
     },
     {
-      "id": "5570c287-469c-4f13-ad54-40d2cd2bda58",
+      "id": "ab182819-c280-4ff4-b92f-9d4755b415ac",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 6",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-26",
@@ -893,7 +893,7 @@
       "timestamp": 1772064000000
     },
     {
-      "id": "568172ed-b36c-47cd-aee9-be2b3393f370",
+      "id": "22b1df3c-c2f4-458a-9f72-3c70f680be07",
       "name": "WWE Friday Night SmackDown #1384",
       "promotion": "WWE",
       "date": "2026-02-27",
@@ -902,7 +902,7 @@
       "timestamp": 1772150400000
     },
     {
-      "id": "3cf9482b-1a88-45cb-bb24-6147b0fcfd2b",
+      "id": "3b847a08-34c5-47e0-8453-6873a22da5f1",
       "name": "NJPW The New Beginning USA 2026",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-27",
@@ -911,7 +911,7 @@
       "timestamp": 1772150400000
     },
     {
-      "id": "e7684029-09bc-405b-9026-cf08c1655439",
+      "id": "eec34855-87e4-42e1-a338-96bd93d55d76",
       "name": "NJPW Presents CMLL Fantastica Mania 2026 - Tag 7",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-02-27",
@@ -920,7 +920,7 @@
       "timestamp": 1772150400000
     },
     {
-      "id": "8c151e2a-c171-4cfc-9e51-ea5d1c85edd6",
+      "id": "5d51702c-85f4-427d-9cfe-8691cd6ac7cd",
       "name": "WWE Elimination Chamber 2026",
       "promotion": "WWE",
       "date": "2026-02-28",
@@ -929,7 +929,7 @@
       "timestamp": 1772236800000
     },
     {
-      "id": "f336da34-3cdd-42c9-a0eb-b4df614f89d0",
+      "id": "fd878766-b3b3-49e4-8c00-7b59fe99959d",
       "name": "AAA on FOX #7",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-28",
@@ -938,7 +938,7 @@
       "timestamp": 1772236800000
     },
     {
-      "id": "12cf78d0-3b0e-4115-b293-f271ff40a740",
+      "id": "887c6a06-c959-4f5d-891f-63f121a775d2",
       "name": "AAA on FOX #8",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-02-28",
@@ -947,7 +947,7 @@
       "timestamp": 1772236800000
     },
     {
-      "id": "b6ce60fe-fef0-4024-8c54-46bb6d0e5dff",
+      "id": "3c2422e2-651a-4a1e-88a0-7a34ecf7d752",
       "name": "WWE Monday Night RAW #1710",
       "promotion": "WWE",
       "date": "2026-03-02",
@@ -956,7 +956,7 @@
       "timestamp": 1772409600000
     },
     {
-      "id": "f6084415-9233-44f5-969e-c307a9b92666",
+      "id": "3a4e2276-6279-4f7b-a7b6-962c4cf2d72a",
       "name": "WWE NXT #827",
       "promotion": "WWE",
       "date": "2026-03-03",
@@ -965,7 +965,7 @@
       "timestamp": 1772496000000
     },
     {
-      "id": "0a182334-cf11-48fa-a1f1-9a18cfc8aff5",
+      "id": "dff506a7-4162-481d-9984-a0d22580bd4f",
       "name": "AEW Dynamite #335",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-04",
@@ -974,7 +974,7 @@
       "timestamp": 1772582400000
     },
     {
-      "id": "a3afadaa-b30f-42d8-876b-710c7a580347",
+      "id": "4995fa4a-839c-4b2c-99e1-9398fd18d11a",
       "name": "NJPW New Japan Cup 2026 - Tag 1",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-04",
@@ -983,7 +983,7 @@
       "timestamp": 1772582400000
     },
     {
-      "id": "93b501b3-a44d-4102-9a75-4b9074871f0e",
+      "id": "702942c0-aa14-46b7-9e31-6c1904d33787",
       "name": "NJPW New Japan Cup 2026 - Tag 2",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-05",
@@ -992,7 +992,7 @@
       "timestamp": 1772668800000
     },
     {
-      "id": "d1cd9afd-5b2d-4b41-9045-6a4b88978dc7",
+      "id": "052a132c-d1d4-4eb4-a630-3ecf019ab4fe",
       "name": "TNA Thursday Night iMPACT #1129",
       "promotion": "TNA Wrestling",
       "date": "2026-03-05",
@@ -1001,7 +1001,7 @@
       "timestamp": 1772668800000
     },
     {
-      "id": "e18f231d-8a60-4fe7-a06b-221bf318340e",
+      "id": "0f54972a-c309-4339-b708-6cc134ba72fc",
       "name": "WWE Friday Night SmackDown #1385",
       "promotion": "WWE",
       "date": "2026-03-06",
@@ -1010,7 +1010,7 @@
       "timestamp": 1772755200000
     },
     {
-      "id": "a60c61c9-c51a-4868-a312-30a14f9494de",
+      "id": "2dd58b53-d2ab-4cca-b5e0-fd3074d19ec3",
       "name": "NJPW 54th Anniversary Event & New Japan Cup 2026 - Tag 3",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-06",
@@ -1019,7 +1019,7 @@
       "timestamp": 1772755200000
     },
     {
-      "id": "cb73b013-d45a-4155-bc4d-c5eef4826e23",
+      "id": "ce062a07-5498-4b26-94ff-c9962ae082fb",
       "name": "TNA Thursday Night iMPACT Taping",
       "promotion": "TNA Wrestling",
       "date": "2026-03-06",
@@ -1028,7 +1028,7 @@
       "timestamp": 1772755200000
     },
     {
-      "id": "52b48221-dbb8-4016-a703-6e94fe22f270",
+      "id": "70aa8dca-88db-4553-a2f3-6e37d702b482",
       "name": "WWE NXT Vengeance Day 2026",
       "promotion": "WWE",
       "date": "2026-03-07",
@@ -1037,7 +1037,7 @@
       "timestamp": 1772841600000
     },
     {
-      "id": "c0a77a13-6b13-409a-96bf-e7f5e9156843",
+      "id": "6a32a56e-e589-439c-9d79-d5a4edc85a8e",
       "name": "AEW Collision #134",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-07",
@@ -1046,7 +1046,7 @@
       "timestamp": 1772841600000
     },
     {
-      "id": "3a8aa586-4f47-4963-8554-3eff34d50f95",
+      "id": "85529300-6106-4927-8c08-7ce6751652f6",
       "name": "NJPW New Japan Cup 2026 - Tag 4",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-08",
@@ -1055,7 +1055,7 @@
       "timestamp": 1772928000000
     },
     {
-      "id": "c5de9a49-d43f-4c08-8df7-4eaa4040e546",
+      "id": "1e19d65c-7206-4c8a-8b80-82e89970e319",
       "name": "WWE Monday Night RAW #1711",
       "promotion": "WWE",
       "date": "2026-03-09",
@@ -1064,7 +1064,7 @@
       "timestamp": 1773014400000
     },
     {
-      "id": "88b27bab-970c-4abb-a718-7431bbac67d1",
+      "id": "83c05157-8c84-4188-a58d-d0ee82561150",
       "name": "NJPW New Japan Cup 2026 - Tag 5",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-10",
@@ -1073,7 +1073,7 @@
       "timestamp": 1773100800000
     },
     {
-      "id": "1e8374c8-20c6-475f-9fde-bbe90f1e3105",
+      "id": "41bafeea-3c86-4d37-9aff-b13dd638e5bd",
       "name": "AEW Dynamite #336",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-11",
@@ -1082,7 +1082,7 @@
       "timestamp": 1773187200000
     },
     {
-      "id": "582b3929-381c-4310-ab29-995030c09a3b",
+      "id": "ed4e660c-3ff2-43c6-8e6f-432e7c2a5ac2",
       "name": "AEW Collision #135",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-11",
@@ -1091,7 +1091,7 @@
       "timestamp": 1773187200000
     },
     {
-      "id": "812063f6-b66a-4562-87f3-81ab7cfcf8e4",
+      "id": "1dc46f9f-f46c-47e1-aef8-339e8d915870",
       "name": "NJPW New Japan Cup 2026 - Tag 6",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-12",
@@ -1100,7 +1100,7 @@
       "timestamp": 1773273600000
     },
     {
-      "id": "0ee0faa9-edcb-4c5f-bdde-dba602554b4a",
+      "id": "38278a6c-7fbd-4cdb-b9e4-8b7c55e22c27",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-03-13",
@@ -1109,7 +1109,7 @@
       "timestamp": 1773360000000
     },
     {
-      "id": "e7d9c362-a466-44b5-9bde-e0069c7e7246",
+      "id": "ec2b7435-9819-4c6f-8c30-5ba9fc900b02",
       "name": "WWE Friday Night SmackDown #1386",
       "promotion": "WWE",
       "date": "2026-03-13",
@@ -1118,7 +1118,7 @@
       "timestamp": 1773360000000
     },
     {
-      "id": "7a21c6c9-aed3-4eba-99ce-5bfd0a05427b",
+      "id": "6c128e72-ddb6-44b5-bb5f-0d5faaf09d87",
       "name": "NJPW New Japan Cup 2026 - Tag 7",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-13",
@@ -1127,7 +1127,7 @@
       "timestamp": 1773360000000
     },
     {
-      "id": "8fd961a0-9137-4823-9abe-a76b0e9dc511",
+      "id": "95d93512-c305-4986-acac-3eb092f7202c",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-03-14",
@@ -1136,7 +1136,7 @@
       "timestamp": 1773446400000
     },
     {
-      "id": "1d85d9bf-0031-4eaa-a0f2-cf52b247c3ab",
+      "id": "55baa9bb-46d7-4035-b20d-69023e0292cd",
       "name": "NJPW New Japan Cup 2026 - Tag 8",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-14",
@@ -1145,7 +1145,7 @@
       "timestamp": 1773446400000
     },
     {
-      "id": "edb93114-4edd-49a9-a43d-aeb970342610",
+      "id": "cf3f3c19-bd06-4a30-8b1a-3a49867fcd37",
       "name": "AAA Rey De Reyes 2026",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-03-14",
@@ -1154,7 +1154,7 @@
       "timestamp": 1773446400000
     },
     {
-      "id": "1ae76417-a7f5-42f9-983c-13845fdde2dd",
+      "id": "223e1d56-b25f-46d1-af22-4eb8a1608d7f",
       "name": "AEW Revolution 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-15",
@@ -1163,7 +1163,7 @@
       "timestamp": 1773532800000
     },
     {
-      "id": "b02a0d10-fd93-4834-8d46-331c60f82050",
+      "id": "b1492170-ba18-41c5-989c-5da078bf04be",
       "name": "NJPW New Japan Cup 2026 - Tag 9",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-15",
@@ -1172,7 +1172,7 @@
       "timestamp": 1773532800000
     },
     {
-      "id": "ed69171c-489b-4210-907d-624a3f3b2d82",
+      "id": "f45f0d48-7da3-43dc-91c1-2015977b391a",
       "name": "WWE Monday Night RAW #1712",
       "promotion": "WWE",
       "date": "2026-03-16",
@@ -1181,7 +1181,7 @@
       "timestamp": 1773619200000
     },
     {
-      "id": "47a2bb4b-a1fc-44e0-8963-b869c35ff3a5",
+      "id": "11da003e-36dd-40a4-86d1-4aec2aec939b",
       "name": "WWE NXT #829",
       "promotion": "WWE",
       "date": "2026-03-17",
@@ -1190,7 +1190,7 @@
       "timestamp": 1773705600000
     },
     {
-      "id": "d388ebc6-779c-40ec-9f23-3be4acc80aff",
+      "id": "05eb37bb-2cee-4af7-8821-7113342ff215",
       "name": "NJPW New Japan Cup 2026 - Tag 10",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-17",
@@ -1199,7 +1199,7 @@
       "timestamp": 1773705600000
     },
     {
-      "id": "1a8fdb87-e9c2-40cf-9b3f-da392b0a41e4",
+      "id": "653437f7-4da6-4751-a2cb-e2256729421c",
       "name": "AEW Dynamite #337",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-18",
@@ -1208,7 +1208,7 @@
       "timestamp": 1773792000000
     },
     {
-      "id": "d6644e7e-bccb-4df6-8b2b-88912507bd0d",
+      "id": "f6cdbb0b-410f-41da-8b8e-07954c59bbca",
       "name": "AEW Collision #136 - Slam Dunk Saturday 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-18",
@@ -1217,7 +1217,7 @@
       "timestamp": 1773792000000
     },
     {
-      "id": "dba4679d-4f5e-46e0-8123-12fc55ee780d",
+      "id": "9b4f6de6-0dd9-4174-987e-77e2dfc8900e",
       "name": "AEW Collision #136 - Slam Dunk Sunday 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-18",
@@ -1226,7 +1226,7 @@
       "timestamp": 1773792000000
     },
     {
-      "id": "920ed05a-4b25-41fd-b1e6-3fbc4701c112",
+      "id": "10e5e2a5-2218-4550-8caa-9b8f559fc172",
       "name": "WWE Friday Night SmackDown #1387",
       "promotion": "WWE",
       "date": "2026-03-20",
@@ -1235,7 +1235,7 @@
       "timestamp": 1773964800000
     },
     {
-      "id": "a054f316-a0c2-41b2-bdae-d72e60848842",
+      "id": "7dfd9f05-b1d4-4634-97b0-5c80cfb52f9d",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-03-20",
@@ -1244,7 +1244,7 @@
       "timestamp": 1773964800000
     },
     {
-      "id": "d0dda4a9-5a51-4a6b-a17b-5a05cdc83fb3",
+      "id": "5f77e497-6588-4802-8390-cbcf23479d43",
       "name": "NJPW New Japan Cup 2026 - Tag 11",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-20",
@@ -1253,7 +1253,7 @@
       "timestamp": 1773964800000
     },
     {
-      "id": "352add98-5a4b-407c-b5d6-83e215e9abd0",
+      "id": "fc49823c-d560-4bc1-9ce8-1f532126cd12",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-03-21",
@@ -1262,7 +1262,7 @@
       "timestamp": 1774051200000
     },
     {
-      "id": "6b06465b-bd5d-4184-8451-c28888b456f0",
+      "id": "7ab7fad5-a5a8-4dd9-b589-6662790d55ea",
       "name": "NJPW New Japan Cup 2026 - Tag 12",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-03-21",
@@ -1271,7 +1271,7 @@
       "timestamp": 1774051200000
     },
     {
-      "id": "900aacf9-5e3e-46cb-aac6-7648b1b37af2",
+      "id": "2f020ed6-d0b0-46d1-b992-dc6414abbe3f",
       "name": "WWE Monday Night RAW #1713",
       "promotion": "WWE",
       "date": "2026-03-23",
@@ -1280,7 +1280,7 @@
       "timestamp": 1774224000000
     },
     {
-      "id": "a1616d61-337c-4b0c-bac9-21c60f4c9f84",
+      "id": "d9fc0d57-6245-4a28-add0-c9178c42fda4",
       "name": "AEW Dynamite #338",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-25",
@@ -1289,7 +1289,7 @@
       "timestamp": 1774396800000
     },
     {
-      "id": "55ad3de7-ad56-44a7-9293-acf8e5d4c1cb",
+      "id": "f3ce40a4-ff00-4d6a-902b-fa25f195dfab",
       "name": "WWE Friday Night SmackDown #1388",
       "promotion": "WWE",
       "date": "2026-03-27",
@@ -1298,7 +1298,7 @@
       "timestamp": 1774569600000
     },
     {
-      "id": "3a49a6ac-bc15-42f3-b665-22ae1027f321",
+      "id": "234df222-f615-44ef-a4cb-5e59a3539c9a",
       "name": "TNA Sacrifice 2026",
       "promotion": "TNA Wrestling",
       "date": "2026-03-27",
@@ -1307,7 +1307,7 @@
       "timestamp": 1774569600000
     },
     {
-      "id": "52392877-be04-495f-b212-0b0926619b6d",
+      "id": "74721695-c65f-4e8a-b11e-9be86a8aeaae",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-03-28",
@@ -1316,7 +1316,7 @@
       "timestamp": 1774656000000
     },
     {
-      "id": "c0bb94d6-32be-493b-86f4-81f13ca0631d",
+      "id": "82128ddc-bf3b-4fe2-be84-668b31e6e43c",
       "name": "AEW Collision #137",
       "promotion": "All Elite Wrestling",
       "date": "2026-03-28",
@@ -1325,7 +1325,7 @@
       "timestamp": 1774656000000
     },
     {
-      "id": "2c7309b6-c56f-4d38-8830-724792a33839",
+      "id": "3528dfee-7001-4a3e-ac7d-588a7b3f7489",
       "name": "TNA Thursday Night iMPACT Taping",
       "promotion": "TNA Wrestling",
       "date": "2026-03-28",
@@ -1334,7 +1334,7 @@
       "timestamp": 1774656000000
     },
     {
-      "id": "86ef0e99-4a27-41f2-9400-102ce6147ca0",
+      "id": "fe06b73e-bd33-4afd-a4bd-32d6f0161e66",
       "name": "WWE Monday Night RAW #1714",
       "promotion": "WWE",
       "date": "2026-03-30",
@@ -1343,7 +1343,7 @@
       "timestamp": 1774828800000
     },
     {
-      "id": "81653a70-7956-4d80-9de1-74aa5d746618",
+      "id": "1a5a60bd-0e9f-4ab4-afe4-038704e3fe34",
       "name": "WWE NXT #831 - Roadblock 2026",
       "promotion": "WWE",
       "date": "2026-03-31",
@@ -1352,7 +1352,7 @@
       "timestamp": 1774915200000
     },
     {
-      "id": "578c8e68-49f3-4ba3-a064-3817174b7da6",
+      "id": "b6e3410e-d08e-4ee3-b65c-9874f59b89af",
       "name": "AEW Dynamite #339",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-01",
@@ -1361,7 +1361,7 @@
       "timestamp": 1775001600000
     },
     {
-      "id": "053b0699-6792-45e6-8ca4-c38cfbe958f4",
+      "id": "346e9e6b-19fc-4aae-89d7-7ab34769d9f4",
       "name": "AEW Collision #138",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-01",
@@ -1370,7 +1370,7 @@
       "timestamp": 1775001600000
     },
     {
-      "id": "51a97f7b-1571-4475-bbd4-b9d8b451a313",
+      "id": "cb893ad8-98a9-4ae3-a668-b91522e5b0b0",
       "name": "WWE Friday Night SmackDown #1389",
       "promotion": "WWE",
       "date": "2026-04-03",
@@ -1379,7 +1379,7 @@
       "timestamp": 1775174400000
     },
     {
-      "id": "b84ab605-c734-4607-a498-5429295f27df",
+      "id": "d1451fbb-17a6-48a7-aa02-24c838b0d2e8",
       "name": "WWE NXT Stand & Deliver 2026",
       "promotion": "WWE",
       "date": "2026-04-04",
@@ -1388,7 +1388,7 @@
       "timestamp": 1775260800000
     },
     {
-      "id": "2956d838-5a0e-4973-8504-f979d8689018",
+      "id": "5f20dfc5-42cb-48bb-98cb-3d030e42184d",
       "name": "NJPW Sakura Genesis 2026",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-04-04",
@@ -1397,7 +1397,7 @@
       "timestamp": 1775260800000
     },
     {
-      "id": "4713f1f7-1af8-47f3-9c61-c9c234b4bde0",
+      "id": "382535d1-b008-4c90-bbff-cbcc2c0665aa",
       "name": "WWE Monday Night RAW #1715",
       "promotion": "WWE",
       "date": "2026-04-06",
@@ -1406,7 +1406,7 @@
       "timestamp": 1775433600000
     },
     {
-      "id": "1c1f5312-117a-42d9-84e5-ce564b861b35",
+      "id": "63e2749d-cbb4-41a2-9399-555f1e863946",
       "name": "AEW Dynamite #340",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-08",
@@ -1415,7 +1415,7 @@
       "timestamp": 1775606400000
     },
     {
-      "id": "0b597d7d-ddf6-48a1-800c-400af218028c",
+      "id": "2f00ce1d-de9c-4853-a7fd-5d66f824d687",
       "name": "AEW Collision #139",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-08",
@@ -1424,7 +1424,7 @@
       "timestamp": 1775606400000
     },
     {
-      "id": "4acecd95-8a2a-40ba-a2bf-f77c10b6716c",
+      "id": "a112d65f-47b6-44d2-a413-f172d6c496d4",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-04-09",
@@ -1433,7 +1433,7 @@
       "timestamp": 1775692800000
     },
     {
-      "id": "9a272cc5-fe2b-46d7-ab87-9a6f02dcc5c7",
+      "id": "1c833ed7-e8a2-4248-a886-50dd577b80b1",
       "name": "WWE Friday Night SmackDown #1390",
       "promotion": "WWE",
       "date": "2026-04-10",
@@ -1442,7 +1442,7 @@
       "timestamp": 1775779200000
     },
     {
-      "id": "351a95f1-6466-46b4-a049-9a774d4a8075",
+      "id": "f53900ea-62f6-4e0b-9d69-035d96c6111a",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-04-10",
@@ -1451,7 +1451,7 @@
       "timestamp": 1775779200000
     },
     {
-      "id": "49df34e1-1ef7-4bb5-a69d-0c4cf512fa5f",
+      "id": "c2c1f785-6165-4611-bfe0-df75653d3e86",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-04-11",
@@ -1460,7 +1460,7 @@
       "timestamp": 1775865600000
     },
     {
-      "id": "e0c45bef-86b6-4852-88cb-b9915788c6ed",
+      "id": "304b106d-f8f6-484e-9437-abb9710a7ea0",
       "name": "TNA Rebellion 2026",
       "promotion": "TNA Wrestling",
       "date": "2026-04-11",
@@ -1469,7 +1469,7 @@
       "timestamp": 1775865600000
     },
     {
-      "id": "4708b73f-5da7-48cf-81e3-ebd6d90b113f",
+      "id": "3df8ccef-a152-4503-a96d-1e17fc4dfd2f",
       "name": "AAA on FOX Taping",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-04-11",
@@ -1478,7 +1478,7 @@
       "timestamp": 1775865600000
     },
     {
-      "id": "9ee4814e-1062-46fd-a786-5a23a92554ac",
+      "id": "0dd76ca3-91ac-43dd-883f-9b41c365fb7d",
       "name": "AEW Dynasty 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-12",
@@ -1487,7 +1487,7 @@
       "timestamp": 1775952000000
     },
     {
-      "id": "fa43d4b1-e53b-4e10-92dd-22f98cef2aff",
+      "id": "ab9e2707-6f02-4338-be7d-ced3eafcd629",
       "name": "MLW/NJPW Present CMLL Fantastica Mania USA 2026",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-04-12",
@@ -1496,7 +1496,7 @@
       "timestamp": 1775952000000
     },
     {
-      "id": "f3a48c7a-21c0-4c46-9e76-562f45b9eb4f",
+      "id": "b117937d-c401-4c7d-ae6f-d217e7775718",
       "name": "WWE Monday Night RAW #1716",
       "promotion": "WWE",
       "date": "2026-04-13",
@@ -1505,7 +1505,7 @@
       "timestamp": 1776038400000
     },
     {
-      "id": "6f6cbd8c-c1b9-473f-80cd-1d06a2c615bf",
+      "id": "c9b6215e-6732-4a11-80a0-8a6c1ee1c5ff",
       "name": "TNA Thursday Night iMPACT Taping",
       "promotion": "TNA Wrestling",
       "date": "2026-04-14",
@@ -1514,7 +1514,7 @@
       "timestamp": 1776124800000
     },
     {
-      "id": "d864ec5d-b672-4906-9357-887fa8efb9a3",
+      "id": "701328c5-f366-4e4f-81fd-dda20601ef20",
       "name": "AEW Dynamite #341",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-15",
@@ -1523,7 +1523,7 @@
       "timestamp": 1776211200000
     },
     {
-      "id": "e0302cf1-d0a5-4187-8c89-73c5c687fc59",
+      "id": "94ca4448-8481-43cd-b837-da7229b54ad4",
       "name": "AEW Collision #140",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-15",
@@ -1532,7 +1532,7 @@
       "timestamp": 1776211200000
     },
     {
-      "id": "11eac6da-b5de-4b7d-a826-c72a20ffce64",
+      "id": "ffab8197-ccf7-4c4d-a386-65f1c7a84359",
       "name": "TNA Thursday Night iMPACT Taping",
       "promotion": "TNA Wrestling",
       "date": "2026-04-15",
@@ -1541,7 +1541,7 @@
       "timestamp": 1776211200000
     },
     {
-      "id": "7b577fbd-1357-4856-a492-60b3a854374a",
+      "id": "17ff0d02-29cd-4e9b-9759-5e3f05126a49",
       "name": "NJPW Death Vegas Invitational",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-04-16",
@@ -1550,7 +1550,7 @@
       "timestamp": 1776297600000
     },
     {
-      "id": "1eb2b7b0-7fa6-4fbe-9805-b14af839c296",
+      "id": "45705a14-7959-4db1-893e-1fe9f188825b",
       "name": "WWE Friday Night SmackDown #1391",
       "promotion": "WWE",
       "date": "2026-04-17",
@@ -1559,7 +1559,7 @@
       "timestamp": 1776384000000
     },
     {
-      "id": "c4537369-9884-49f2-98bb-2b054901acb1",
+      "id": "d3206ade-361a-4b61-a310-f208d685f461",
       "name": "WWE WrestleMania 42 - Saturday",
       "promotion": "WWE",
       "date": "2026-04-18",
@@ -1568,7 +1568,7 @@
       "timestamp": 1776470400000
     },
     {
-      "id": "652f4ca7-4d0a-44ee-bcaa-2f782820ea3f",
+      "id": "6dbc298f-82ce-4663-813a-fdd7fff8bdde",
       "name": "WWE WrestleMania 42 - Sunday",
       "promotion": "WWE",
       "date": "2026-04-19",
@@ -1577,7 +1577,7 @@
       "timestamp": 1776556800000
     },
     {
-      "id": "91bc62c7-bdb5-4327-8d98-a40493e20fd2",
+      "id": "18fc9bf2-172c-4d2e-b1e4-2d8b532f0994",
       "name": "WWE Monday Night RAW #1717",
       "promotion": "WWE",
       "date": "2026-04-20",
@@ -1586,7 +1586,7 @@
       "timestamp": 1776643200000
     },
     {
-      "id": "a5632301-4c87-4806-a868-5d31dfe8e797",
+      "id": "baa2e09f-efee-45e3-a75a-27d6d0ec4c2d",
       "name": "AEW Dynamite #342",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-22",
@@ -1595,7 +1595,7 @@
       "timestamp": 1776816000000
     },
     {
-      "id": "558a0066-85d6-4d6e-9404-4eafa500a010",
+      "id": "44c7ac08-6244-45da-b868-8381c99570a3",
       "name": "AEW Collision #141",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-22",
@@ -1604,7 +1604,7 @@
       "timestamp": 1776816000000
     },
     {
-      "id": "93554e53-95ae-4119-ae49-6e0d97172ae1",
+      "id": "cc15b0f8-c7c8-4aa7-a721-a2fbc56679d8",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-04-24",
@@ -1613,7 +1613,7 @@
       "timestamp": 1776988800000
     },
     {
-      "id": "2259ec77-9689-4c04-8f42-60314dc28786",
+      "id": "be253eab-106a-458f-9c54-4057ed287152",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-04-25",
@@ -1622,7 +1622,7 @@
       "timestamp": 1777075200000
     },
     {
-      "id": "e7c9db42-e96b-402d-97f9-b6938298d49e",
+      "id": "f3a6c4a9-a82c-4798-ac98-4831d2695633",
       "name": "NJPW Wrestling Redzone in Hiroshima 2026",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-04-25",
@@ -1631,7 +1631,7 @@
       "timestamp": 1777075200000
     },
     {
-      "id": "d674d180-a491-4a23-b570-d92d9c7aa037",
+      "id": "adfdf0a9-b4c4-4db4-8fbe-d0d45103cadd",
       "name": "AEW Dynamite #343",
       "promotion": "All Elite Wrestling",
       "date": "2026-04-29",
@@ -1640,7 +1640,7 @@
       "timestamp": 1777420800000
     },
     {
-      "id": "cb3e0fc8-3c3a-477a-833a-0a924f80c40a",
+      "id": "d3c99447-a9cf-4a1e-8628-d052ce4fa251",
       "name": "AAA on FOX Taping",
       "promotion": "Lucha Libre AAA Worldwide",
       "date": "2026-05-02",
@@ -1649,7 +1649,7 @@
       "timestamp": 1777680000000
     },
     {
-      "id": "d33a68f2-9b13-462c-b488-3b8422d96af1",
+      "id": "858a3eda-4f9d-49f9-b587-54e0f5317a2a",
       "name": "NJPW Wrestling Dontaku 2026 - Tag 1",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-05-03",
@@ -1658,7 +1658,7 @@
       "timestamp": 1777766400000
     },
     {
-      "id": "b27bb085-fd10-49d6-9696-f285d07685bd",
+      "id": "9e1fe897-417d-452c-b319-c61158d69c59",
       "name": "NJPW Wrestling Dontaku 2026 - Tag 2",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-05-04",
@@ -1667,7 +1667,7 @@
       "timestamp": 1777852800000
     },
     {
-      "id": "873866a1-8bfa-4353-ac78-f50c4ee47e16",
+      "id": "eca7d180-3982-4815-8eb3-b97e111a0584",
       "name": "WWE Backlash 2026",
       "promotion": "WWE",
       "date": "2026-05-09",
@@ -1676,7 +1676,7 @@
       "timestamp": 1778284800000
     },
     {
-      "id": "b4ea655c-09a3-42fd-ae5f-67a279aaf2f4",
+      "id": "fb01a9f8-3ed3-4fb2-88be-0a5e8c551049",
       "name": "WWE NXT Live",
       "promotion": "WWE",
       "date": "2026-05-22",
@@ -1685,7 +1685,7 @@
       "timestamp": 1779408000000
     },
     {
-      "id": "1f9f2991-fd25-444a-b5f1-fb4cc8e3d2c3",
+      "id": "4f15ae41-589e-425b-bd31-8aa2d61de464",
       "name": "AEW Double Or Nothing 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-05-24",
@@ -1694,7 +1694,7 @@
       "timestamp": 1779580800000
     },
     {
-      "id": "e8d11d4e-a009-4309-a836-15fd656846f7",
+      "id": "71267d7e-c6b6-4411-8492-3df222545980",
       "name": "WWE Friday Night SmackDown #1397",
       "promotion": "WWE",
       "date": "2026-05-29",
@@ -1703,7 +1703,7 @@
       "timestamp": 1780012800000
     },
     {
-      "id": "e4bb6aba-5748-4afb-b744-2771f1b6e1f7",
+      "id": "3f681284-0299-49e8-9646-3a039a19922e",
       "name": "WWE Clash In Italy",
       "promotion": "WWE",
       "date": "2026-05-31",
@@ -1712,7 +1712,7 @@
       "timestamp": 1780185600000
     },
     {
-      "id": "7b053ad9-8384-4159-852c-b5ff17eac85d",
+      "id": "68fb4fbe-cdf7-4f88-ad80-24b7ea935d32",
       "name": "WWE Monday Night RAW #1723",
       "promotion": "WWE",
       "date": "2026-06-01",
@@ -1721,7 +1721,7 @@
       "timestamp": 1780272000000
     },
     {
-      "id": "231ec992-4ce5-430b-b6ab-93cefc372255",
+      "id": "12866a1a-68c3-4238-96f6-5d6fc8a6a7be",
       "name": "WWE European Summer Tour 2026",
       "promotion": "WWE",
       "date": "2026-06-02",
@@ -1730,7 +1730,7 @@
       "timestamp": 1780358400000
     },
     {
-      "id": "9d4822a9-5f42-41ca-94ab-0e83a6d8a557",
+      "id": "6c5e3930-ab24-41d8-a318-217cabec30ef",
       "name": "WWE European Summer Tour 2026",
       "promotion": "WWE",
       "date": "2026-06-03",
@@ -1739,7 +1739,7 @@
       "timestamp": 1780444800000
     },
     {
-      "id": "9992ddb6-0284-44d7-b397-2782729c03c7",
+      "id": "2a4f6fb4-4883-4bf4-a58b-af48e73958a0",
       "name": "WWE European Summer Tour 2026",
       "promotion": "WWE",
       "date": "2026-06-04",
@@ -1748,7 +1748,7 @@
       "timestamp": 1780531200000
     },
     {
-      "id": "956b8504-0ed0-4858-a9c8-f990d3225a9d",
+      "id": "125f2fd0-a905-4635-a796-8554f8acb400",
       "name": "WWE Friday Night SmackDown #1398",
       "promotion": "WWE",
       "date": "2026-06-05",
@@ -1757,7 +1757,7 @@
       "timestamp": 1780617600000
     },
     {
-      "id": "e2b0f0f1-e49d-4060-b682-7d8754914c23",
+      "id": "5e98983c-f5be-488c-abf3-3b5fed68a350",
       "name": "WWE European Summer Tour 2026",
       "promotion": "WWE",
       "date": "2026-06-06",
@@ -1766,7 +1766,7 @@
       "timestamp": 1780704000000
     },
     {
-      "id": "640a1299-24fe-47ac-a815-a7404070e38c",
+      "id": "87b36c4d-3e27-4cf6-8c73-674ce3b6bdfe",
       "name": "WWE European Summer Tour 2026",
       "promotion": "WWE",
       "date": "2026-06-07",
@@ -1775,7 +1775,7 @@
       "timestamp": 1780790400000
     },
     {
-      "id": "b2c6d643-8aad-4d2d-8741-5110b654f03b",
+      "id": "24a44d20-42ec-48c0-868e-0c90c0d0ffa3",
       "name": "WWE Monday Night RAW #1724",
       "promotion": "WWE",
       "date": "2026-06-08",
@@ -1784,7 +1784,7 @@
       "timestamp": 1780876800000
     },
     {
-      "id": "7dba2e43-e38e-47ac-bf88-30986cd95154",
+      "id": "7165383e-6f1a-4f7b-81c8-55434bc83c27",
       "name": "NJPW Dominion 6.14 In Osaka-Jo Hall",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-06-14",
@@ -1793,7 +1793,7 @@
       "timestamp": 1781395200000
     },
     {
-      "id": "b449aad8-27d6-4351-9194-4fb6be5ca4bd",
+      "id": "e909f770-3f33-4d11-8bd1-e69fd5d06cf0",
       "name": "WWE Monday Night RAW #1726",
       "promotion": "WWE",
       "date": "2026-06-22",
@@ -1802,7 +1802,7 @@
       "timestamp": 1782086400000
     },
     {
-      "id": "f35ae7e4-1fcd-41f9-bf3b-8a23f2c8611b",
+      "id": "23f35e3d-7676-4751-9370-8be7a0d33395",
       "name": "NJPW G1 Climax 36 - Tag 1",
       "promotion": "New Japan Pro-Wrestling",
       "date": "2026-07-11",
@@ -1811,7 +1811,7 @@
       "timestamp": 1783728000000
     },
     {
-      "id": "04bf301f-df4f-468f-9f38-cd30cf5c6753",
+      "id": "f6270d10-a6a2-4b9d-89aa-7724d553507a",
       "name": "WWE SummerSlam 2026 - Saturday",
       "promotion": "WWE",
       "date": "2026-08-01",
@@ -1820,7 +1820,7 @@
       "timestamp": 1785542400000
     },
     {
-      "id": "f651a70a-21ba-4936-8ca2-c37abc3259a7",
+      "id": "7bba630f-d996-40a6-bc8d-1924bd21f340",
       "name": "WWE SummerSlam 2026 - Sunday",
       "promotion": "WWE",
       "date": "2026-08-02",
@@ -1829,7 +1829,7 @@
       "timestamp": 1785628800000
     },
     {
-      "id": "8867db12-d0ad-41bf-adfe-087de6be0a60",
+      "id": "3678e500-12cb-48b4-808c-75ccc6f52a29",
       "name": "AEW All In London 2026",
       "promotion": "All Elite Wrestling",
       "date": "2026-08-30",
@@ -1838,7 +1838,7 @@
       "timestamp": 1788048000000
     },
     {
-      "id": "0e3e1887-56cb-4367-adb7-eb384294db1a",
+      "id": "a6516a0e-295f-4e63-9853-2e6520c137a8",
       "name": "WWE Money In The Bank 2026",
       "promotion": "WWE",
       "date": "2026-09-06",
@@ -1847,7 +1847,7 @@
       "timestamp": 1788652800000
     },
     {
-      "id": "58f8e3e7-194c-4276-8604-5adca2b18ca3",
+      "id": "9777b6a3-d8ee-492e-b0e4-91eecf8c4b8f",
       "name": "MLW Azteca Lucha 2026",
       "promotion": "Consejo Mundial de Lucha Libre",
       "date": "2026-11-07",
