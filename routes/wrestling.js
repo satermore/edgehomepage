@@ -7,6 +7,8 @@ const router = express.Router();
 const FILE_PATH = path.join(__dirname, '..', 'data', 'wrestlingEventsMonth.json');
 
 const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const HISTORY_WINDOW_DAYS = 7;
+const FUTURE_WINDOW_DAYS = 14;
 
 function addDaysIso(isoDate, days) {
   const date = new Date(`${isoDate}T00:00:00Z`);
@@ -73,6 +75,8 @@ router.get('/week', async (req, res) => {
     const dayOffset = Number.parseInt(req.query.dayOffset || '0', 10) || 0;
     const { startIso, endIso } = getRollingDaysWindow(dayOffset);
     const logicalTodayIso = getLogicalTodayIso();
+    const minAllowedIso = addDaysIso(logicalTodayIso, -HISTORY_WINDOW_DAYS);
+    const maxAllowedIso = addDaysIso(logicalTodayIso, FUTURE_WINDOW_DAYS);
 
     const days = Array.from({ length: 7 }).map((_, i) => {
       const isoDate = addDaysIso(startIso, i);
