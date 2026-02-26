@@ -30,6 +30,21 @@ const PROMOTIONS = [
   },
 ];
 
+function addDaysIso(isoDate, days) {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function getTodayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function removeOldEvents(events = [], retentionDays = 30) {
+  const minDate = addDaysIso(getTodayIso(), -Math.abs(retentionDays));
+  return events.filter((event) => String(event?.date || '') >= minDate);
+}
+
 function dedupeEvents(events) {
   const seen = new Set();
   return events.filter((event) => {
@@ -57,7 +72,7 @@ async function updateWrestlingEvents() {
 
   const existingEvents = await loadExistingEvents();
   const mergedEvents = dedupeEvents([...existingEvents, ...scraped.flat()]);
-  const cleanedEvents = mergedEvents.sort((a, b) => a.timestamp - b.timestamp);
+  const cleanedEvents = removeOldEvents(mergedEvents).sort((a, b) => a.timestamp - b.timestamp);
 
   const payload = {
     lastUpdate: new Date().toISOString(),
@@ -80,5 +95,6 @@ if (require.main === module) {
 }
 
 module.exports = {
+  removeOldEvents,
   updateWrestlingEvents,
 };
